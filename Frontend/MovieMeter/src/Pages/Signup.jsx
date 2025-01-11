@@ -1,23 +1,43 @@
-import React,{useState} from 'react'
-import { Link } from 'react-router-dom'
+import React,{useContext, useState} from 'react'
+import { Link,useNavigate } from 'react-router-dom'
 import { FcRating } from "react-icons/fc";
 import { BiCameraMovie } from "react-icons/bi";
 import { CiUser } from "react-icons/ci";
 import { SiWelcometothejungle } from "react-icons/si";
+import { UserDataContext } from '../../Context/UserContext';
+import axios from 'axios';
 function Signup() {
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
     const [firstname, setfirstname] = useState('')
     const [lastname, setlastname] = useState('')
-    
+    const{user,setuser} = useContext(UserDataContext)
     const [userData, setuserData] = useState({})
+    const navigate = useNavigate()
 
 const submitHandler = async (e)=>{
     e.preventDefault();
-    const userData ={
+    const newUser ={
+      fullname:{
+        firstname:firstname,
+        lastname:lastname
+      },
         email:email,
         password:password
     }
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/register`,newUser)
+    if(response.status===201){
+      const data = response.data;
+    setuser(data.user)
+    localStorage.setItem('token',data.token)
+    navigate('/')
+    }
+    //console.log(userData)
+    setemail('')
+    setpassword('')
+    setfirstname('')
+    setlastname('')
+
 }
 
   return (
@@ -29,7 +49,7 @@ const submitHandler = async (e)=>{
         <h2 className='font-bold text-3xl   text-yellow-400 text-left ml-4'>Movie Meter</h2>
         <h2 className='font-bold text-3xl mt-5  text-white text-center'>Welcome </h2>
         <p className='text-white text-md font-serif text-center pt-2'>Dive into the World of Movie Lovers</p>
-        <div className=' flex ml-20 mt-7 w-1/2 rounded-lg  gap-2 bg-white '>
+        <div className=' flex ml-20 mt-7 w-48 rounded-lg  gap-2 bg-white '>
         <Link to='/login'> <button className='bg-white w-24 h-10  rounded-lg shadow-lg border font-semibold  '>Login</button></Link>
       <button className='bg-red-500 w-24 h-10 rounded-lg shadow-lg border font-semibold  '>Sign In</button>
     </div>

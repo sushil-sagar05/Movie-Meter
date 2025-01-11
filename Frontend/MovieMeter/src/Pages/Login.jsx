@@ -1,12 +1,18 @@
-import React,{useState} from 'react'
-import { Link } from 'react-router-dom';
+import React,{useContext, useState} from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import { SiWelcometothejungle } from "react-icons/si";
 import { FcRating } from "react-icons/fc";
 import { BiCameraMovie } from "react-icons/bi";
 import { CiUser } from "react-icons/ci";
+import  {UserDataContext}  from '../../Context/UserContext.jsx'
+import axios from 'axios'
 function Login() {
-  const [email, setemail] = useState('')
-      const [password, setpassword] = useState('')
+  const [email, setemail] = useState('');
+      const [password, setpassword] = useState('');
+      const {user,setuser} = useContext(UserDataContext);
+      const [userData, setuserData] = useState({});
+      const navigate = useNavigate()
+
 
       const submitHandler = async (e)=>{
         e.preventDefault();
@@ -14,9 +20,23 @@ function Login() {
             email:email,
             password:password
         }
+      try {
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`,userData)
+        if(response.status===200){
+          const data = response.data
+          setuser(data.user)
+          localStorage.setItem('token',data.token)
+          navigate('/')
+        }
+      } catch (error) {
+        console.log(error)
+      }
+        //console.log(userData)
+        setemail('')
+        setpassword('')
     }
   return (
-   <div className='h-screen w-full   bg-[#4432dc]'>
+   <div className='h-screen w-full  bg-[#4432dc]'>
    <h1 className='flex text-3xl '>
    <FcRating/> <BiCameraMovie/> <CiUser/> <SiWelcometothejungle/>
    </h1>
@@ -24,7 +44,7 @@ function Login() {
    <h2 className='font-bold text-3xl   text-yellow-400 text-left ml-4'>Movie Meter</h2>
     <h2 className='font-bold text-3xl mt-5  text-white text-center'>Welcome Back</h2>
     <p className='text-white text-md font-serif text-center pt-2'>You need to provide the access details to move in</p>
-    <div className=' flex ml-20 mt-7 w-1/2 rounded-lg  gap-2 bg-white '>
+    <div className=' flex items-center ml-20 mt-7 w-48 rounded-lg  gap-2 bg-white '>
       <button className='bg-red-500 w-24 h-10  rounded-lg shadow-lg border font-semibold  '>Login</button>
      <Link to='/signup'> <button className='bg-white w-24 h-10 rounded-lg shadow-lg border font-semibold  '>Sign In</button></Link>
     </div>
