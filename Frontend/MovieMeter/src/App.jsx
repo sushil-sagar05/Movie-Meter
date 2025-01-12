@@ -7,6 +7,8 @@ import Account from "./Pages/Account"
 import About from "./Pages/About"
 import Contact from "./Pages/Contact"
 import Signup from "./Pages/Signup"
+import UserProtectedWrapper from "./Pages/UserProtectedWrapper"
+import Logout from "./Pages/Logout"
 function App() {
  
 
@@ -14,7 +16,7 @@ function App() {
     <>
      <Routes>
      <Route path="/" element={<Home/>}/>
-      <Route path="/home" element={<Home/>}/>
+      {/* <Route path="/home" element={<Home/>}/> */}
       <Route path="/login" element={<Login/>}/>
       <Route path="/signup" element={<Signup/>}/>
       <Route path = '/movies' element={<Movies/>}/>
@@ -22,7 +24,19 @@ function App() {
      < Route path = '/account' element={<Account/>}/>
      <Route path='/contact' element={<Contact/>}/>
       {/* <Route path="/*" element={<Error/>}/> */}
+     <Route path="/home" element ={
+      <UserProtectedWrapper>
+        <Home/>
+      </UserProtectedWrapper>
+     }/>
+     <Route path='/user/logout'
+          element={<UserProtectedWrapper>
+            <Logout />
+          </UserProtectedWrapper>
+          } />
+
      </Routes>
+
     </>
   )
 }

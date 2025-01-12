@@ -158,7 +158,21 @@ function Home() {
         </div>
         <div className="message pl-3">
           <h2>"Awesome List of Movies"</h2>
-          ✩✩✩✩✩
+          ⭐⭐⭐⭐⭐
+        </div>
+      </div>
+      <div className=' h-40 rounded-lg shadow-md w-80 bg-white mt-8 ml-6'>
+        <div className="content h-24  flex pt-5 pl-3">
+          <div className="user h-1/2  text-7xl "><FaRegUser /></div>
+          <div className="name h-1/2  text-2xl ">
+          <div className="namee ">Sushil Sagar</div>
+          <div className="pesa">Blogger</div>
+          </div>
+          
+        </div>
+        <div className="message pl-3">
+          <h2>"Awesome List of Movies"</h2>
+          ⭐⭐⭐⭐⭐
         </div>
       </div>
      

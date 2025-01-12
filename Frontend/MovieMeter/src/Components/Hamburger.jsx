@@ -43,13 +43,14 @@ function Hamburger() {
         <ul className='border rounded-lg '>
          <Link to='/movies'><li className=''>Movies</li></Link> 
           <hr />
-          <Link to='/about'><li>About</li></Link>
+          
+         <Link to='/contact'><li>Review</li></Link> 
           <hr />
-         <Link to='/contact'><li>Contact</li></Link> 
+          <Link to='/about'><li>About</li></Link>
           <hr />
          <Link to='/account'><li>Account</li></Link> 
           <hr />
-          <li>Logout</li>
+          <Link to='/user/logout'><li>Logout</li></Link>
         </ul>
       </div>
     </div>
