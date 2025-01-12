@@ -26,7 +26,7 @@ function Login() {
           const data = response.data
           setuser(data.user)
           localStorage.setItem('token',data.token)
-          navigate('/')
+          navigate('/home')
         }
       } catch (error) {
         console.log(error)

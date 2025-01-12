@@ -30,7 +30,7 @@ const submitHandler = async (e)=>{
       const data = response.data;
     setuser(data.user)
     localStorage.setItem('token',data.token)
-    navigate('/')
+    navigate('/home')
     }
     //console.log(userData)
     setemail('')
