@@ -46,16 +46,3 @@ function Movies() {
 }
 
 export default Movies
-//
-// const fetchMovies = async () => {
-//   try {
-//     const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/get-movies`);
-//     setMovies(data);
-//   } catch (error) {
-//     console.error('Error fetching movies:', error);
-//   }
-// };
-
-// useEffect(() => {
-//   fetchMovies();
-// }, []);
