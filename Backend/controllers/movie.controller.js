@@ -19,6 +19,8 @@ module.exports.getMovies = async(req, res, next) => {
                         title: tmdbMovie.title,
                         year: tmdbMovie.release_date.substring(0, 4),
                         director: tmdbMovie.director,
+                        cast: tmdbMovie.cast,
+                         genres: tmdbMovie.genres,
                         plot: tmdbMovie.overview, 
                     });
                     return await newMovie.save();
@@ -56,4 +58,29 @@ module.exports.getMovieById = async(req,res,next) =>{
         console.error('Error fetching movies:', error);
         res.status(500).json({ error: 'Failed to fetch movies' });
     }
+}
+module.exports.addMovie = async(req,res,next)=>{
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+        const{title,year,plot,director,genre,user} = req.body;
+    const data = {
+        user,
+        title,
+        year,
+        plot,
+        director,
+        genre
+    }
+    const newMovie = new Movie(data)
+    const save = await newMovie.save()
+    return res.status(201).json({ success: true, message: "Movie Published Successfully" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+      
+    }
+
 }

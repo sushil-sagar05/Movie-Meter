@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const connectdb = require('./DB/db')
 const userRoutes = require('./routes/user.route')
 const movieRoutes = require('./routes/movie.routes')
+const ReviewRoutes = require('./routes/review.routes')
 const app = express();
 connectdb();
 app.use(cors());
@@ -18,4 +19,5 @@ app.get('/', (req,res)=>{
 });
 app.use('/user',userRoutes);
 app.use('/movies',movieRoutes)
+app.use('/review',ReviewRoutes)
 module.exports = app;
