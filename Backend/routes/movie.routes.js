@@ -11,7 +11,7 @@ router.get('/get-movies',
       ],
 movieController.getMovies
 )
-router.get('/movie/{movieId}', movieController.getMovieById);
+router.get('/movie/:movieId', movieController.getMovieById);
 router.post('/addmovie',[
   body('title').isString().isLength({min:3}).withMessage("Invalid Title"),
   body('year').isNumeric().isLength({max:4}).withMessage("Invalid year"),
