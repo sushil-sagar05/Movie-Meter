@@ -5,7 +5,7 @@ const Movie = require('../models/movies.model')
 module.exports.postReview = async(req,res,next) =>{
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res(400).json({error:errors.array()})
+        return res.status(400).json({error:errors.array()})
     }
     try {
         const user = req.user;
