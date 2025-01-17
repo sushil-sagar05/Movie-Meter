@@ -177,9 +177,11 @@ function Home() {
       </div>
      
       </div>
+      <div className="footer bg-white">
       <Footer/>
       </div>
-     
+      </div>
+      
       </div>
       
     </div>
