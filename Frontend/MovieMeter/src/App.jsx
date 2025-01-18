@@ -10,6 +10,7 @@ import Contact from './Pages/Contact';
 import SingleMovie from './Pages/SingleMovie';
 import Logout from './Pages/Logout';
 import UserProtectedWrapper from './Pages/UserProtectedWrapper';
+import Discussion from './Pages/Discussion';
 
 function App() {
   return (
@@ -30,6 +31,12 @@ function App() {
         <Route path="/movie/:movieId" element={
           <UserProtectedWrapper>
             <SingleMovie />
+          </UserProtectedWrapper>
+        } />
+        {/* discussions/movie/${movieId}/messages */}
+         <Route path="/discussion/movie/:movieId" element={
+          <UserProtectedWrapper>
+            <Discussion/>
           </UserProtectedWrapper>
         } />
         <Route path="/user/logout" element={

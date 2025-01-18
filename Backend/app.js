@@ -7,6 +7,7 @@ const connectdb = require('./DB/db')
 const userRoutes = require('./routes/user.route')
 const movieRoutes = require('./routes/movie.routes')
 const ReviewRoutes = require('./routes/review.routes')
+const DiscussionRoutes = require('./routes/discussion.routes')
 const app = express();
 connectdb();
 app.use(cors());
@@ -20,4 +21,5 @@ app.get('/', (req,res)=>{
 app.use('/user',userRoutes);
 app.use('/movies',movieRoutes)
 app.use('/review',ReviewRoutes)
+app.use('/discussions',DiscussionRoutes)
 module.exports = app;
