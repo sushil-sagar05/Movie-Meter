@@ -3,6 +3,7 @@ import Navbar from '../Components/Navbar';
 import io from 'socket.io-client';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import DiscussionCard from '../Components/DiscussionCard';
 
 
 const socket = io.connect('http://localhost:8080');
@@ -60,24 +61,25 @@ function Discussion() {
   };
 
   return (
-    <div className='bg-[#111111] h-screen fixed w-full'>
+    <div className='bg-[#f4f4f4] h-screen fixed w-full'>
       <Navbar />
-      <h2 className='text-white text-4xl font-semibold text-center pb-5 pt-5'>Discussion</h2>
+      <h2 className=' text-4xl font-semibold text-center pb-5 pt-5'>Discussion</h2>
       <hr />
-      <div className='messages'>
+      <div className='messages overflow-y-scroll h-4/5 '>
        {
         chat.map((payload,indx)=>{
             return(
-              <p className='text-white' key={indx}>
-                {payload.message}
-              </p>
+               
+                    <DiscussionCard message={payload.message}/>
+                
             
          
             )
         })
        }
+       
       </div>
-      <div className='w-full absolute bottom-2'>
+      <div className='w-full absolute bottom-2 bg-white'>
         <form onSubmit={handleSendMessage}>
           <input
             type='text'

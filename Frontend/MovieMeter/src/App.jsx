@@ -6,12 +6,13 @@ import Signup from './Pages/Signup';
 import Movies from './Pages/Movies';
 import About from './Pages/About';
 import Account from './Pages/Account';
-import Contact from './Pages/Contact';
+import Contact from './Pages/Review';
 import SingleMovie from './Pages/SingleMovie';
 import Logout from './Pages/Logout';
 import UserProtectedWrapper from './Pages/UserProtectedWrapper';
 import Discussion from './Pages/Discussion';
-
+import Review from './Pages/Review'
+import ReviewCard from './Components/ReviewCard';
 function App() {
   return (
     
@@ -22,7 +23,7 @@ function App() {
         <Route path="/movies" element={<Movies />} />
         <Route path="/about" element={<About />} />
         <Route path="/account" element={<Account />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/review" element={<Review />} />
         <Route path="/home" element={
           <UserProtectedWrapper>
             <Home />
@@ -31,6 +32,11 @@ function App() {
         <Route path="/movie/:movieId" element={
           <UserProtectedWrapper>
             <SingleMovie />
+          </UserProtectedWrapper>
+        } />
+         <Route path="/review/:movieId" element={
+          <UserProtectedWrapper>
+           <ReviewCard/>
           </UserProtectedWrapper>
         } />
         {/* discussions/movie/${movieId}/messages */}

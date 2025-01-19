@@ -44,7 +44,7 @@ function Hamburger() {
          <Link to='/movies'><li className=''>Movies</li></Link> 
           <hr />
           
-         <Link to='/contact'><li>Review</li></Link> 
+         <Link to='/review'><li>Review</li></Link> 
           <hr />
           <Link to='/about'><li>About</li></Link>
           <hr />

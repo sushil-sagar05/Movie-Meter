@@ -1,10 +1,13 @@
 import axios from 'axios';
-import React,{useState} from 'react'
+import React,{useRef, useState,useEffect} from 'react'
 import { useParams } from 'react-router-dom';
+import{ useGSAP} from '@gsap/react'
+import gsap from 'gsap';
 function AddReview(props) {
     const { movieId } = useParams();
 const [comment, setcomment] = useState('')
 const [rating, setrating] = useState('')
+
     // console.log(props)
     const submitHandler =async(e)=>{
         e.preventDefault();
@@ -24,6 +27,10 @@ const [rating, setrating] = useState('')
           console.error('Error posting review:', err);
         }
     }
+
+    const toggleButton =()=>{
+      props.setaddreview(!props.addreview)
+    }
   return (
 
     <div className='w-full fixed'>
@@ -37,19 +44,22 @@ const [rating, setrating] = useState('')
           onChange={(e)=>{
             setcomment(e.target.value)
           }}
-      className='w-80 text-black text-center mt-4 h-10 rounded-lg pl-2  border-2 ml-4'
+      className='w-80 text-black text-center mt-4 h-16 rounded-lg pl-2  border-2 ml-4'
       placeholder='add review'
       
       />
-      <div className="select text-center flex gap-2  justify-center items-center">
-        <h1 className='text-xl font-semibold text-black'>Rating</h1>
+      <div className="select text-center flex gap-2  h-16 w-48 mt-2   justify-center items-center">
+       <div className='w-24'>
+       <h1 className='text-xl font-semibold text-black'>Rating</h1>
+       </div>
+      <div className='w-24  h-full text-center pt-5 text-xl'>
       <select
       required
       value={rating}
       onChange={(e)=>{
         setrating(e.target.value)
       }}
-      className='bg-black h-5 w-24 rounded-lg  border text-sm placeholder:text-base'>
+      className=' h-5 w-24 rounded-lg  border text-sm placeholder:text-base'>
         <option value='' disabled>Select Option</option>
         <option value='1' >1</option>
         <option value='2' >2</option>
@@ -58,9 +68,11 @@ const [rating, setrating] = useState('')
         <option value='3'>5</option>
       </select>
       </div>
+      </div>
      
-     <button onClick={()=>props.setaddreview(true)}
-      className=' bg-yellow-500 w-1/2 h-9 ml-12 mt-4 font-semibold cursor-pointer rounded-lg text-center '>Add Review
+     <button 
+     onClick={toggleButton}
+      className=' bg-[#23c65d] w-1/2 h-9 ml-12 mt-4 font-semibold cursor-pointer rounded-lg text-center '>Add Review
       </button>
       </form>
 

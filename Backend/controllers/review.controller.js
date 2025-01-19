@@ -1,6 +1,7 @@
 const {validationResult} = require('express-validator');
 const Reveiw = require('../models/review.models');
 const Movie = require('../models/movies.model')
+const User = require('../models/user.model')
 //Create Reveiw and get Review
 module.exports.postReview = async(req,res,next) =>{
     const errors = validationResult(req);
@@ -28,7 +29,8 @@ module.exports.postReview = async(req,res,next) =>{
     // res.status(201).json({ success: true, message: "Review Published Successfully" })
     // console.log("newReview:",newReview)
     // console.log("Typeof",typeof savedReview)
-    const populatedReview = await savedReview.populate('user', 'username');    res.status(201).json(populatedReview)
+    const populatedReview = await savedReview.populate('user', 'fullname'); 
+       res.status(201).json(populatedReview)
     } catch (error) {
         console.error(error);
     res.status(500).json({ message: 'Error creating review' });
@@ -39,12 +41,13 @@ module.exports.postReview = async(req,res,next) =>{
 module.exports.getReview = async(req,res,next) =>{
     try {
         const {movieId} = req.params;
-    const getReviews = await Reveiw.find({movie:movieId}).populate('user', 'username')
+
+    const getReviews = await Reveiw.find({movie:movieId}).populate('user', 'fullname')
     if(!getReviews){
         res.status(500).json({message:"Internal server Error"})
     }
     
-    res.status(200).json([getReviews]);
+    res.status(200).json(getReviews);
     } catch (error) {
         console.error(error);
     res.status(500).json({ message: 'Error fetching review' });
@@ -53,7 +56,7 @@ module.exports.getReview = async(req,res,next) =>{
 module.exports.getuserReview = async(req,res)=>{
     const userId = req.user._id;
     const ReviewGiven = await Reveiw.find({user:userId}).populate('movie', 'title')
-    res.status(200).json([ReviewGiven])
+    res.status(200).json(ReviewGiven)
 }
 
 
