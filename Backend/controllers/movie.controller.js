@@ -72,4 +72,18 @@ module.exports.addMovie = async(req,res,next)=>{
       
     }
 
+};
+module.exports.RandomMovie = async(req,res,next)=>{
+    try {
+        const count = await Movie.countDocuments();
+        if(count===0){
+            res.status(404).json({message:"No Movie found"})
+        }
+        const random = Math.floor(Math.random()*count);
+        const movie = await Movie.findOne().skip(random);
+        return res.status(200).json({movie})
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
 }

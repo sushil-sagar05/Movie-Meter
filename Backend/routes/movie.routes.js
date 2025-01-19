@@ -10,7 +10,8 @@ router.get('/get-movies',
         query('director').optional().isString(), 
       ],
 movieController.getMovies
-)
+);
+router.get('/random',movieController.RandomMovie)
 router.get('/movie/:movieId', movieController.getMovieById);
 router.post('/addmovie',[
   body('title').isString().isLength({min:3}).withMessage("Invalid Title"),
@@ -18,4 +19,5 @@ router.post('/addmovie',[
   body('plot').isString().isLength({min:3}).withMessage("Invalid plot"),
   body('genre').isString().isLength({min:3}).withMessage("Invalid genre"),
 ],authMiddleware.authUser,movieController.addMovie);
+
 module.exports = router;
