@@ -13,6 +13,9 @@ import UserProtectedWrapper from './Pages/UserProtectedWrapper';
 import Discussion from './Pages/Discussion';
 import Review from './Pages/Review'
 import ReviewCard from './Components/ReviewCard';
+import WatchNow from './Pages/WatchNow';
+import Error from './Pages/Error';
+
 function App() {
   return (
     
@@ -24,6 +27,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/account" element={<Account />} />
         <Route path="/review" element={<Review />} />
+        <Route path="/watchnow" element={<WatchNow/>} />
+        <Route path='/*' element={<Error/>}/>
         <Route path="/home" element={
           <UserProtectedWrapper>
             <Home />
@@ -32,8 +37,11 @@ function App() {
         <Route path="/movie/:movieId" element={
           <UserProtectedWrapper>
             <SingleMovie />
+           
           </UserProtectedWrapper>
         } />
+
+        
          <Route path="/review/:movieId" element={
           <UserProtectedWrapper>
            <ReviewCard/>
