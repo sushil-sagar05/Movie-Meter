@@ -3,6 +3,7 @@ import Navbar from '../Components/Navbar'
 import { FaRegUser } from "react-icons/fa6";
 import axios from 'axios'
 import Footer from '../Components/Footer';
+import { Link } from 'react-router-dom';
 function Account() {
  const [contributions, setcontributions] = useState([])
    const [error, setError] = useState('');
@@ -48,7 +49,11 @@ const fetchAllReviews = async()=>{
             </div>
           ))
         ) : (
-          <p>You haven't made any contributions yet.</p>
+          <div className=''>
+            <h3 className='text-3xl font-serif'>You have not made any Contribution yet!</h3>
+            <h4 className='text-xl pb-4 font-semibold text-red-500'>Make to See Here :D</h4>
+          <Link to='/review'> <button className='w-64 h-10 bg-green-500 rounded-lg shadow-md text-white font-semibold ml-16'>Start Review</button></Link>
+            </div>
         )}
        
        
