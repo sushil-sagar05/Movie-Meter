@@ -20,4 +20,5 @@ router.post('/addmovie',[
   body('genre').isString().isLength({min:3}).withMessage("Invalid genre"),
 ],authMiddleware.authUser,movieController.addMovie);
 
+
 module.exports = router;

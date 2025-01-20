@@ -21,7 +21,8 @@ module.exports.getMovies = async(req, res, next) => {
                         director: tmdbMovie.director,
                         cast: tmdbMovie.cast,
                          genres: tmdbMovie.genres,
-                        plot: tmdbMovie.overview, 
+                        plot: tmdbMovie.overview,
+                        poster: tmdbMovie.poster_path  
                     });
                     return await newMovie.save();
                 })
@@ -87,3 +88,4 @@ module.exports.RandomMovie = async(req,res,next)=>{
         res.status(500).json({ success: false, message: "Internal server error" });
     }
 }
+// 

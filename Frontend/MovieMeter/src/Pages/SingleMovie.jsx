@@ -87,11 +87,11 @@ function SingleMovie() {
       <div className='bg-[#f4f4f4] w-full'>
         <Navbar />
         <div className='border-2 rounded-lg'>
-          <div onClick={() => setAddReview(false)} className="cover rounded-lg h-80">
-            <img className='h-full w-full rounded-lg' src="https://ccdiscovery.com/wp-content/uploads/2019/11/Laal-Singh-Chaddha-New-Poster.jpg" alt={movie.title} />
+          <div onClick={() => setAddReview(false)} className="cover rounded-lg ">
+            <img className='h-72 w-full rounded-lg' src={movie.poster} alt={movie.title} />
           </div>
           <hr className='mt-2' />
-          <div className="content rounded-lg h-24 bg-white">
+          <div className="content rounded-lg h-36 bg-white">
             <div className="name text-black text-sm">
               <span className='ml-1'>{movie.title}</span>
               <span className='ml-2'>Director: {movie.director}</span>

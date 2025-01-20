@@ -8,7 +8,7 @@ title:{
     unique:true
 },
 year:{
-    type:Number,
+    type:String,
     required:true
 },
 director:{
@@ -16,6 +16,10 @@ director:{
     //required:true
 },
 plot:{
+    type:String,
+    required:true
+},
+poster:{
     type:String,
     required:true
 },
@@ -32,7 +36,11 @@ reviews:[
 rating:{
     type:Number,
     default:0
-}
+},
+cast:[
+    {type:String,
+    required:true}
+]
 })
 const movieModel = mongoose.model('movie',movieSchema);
 module.exports = movieModel;

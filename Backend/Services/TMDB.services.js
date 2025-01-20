@@ -30,20 +30,24 @@ module.exports.FetchMovieFromTMDB = async (movieId) => {
         );
 
         const cast = creditsResponse.data.cast.slice(0, 5).map((member) => member.name); // Get top 5 cast members
-        const genres = detailsResponse.data.genres.map((genre) => genre.name);
-
+       
         return {
-          ...movie,
+          id: movie.id,
+          title: movie.title,
+          release_date: movie.release_date,
           director: director ? director.name : 'Unknown',
-          cast: cast.join(', '),
-          genres: genres.join(', ')
+          cast,
+          // genres: movie.genres.map((genre) => genre.name),
+          overview: movie.overview,
+          poster_path: `https://image.tmdb.org/t/p/w500${movie.poster_path}`, 
         };
       })
     );
 
     return moviesWithDetails;
   } catch (error) {
-    console.error('Error fetching movie from TMDb:', error);
-    throw new Error('Failed to fetch movie from TMDb');
+    console.error('Error fetching movies from TMDB:', error);
+    throw error;
   }
 };
+

@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const discussion = require('../models/discussion.model');
 const { getIo } = require('../Socket');
+const User = require('../models/user.model');
 
 module.exports.sendMessage = async (req, res, next) => {
   const errors = validationResult(req);
@@ -16,8 +17,10 @@ module.exports.sendMessage = async (req, res, next) => {
       return res.status(401).json({ message: 'Invalid message' });
     }
 
+    const user = await User.findById(req.user._id).select('fullname');
     const NewMessage = {
       sender: req.user ? req.user._id : null,
+      fullname: user ? user.fullname : 'Anonymous',
       message: message,
       timestamp: Date.now(),
     };
@@ -31,12 +34,12 @@ module.exports.sendMessage = async (req, res, next) => {
 
     const io = getIo();
     if (io) {
-      io.of(`/movie/${movieId}`).emit('newMessage', NewMessage);
+      io.to(movieId).emit('chat', NewMessage);
     } else {
       console.error('Socket.io not initialized.');
     }
 
-    res.status(200).json({ message: 'Message sent successfully' });
+    res.status(200).json(NewMessage);
   } catch (error) {
     console.error('Error sending message:', error);
     res.status(500).json({ error: 'Failed to send message' });
@@ -47,12 +50,17 @@ module.exports.getMessages = async (req, res, next) => {
   const { movieId } = req.params;
 
   try {
-    const Discussion = await discussion.findOne({ movieId });
+    const Discussion = await discussion.findOne({ movieId }).populate('messages.sender', 'fullname');
     if (!Discussion) {
       return res.status(404).json({ message: 'No discussion found for this movie' });
     }
 
-    res.status(200).json(Discussion.messages);
+    const messagesWithFullname = Discussion.messages.map(msg => ({
+      ...msg._doc,
+      fullname: msg.sender ? msg.sender.fullname : 'Anonymous'
+    }));
+
+    res.status(200).json(messagesWithFullname);
   } catch (error) {
     console.error('Error fetching messages:', error);
     res.status(500).json({ error: 'Failed to fetch messages' });

@@ -18,8 +18,9 @@ function initializeSocket(server) {
     });
 
     socket.on('chat', (payload) => {
+      const { roomId, message } = payload;
       console.log('What is payload', payload);
-      io.to(payload.room).emit('chat', payload);
+      io.to(roomId).emit('chat', payload);
     });
 
     socket.on('disconnect', () => {

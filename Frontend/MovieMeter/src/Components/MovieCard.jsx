@@ -7,7 +7,7 @@ function MovieCard({ movie }) {
       <Link to={`/movie/${movie._id}`}>
         <div className='bg-[#141b23] rounded-lg shadow-md w-80 ml-5 mt-5'>
           <div className="cover rounded-lg h-72 w-80">
-            <img className='h-full w-full rounded-lg' src="https://ccdiscovery.com/wp-content/uploads/2019/11/Laal-Singh-Chaddha-New-Poster.jpg" alt={movie.title} />
+            <img className='h-full w-full rounded-lg' src={movie.poster} alt={movie.title} />
           </div>
           <div className="content flex">
             <div className="name text-[#797d80] text-sm">

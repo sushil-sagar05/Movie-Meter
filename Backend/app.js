@@ -21,5 +21,5 @@ app.get('/', (req,res)=>{
 app.use('/user',userRoutes);
 app.use('/movies',movieRoutes)
 app.use('/review',ReviewRoutes)
-app.use('/discussions',DiscussionRoutes)
+app.use('/movie',DiscussionRoutes)
 module.exports = app;

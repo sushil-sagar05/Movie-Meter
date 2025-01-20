@@ -5,8 +5,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import DiscussionCard from '../Components/DiscussionCard';
 
-
-const socket = io.connect('http://localhost:8080');
+const socket = io('http://localhost:8080');
 
 function Discussion() {
   const [message, setMessage] = useState('');
@@ -14,15 +13,21 @@ function Discussion() {
   const { movieId } = useParams();
 
   useEffect(() => {
+    const roomName = `movie_${movieId}`;
+    socket.emit('joinRoom', roomName);
+
+    socket.on('chat', (payload) => {
+      setChat((chat) => [...chat, payload]);
+    });
+
     const fetchMessages = async () => {
-      const token = localStorage.getItem('token');
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/discussions/movie/${movieId}/messages`, {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/movie/${movieId}/messages`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        // console.log(response.data);
         setChat(response.data);
       } catch (error) {
         console.error('Error fetching messages:', error);
@@ -31,13 +36,8 @@ function Discussion() {
 
     fetchMessages();
 
-    socket.emit('joinRoom', movieId);
-
-    socket.on('chat', (payload) => {
-      setChat((chat) => [...chat, payload]);
-    });
-
     return () => {
+      socket.emit('leaveRoom', roomName);
       socket.disconnect();
     };
   }, [movieId]);
@@ -46,13 +46,13 @@ function Discussion() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/discussions/movie/${movieId}/messages`, { message }, {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/movie/${movieId}/messages`, { message }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       if (response.status === 200) {
-        socket.emit('chat', { room: movieId, message: response.data });
+        socket.emit('chat', { roomId: movieId, message: response.data });
         setMessage('');
       }
     } catch (error) {
@@ -61,25 +61,16 @@ function Discussion() {
   };
 
   return (
-    <div className='bg-[#f4f4f4] h-screen fixed w-full'>
+    <div className='bg-white h-screen fixed w-full'>
       <Navbar />
-      <h2 className=' text-4xl font-semibold text-center pb-5 pt-5'>Discussion</h2>
+      <h2 className='text-white text-4xl font-semibold text-center pb-5 pt-5'>Discussion</h2>
       <hr />
-      <div className='messages overflow-y-scroll h-4/5 '>
-       {
-        chat.map((payload,indx)=>{
-            return(
-               
-                    <DiscussionCard message={payload.message}/>
-                
-            
-         
-            )
-        })
-       }
-       
+      <div className='messages overflow-y-scroll h-4/5'>
+        {chat.map((msg, index) => (
+          <DiscussionCard key={index} message={msg.message} fullname={msg.fullname} />
+        ))}
       </div>
-      <div className='w-full absolute bottom-2 bg-white'>
+      <div className='w-full absolute bottom-2'>
         <form onSubmit={handleSendMessage}>
           <input
             type='text'
