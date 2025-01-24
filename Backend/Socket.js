@@ -15,6 +15,7 @@ function initializeSocket(server) {
     socket.on('joinRoom', (room) => {
       socket.join(room);
       console.log(`Client ${socket.id} joined room ${room}`);
+      io.to(room).emit('chat', { message: `User ${socket.id} has joined the room`, fullname: 'System' });
     });
 
     socket.on('chat', (payload) => {

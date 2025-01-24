@@ -11,7 +11,7 @@ useEffect(()=>{
   const FetchMovie = async ()=>{
     try {
       const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/get-movies`)
-      console.log(data)
+      // console.log(data)
       setdata(data)
     } catch (error) {
       
@@ -36,7 +36,7 @@ useEffect(()=>{
           <div key={idx} className="card ">
         <div className='bg-[#141b23]   rounded-lg shadow-md w-80 ml-5 mt-5'>
           <div className="cover rounded-lg h-64 w-80  ">
-            <img className='h-full w-full rounded-lg' src={data.poster_path} alt="" />
+            <img className='h-full w-full rounded-lg' src={data.poster} alt="" />
           </div>
           <div className="content h-36 pt-3">
             <div className="name  text-[#797d80] text-sm">
@@ -47,7 +47,7 @@ useEffect(()=>{
               <span className='ml-2'>Release date: 20/20/2024</span>
               </div>
               <div className='flex justify-around  text-white items-center text-center pt-5'>
-              <div className="Review bg-yellow-500   h-9 font-semibold  pt-2 w-1/2 rounded-lg mr-2"> <Link to={`/movie/${data._id}`}><button>Review</button></Link></div>
+              <div className="Review bg-yellow-500   h-9 font-semibold  pt-2 w-1/2 rounded-lg mr-2"> <Link to={`/movie/${data._id}/review`}><button>Review</button></Link></div>
              
               </div>
              

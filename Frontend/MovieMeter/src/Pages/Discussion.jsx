@@ -1,17 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect,useRef, useState } from 'react';
 import Navbar from '../Components/Navbar';
 import io from 'socket.io-client';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import DiscussionCard from '../Components/DiscussionCard';
-
+import DiscussionStart from '../Components/DiscussionStart';
+import gsap from 'gsap';
 const socket = io('http://localhost:8080');
 
 function Discussion() {
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState([]);
   const { movieId } = useParams();
-
+    const [panelOpen, setpanelOpen] = useState(true)
+    const PanelRef = useRef(null)
+    useEffect(() => {
+      if (PanelRef.current) {
+        if (panelOpen) {
+          gsap.to(PanelRef.current, {
+            y: -600,
+            duration: 0.5,
+            ease: 'power3.out',
+          });
+        } else {
+          gsap.to(PanelRef.current, {
+            y: 600,
+            duration: 0.5,
+            ease: 'power3.in',
+          });
+        }
+      }
+    }, [panelOpen]);
   useEffect(() => {
     const roomName = `movie_${movieId}`;
     socket.emit('joinRoom', roomName);
@@ -63,7 +82,9 @@ function Discussion() {
   return (
     <div className='bg-white h-screen fixed w-full'>
       <Navbar />
-      <h2 className='text-white text-4xl font-semibold text-center pb-5 pt-5'>Discussion</h2>
+      <h2 className='text-black text-4xl font-semibold text-center pb-3 pt-5'>Discussion</h2>
+      
+      <h3 className='bg-red-500'>Maintain healthy chat here :D</h3>
       <hr />
       <div className='messages overflow-y-scroll h-4/5'>
         {chat.map((msg, index) => (
@@ -81,6 +102,9 @@ function Discussion() {
           />
           <button className='bg-red-500 ml-1 h-8 w-16 font-semibold rounded-lg'>Send</button>
         </form>
+      </div>
+      <div ref={PanelRef}>
+        <DiscussionStart setpanelOpen={setpanelOpen} panelOpen={panelOpen} />
       </div>
     </div>
   );

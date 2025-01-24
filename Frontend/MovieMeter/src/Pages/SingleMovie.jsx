@@ -87,8 +87,16 @@ function SingleMovie() {
       <div className='bg-[#f4f4f4] w-full'>
         <Navbar />
         <div className='border-2 rounded-lg'>
-          <div onClick={() => setAddReview(false)} className="cover rounded-lg ">
-            <img className='h-72 w-full rounded-lg' src={movie.poster} alt={movie.title} />
+          <div onClick={() => setAddReview(false)} className="cover  rounded-lg ">
+            <div className="image">
+            <img className='h-72 w-full rounded-lg' src={movie.poster} 
+            
+            alt={movie.title} />
+            </div>
+           <div className="love absolute text-4xl right-0">
+            <button className='cursor-pointer pt-2'>💓</button>
+           </div>
+            
           </div>
           <hr className='mt-2' />
           <div className="content rounded-lg h-36 bg-white">
@@ -101,9 +109,12 @@ function SingleMovie() {
                 <span>Review: 5★★★★★</span>
               </div>
               <div className='flex justify-around text-white items-center text-center pt-3'>
+              
                 <div className="Watch Now bg-[#23c65d] w-1/2 h-9 font-semibold pt-2 rounded-lg text-center">
                   <Link to={`/discussion/movie/${movieId}`}><button>Go To Discussion</button></Link>
+                  
                 </div>
+                
               </div>
             </div>
           </div>
@@ -112,7 +123,7 @@ function SingleMovie() {
       <div className='bg-[#f4f4f4] z-50'>
         <h2 className='text-2xl font-semibold text-center pb-5 pt-5'>Review</h2>
         <button onClick={() => setAddReview(true)} className='bg-[#23c65d] text-white w-36 rounded-lg shadow-md h-9 font-semibold ml-32 mb-2'>Add Review</button>
-        <div ref={addReviewRef} className="review mb-4 bg-white h-1/2 w-full fixed" style={{ transform: 'translateY(350px)' }}>
+        <div ref={addReviewRef} className="review mb-4 bg-white h-1/2 w-full fixed" style={{ transform: 'translateY(250px)' }}>
           <AddReview addReview={addReview} setAddReview={setAddReview} />
         </div>
         {review.length > 0 ? (
