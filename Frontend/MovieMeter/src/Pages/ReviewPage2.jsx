@@ -23,7 +23,7 @@ function ReviewPage2() {
         fetchData();
       }, [movieId]);
       const submitHandler =async(e)=>{
-        // e.preventDefault();
+        e.preventDefault();
         const FormData ={
             comment:comment,
             rating:rating
@@ -34,11 +34,14 @@ function ReviewPage2() {
             headers: {
               Authorization: `Bearer ${token}`,
             },
+            
           });
         
         } catch (err) {
           console.error('Error posting review:', err);
         }
+        setcomment('')
+        setrating('')
     }
   return (
     <div>
