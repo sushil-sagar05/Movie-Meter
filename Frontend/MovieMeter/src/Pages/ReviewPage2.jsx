@@ -50,9 +50,7 @@ function ReviewPage2() {
             
              />
             </div>
-           <div className="love absolute text-4xl right-0">
-            <button className='cursor-pointer pt-2'>💓</button>
-           </div>
+          
             
           </div>
           <hr className='mt-2' />
