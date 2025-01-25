@@ -6,7 +6,8 @@ import Singlereview from '../Components/Singlereview';
 import gsap from 'gsap';
 import AddReview from '../Components/AddReview';
 import { Link } from 'react-router-dom';
-
+import { CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa";
 function SingleMovie() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
@@ -14,9 +15,11 @@ function SingleMovie() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [addReview, setAddReview] = useState(false);
+  const [fill, setfill] = useState(false)
   const addReviewRef = useRef(null);
   const navigate = useNavigate();
 
+const [favorite, setfavorite] = useState(false)
   useEffect(() => {
     const fetchData1 = async () => {
       try {
@@ -82,6 +85,35 @@ function SingleMovie() {
     return <div>Loading...</div>;
   }
 
+const submitHandler=async(e)=>{
+try {
+  const token = localStorage.getItem('token');
+  if (!favorite) {
+    await axios.post(`${import.meta.env.VITE_BASE_URL}/user/favourites/${movieId}`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setfavorite(true);
+    
+  }
+  else {
+    await axios.delete(`${import.meta.env.VITE_BASE_URL}/user/favourites/${movieId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setfavorite(false)
+  }
+} catch (error) {
+  console.error('Error toggling favorite:', error);
+}
+
+}
+const toggleBtn =(e)=>{
+  e.preventDefault()
+  setfavorite(!favorite)
+}
   return (
     <>
       <div className='bg-[#111111] w-full'>
@@ -94,7 +126,15 @@ function SingleMovie() {
             alt={movie.title} />
             </div>
            <div className="love absolute text-4xl right-0">
-            <button className='cursor-pointer pt-2'>💓</button>
+            <form  onSubmit={
+              submitHandler
+            }>
+            <button
+            type='submit'
+           onClick={toggleBtn}
+            className='cursor-pointer text-white mr-4 pt-2'>{favorite ? <FaHeart color="red" /> : <CiHeart color="white" />}
+            </button>
+            </form>
            </div>
             
           </div>
@@ -108,7 +148,7 @@ function SingleMovie() {
                 <span className='ml-2 mr-2'>Release date: {movie.year}</span>
                 <span>Review: 5★★★★★</span>
               </div>
-              <div className='flex justify-around text-white items-center text-center pt-3'>
+              <div className='flex justify-around text-white items-center text-center pt-1'>
               
                 <div className="Watch Now bg-[#23c65d] w-1/2 h-9 font-semibold pt-2 rounded-lg text-center">
                   <Link to={`/discussion/movie/${movieId}`}><button>Go To Discussion</button></Link>

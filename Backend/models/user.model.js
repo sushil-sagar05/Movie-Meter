@@ -26,15 +26,10 @@ const userSchema = new mongoose.Schema({
         required:true,
         select:false,
     },
-    favorites:[
-        {
-           movieId:{
-             type:mongoose.Schema.Types.ObjectId,
-            ref:"movieModel",
-            unique:true
-           }
-        }
-    ],
+    favorites: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'movie' 
+      }],
     likes:[
         {
             movieId:{

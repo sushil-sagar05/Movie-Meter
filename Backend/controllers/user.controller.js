@@ -2,7 +2,9 @@ const blacklistTokenModel = require('../models/blacklistToken.model');
 const userModel = require('../models/user.model');
 const userService = require('../Services/user.services');
 const {validationResult} = require('express-validator');
-const {user} = require ('../models/user.model')
+const movieModel = require('../models/movies.model')
+const mongoose = require('mongoose')
+
 module.exports.registerUser = async(req,res,next) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -55,33 +57,33 @@ module.exports.logoutUser = async(req,res,next) =>{
 
     res.status(200).json({message:'user logged out'});
 }
-module.exports.favourites = async(req,res,next)=>{
-
-try {
+module.exports.favourites = async (req, res, next) => {
+  try {
     const userId = req.user?._id;
     const user = await userModel.findById(userId);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-const movieId = req.params;
-if(user.favorites.includes(movieId)){
-    return res.status(404).json({message:"Movie Already Present Here anon"})
-}
 
-    user.favorites.push(movieId)
-await user.save()
+    const { movieId } = req.params; 
+    if (user.favorites.includes(movieId)) {
+      return res.status(400).json({ message: "Movie already present in favorites" });
+    }
 
+    user.favorites.push(movieId);
+    await user.save();
 
-res.status(200).json({
-    success: true,
-    message: "watchList Added",
-    favorites:user.favorites,
-  });
-} catch (error) {
-    console.log(error)
-    res.status(500).json({ success: false, message: "Server error" });
-}
-}
+    res.status(200).json({
+      success: true,
+      message: "Movie added to favorites",
+      favorites: user.favorites,
+    });
+  } catch (error) {
+    console.error('Error adding movie to favorites:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports.likes = async(req,res,next)=>{
  try {
     const userId = req.user._id;
@@ -132,3 +134,26 @@ module.exports.getLiked = async(req,res,next)=>{
     res.status(500).json({ success: false, message: "Server error" });
    }
 }
+module.exports.getFavorites = async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+    
+        const user = await userModel.findById(userId)
+          .populate('favorites', 'movieId'); 
+    
+        if (!user) {
+          return res.status(404).json({ message: 'User not found' }); 
+        }
+    
+        const favoriteMovieIds = user.favorites; 
+    console.log(favoriteMovieIds)
+        const favoriteMovies = await movieModel.find({ _id: { $in: favoriteMovieIds } }); 
+    
+        res.status(200).json({ 
+          favoriteMovies: favoriteMovies 
+        });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server error" });
+      }
+};
