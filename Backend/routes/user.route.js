@@ -18,4 +18,8 @@ userController.loginUser
 )
 router.get('/profile',authMiddleware.authUser,userController.getUserProfile)
 router.get('/logout',authMiddleware.authUser,userController.logoutUser)
+router.post('/favourites/:movieId',authMiddleware.authUser,userController.favourites)
+router.post('/likes/:movieId',authMiddleware.authUser,userController.likes)
+router.post('/dislikes/:movieId',authMiddleware.authUser,userController.dislikes)
+router.get('/getlikes',authMiddleware.authUser,userController.getLiked)
 module.exports = router;

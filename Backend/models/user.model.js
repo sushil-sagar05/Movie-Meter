@@ -25,7 +25,33 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
         select:false,
+    },
+    favorites:[
+        {
+           movieId:{
+             type:mongoose.Schema.Types.ObjectId,
+            ref:"movieModel",
+            unique:true
+           }
+        }
+    ],
+    likes:[
+        {
+            movieId:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"movieModel"
+        }
     }
+    ],
+    dislikes:[
+        {
+            movieId:{
+  type:mongoose.Schema.Types.ObjectId,
+            ref:"movieModel"
+            }
+          
+        }
+    ]
 })
 userSchema.methods.generateAuthToken = function(){
     const token = jwt.sign({_id:this._id}, process.env.jwt_Secret,{expiresIn:'24h'});
