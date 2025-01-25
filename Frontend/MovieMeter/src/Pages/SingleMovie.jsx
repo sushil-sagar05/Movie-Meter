@@ -84,7 +84,7 @@ function SingleMovie() {
 
   return (
     <>
-      <div className='bg-[#f4f4f4] w-full'>
+      <div className='bg-[#111111] w-full'>
         <Navbar />
         <div className='border-2 rounded-lg'>
           <div onClick={() => setAddReview(false)} className="cover  rounded-lg ">
@@ -99,8 +99,8 @@ function SingleMovie() {
             
           </div>
           <hr className='mt-2' />
-          <div className="content rounded-lg h-36 bg-white">
-            <div className="name text-black text-sm">
+          <div className="content rounded-lg h-36 bg-[#141b23] text-white">
+            <div className="name  text-sm">
               <span className='ml-1'>{movie.title}</span>
               <span className='ml-2'>Director: {movie.director}</span>
               <div>
@@ -120,9 +120,9 @@ function SingleMovie() {
           </div>
         </div>
       </div>
-      <div className='bg-[#f4f4f4] z-50'>
+      <div className='bg-[#111111] text-white z-50'>
         <h2 className='text-2xl font-semibold text-center pb-5 pt-5'>Review</h2>
-        <button onClick={() => setAddReview(true)} className='bg-[#23c65d] text-white w-36 rounded-lg shadow-md h-9 font-semibold ml-32 mb-2'>Add Review</button>
+        <button onClick={() => setAddReview(true)} className='bg-red-500 text-white w-36 rounded-lg shadow-md h-9 font-semibold ml-32 mb-2'>Add Review</button>
         <div ref={addReviewRef} className="review mb-4 bg-white h-1/2 w-full fixed" style={{ transform: 'translateY(250px)' }}>
           <AddReview addReview={addReview} setAddReview={setAddReview} />
         </div>

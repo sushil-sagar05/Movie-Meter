@@ -14,7 +14,7 @@ function Navbar() {
         <div className="left w-1/2 h-full  flex items-center justify-end ">
       <div  className='text-4xl mr-3 flex gap-3 rounded-lg text-white'>
         {/* <GiHamburgerMenu /> */}
-        <Link to='/account'><FaRegUser className='cursor-pointer' /></Link>
+        <Link to='/MyAccount'><FaRegUser className='cursor-pointer' /></Link>
       <Hamburger  />
       </div>
         </div>

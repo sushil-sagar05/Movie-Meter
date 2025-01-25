@@ -2,6 +2,8 @@ import React,{useState,useEffect} from 'react'
 import Navbar from '../Components/Navbar'
 import { Link,useParams } from 'react-router-dom'
 import axios from 'axios'
+import Footer from '../Components/Footer'
+import StarRating from '../Components/Rating'
 function ReviewPage2() {
     const{movieId}=useParams()
     const [movie, setmovie] = useState([])
@@ -34,32 +36,34 @@ function ReviewPage2() {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-            
+           
           });
-        
+          // console.log(FormData)
         } catch (err) {
           console.error('Error posting review:', err);
         }
         setcomment('')
         setrating('')
     }
+    const handleRatingChange = (newRating) => {
+      setrating(newRating); // Update the rating state when user clicks on a star
+    };
   return (
-    <div>
+    <>
+    <div className='bg-[#111111]'>
         <Navbar/>
         <div className='justify-center items-center flex'>
-        <div className='border-2  mt-5 rounded-lg'>
+        <div className='border-2   rounded-lg'>
           <div  className="cover flex justify-center items-center rounded-lg ">
             <div className="image">
             <img className='h-72 w-80 rounded-lg' src={movie.poster} 
             
              />
             </div>
-          
-            
           </div>
           <hr className='mt-2' />
-          <div className="content rounded-lg h-20 bg-white">
-            <div className="name text-black text-sm">
+          <div className="content rounded-lg h-28 bg-[#141b23] text-white">
+            <div className="name  text-sm">
               <span className='ml-1'>{movie.title}</span>
               <span className='ml-2'>Director: {movie.director}</span>
               <div>
@@ -72,7 +76,7 @@ function ReviewPage2() {
           </div>
         </div>
         </div>
-        <h2 className='text-2xl font-semibold'>Review</h2>
+        <h2 className='text-2xl font-semibold text-yellow-500 '>Review</h2>
         
         <form action=""
       onSubmit={(e)=>{
@@ -88,38 +92,40 @@ function ReviewPage2() {
       placeholder='add review'
       
       />
-      <div className="select text-center flex gap-2  h-16 w-48 mt-2   justify-center items-center">
-       <div className='w-24'>
-       <h1 className='text-xl font-semibold text-black'>Rating</h1>
-       </div>
-      <div className='w-24  h-full text-center pt-5 text-xl'>
-      <select
-      required
-      value={rating}
-      onChange={(e)=>{
-        setrating(e.target.value)
-      }}
-      className=' h-5 w-24 rounded-lg  border text-sm placeholder:text-base'>
-        <option value='' disabled>Select Option</option>
-        <option value='1' >1</option>
-        <option value='2' >2</option>
-        <option value='3'>3</option>
-        <option value='3'>4</option>
-        <option value='3'>5</option>
-      </select>
-      </div>
-      </div>
+      <div className="rating text-white  flex ">
+<h2>Rate</h2>
+
+<div
+
+class="flex items-center">
+ <StarRating totalStars={5} onRatingChange={handleRatingChange}/>
+        <input
+          type="number"
+          id="rating"
+          name="rating"
+          value={rating}
+          readOnly
+          className="ml-1 text-2xl font-semibold w-4 bg-black text-white "
+        />
+   
+
+</div>
+<button 
      
-     <button 
-    //  onClick={toggleButton}
-      className=' bg-[#23c65d] w-1/2 h-7 ml-12  font-semibold cursor-pointer rounded-lg text-center '>Add Review
-      </button>
+     className=' bg-[#23c65d] mb-5 w-36 h-9 ml-4 mt-4 font-semibold cursor-pointer rounded-lg text-center '>Add Review
+     </button>
+     
+      </div>
       </form>
-       
-
-
     </div>
+   <div className='fixed bottom-0 ml-20 '>
+   <Footer/>
+   </div>
+      
+
+    </>
   )
 }
 
 export default ReviewPage2
+

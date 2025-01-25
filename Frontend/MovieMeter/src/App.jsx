@@ -18,6 +18,9 @@ import Error from './Pages/Error';
 import WatchList from './Pages/WatchList';
 import DiscussionStart from './Components/DiscussionStart';
 import ReviewPage2 from './Pages/ReviewPage2';
+import MyAccount from './Pages/MyAccount';
+import Favourites from './Pages/Favourites';
+import Likes from './Pages/Likes';
 
 function App() {
   return (
@@ -32,6 +35,8 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/watchnow" element={<WatchNow />} />
         <Route path="/watchlist" element={<WatchList/>} />
+        <Route path="/favourite" element={<Favourites/>} />
+        <Route path="/likes" element={<Likes/>} />
         <Route path='/*' element={<Error/>}/>
         <Route path="/home" element={
           <UserProtectedWrapper>
@@ -60,6 +65,11 @@ function App() {
          <Route path="/discussion/movie/:movieId" element={
           <UserProtectedWrapper>
             <Discussion/>
+          </UserProtectedWrapper>
+        } />
+         <Route path="/MyAccount" element={
+          <UserProtectedWrapper>
+           <MyAccount/>
           </UserProtectedWrapper>
         } />
         <Route path="/user/logout" element={
