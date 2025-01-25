@@ -53,10 +53,13 @@ function Home() {
       <div className='Movie-of-day h-screen pt-16 bg-[#111111]'>
         <h2 className='text-white text-4xl font-semibold text-center pb-5'>Movie Of The Day</h2>
         <hr className='pt-6' />
+        <div className='flex justify-center items-center'>
         <RandomMovie/>
+        </div>
       </div>
       <div className="Latest  bg-[#111111]"> 
       <h2 className='text-white text-4xl font-semibold text-center pb-5'>Latest In's</h2>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8'>
       <div className='bg-[#141b23]  rounded-lg shadow-md w-80 ml-5 mt-5'>
           <div className="cover rounded-lg h-72 w-80  ">
             <img className='h-full w-full rounded-lg' src="https://ccdiscovery.com/wp-content/uploads/2019/11/Laal-Singh-Chaddha-New-Poster.jpg" alt="" />
@@ -119,6 +122,7 @@ function Home() {
              <div><h4 className='text-sm'>Get Ai Powered StoryLine of this Movie?</h4><button className='bg-white w-1/2 rounded-lg h-8 font-semibold text-black'>Click Here</button></div>
               </div>
           </div>
+        </div>
         </div>
       </div>
       <div className="About-Us pt-9 bg-[#111111]">

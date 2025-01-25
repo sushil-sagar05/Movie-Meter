@@ -28,7 +28,7 @@ useEffect(()=>{
         <h2 className='text-2xl  text-yellow-500 font-semibold text-center pb-5 pt-5 '>Give Back To Community . Review and Rate Movies</h2>
         <h2 className='text-sm text-white font-semibold text-center pb-5 pt-1'> So Other's Don't Has to brainstorm Here and there..</h2>
        <hr />
-       <div>
+       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8'>
     
       {
         data.map((data,idx)=>{

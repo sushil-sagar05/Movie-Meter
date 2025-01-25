@@ -46,10 +46,11 @@ function ReviewPage2() {
   return (
     <div>
         <Navbar/>
-        <div className='border-2 rounded-lg'>
-          <div  className="cover  rounded-lg ">
+        <div className='justify-center items-center flex'>
+        <div className='border-2  mt-5 rounded-lg'>
+          <div  className="cover flex justify-center items-center rounded-lg ">
             <div className="image">
-            <img className='h-72 w-full rounded-lg' src={movie.poster} 
+            <img className='h-72 w-80 rounded-lg' src={movie.poster} 
             
              />
             </div>
@@ -69,6 +70,7 @@ function ReviewPage2() {
             
             </div>
           </div>
+        </div>
         </div>
         <h2 className='text-2xl font-semibold'>Review</h2>
         

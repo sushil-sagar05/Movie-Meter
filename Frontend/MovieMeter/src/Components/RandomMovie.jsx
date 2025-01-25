@@ -19,7 +19,7 @@ function RandomMovie() {
     },[])
   return (
     <div>
-        <div className='bg-[#141b23] h-full rounded-lg shadow-md w-80 ml-5 mt-5'>
+        <div className='bg-[#141b23] h-full rounded-lg shadow-md w-80  mt-5'>
          <Link to={`/movie/${random._id}`}><div className="cover rounded-lg h-64 w-80  ">
             <img className='h-full w-full rounded-lg' src={random.poster} alt="" />
           </div>
