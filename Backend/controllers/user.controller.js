@@ -119,5 +119,16 @@ module.exports.dislikes = async(req,res,next)=>{
      }
 }
 module.exports.getLiked = async(req,res,next)=>{
-    res.status(200).json(req.user.likes)
+   try {
+    const userId = req.user._id;
+    const user = await userModel.findById(userId)
+    if(!user){
+        res.status(400).json({message:"No User"})
+    }
+   
+    return res.status(200).json({ success: true, likes:user.likes });
+   } catch (error) {
+    console.log(error)
+    res.status(500).json({ success: false, message: "Server error" });
+   }
 }
