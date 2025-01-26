@@ -3,6 +3,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { RxCross1 } from "react-icons/rx";
 import gsap from 'gsap';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Hamburger() {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
@@ -30,7 +31,9 @@ function Hamburger() {
     setHamburgerOpen(!hamburgerOpen);
     
   };
- 
+ const notify = ()=>{
+  toast.success('User Logged Out')
+ }
   return (
     <div>
       <button   onClick={toggleButton}>
@@ -50,7 +53,9 @@ function Hamburger() {
           <hr />
          <Link to='/MyAccount'><li>Account</li></Link> 
           <hr />
-          <Link to='/user/logout'><li>Logout</li></Link>
+          <Link
+          onClick={notify}
+          to='/user/logout'><li>Logout</li></Link>
           <hr />
         </ul>
       </div>

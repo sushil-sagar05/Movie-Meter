@@ -1,8 +1,9 @@
 import React from 'react'
-
+import { ToastContainer, toast } from 'react-toastify';
 
 function DiscussionStart(props) {
   const toggleBtn = ()=>{
+    toast.info("Entered into Room")
     props.setpanelOpen(!props.panelOpen)
   }
    

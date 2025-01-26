@@ -10,6 +10,7 @@ import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import CardSkelton from '../Components/Skelton/CardSkelton'
+import { ToastContainer, toast } from 'react-toastify';
 function SingleMovie() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
@@ -44,6 +45,7 @@ const [favorite, setfavorite] = useState(false)
         setReview(data);
       } catch (err) {
         setError('You must be logged in to view this page', err);
+        toast.error("You must be logged in to view this page")
         navigate('/login');
       }
     };
@@ -112,8 +114,10 @@ try {
 }
 const toggleBtn =(e)=>{
   e.preventDefault()
+  toast.success('Added To WatchList');
   setfavorite(!favorite)
 }
+
   return (
     <>
       <div className='bg-[#111111] w-full'>
@@ -159,7 +163,9 @@ const toggleBtn =(e)=>{
                 <div className='flex justify-around text-white items-center text-center pt-1'>
                 
                   <div className="Watch Now bg-[#23c65d] w-1/2 h-9 font-semibold pt-2 rounded-lg text-center">
-                    <Link to={`/discussion/movie/${movieId}`}><button>Go To Discussion</button></Link>
+                    <Link to={`/discussion/movie/${movieId}`}><button
+                    
+                    >Go To Discussion</button></Link>
                     
                   </div>
                   

@@ -2,7 +2,11 @@ import React from 'react'
 import Navbar from '../Components/Navbar'
 import Footer from '../Components/Footer'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 function MyAccount() {
+  const notify = ()=>{
+    toast.info("Service Unavailable")
+  }
   return (
   <><div className='bg-[#111111] text-white h-screen '>
   <Navbar/>
@@ -16,7 +20,9 @@ function MyAccount() {
    <Link to='/favourite'><button className='bg-green-500 h-10 w-48 mt-3 rounded-lg shadow-md text-white font-medium cursor-pointer hover:bg-green-700'>Favorites</button></Link> 
     <hr  className='border-1 mt-1 border-white' />
     <h2 className='text-md font-semibold mt-3'>Show All Your Likes at one Place</h2>
-    <Link to='/likes'>  <button className='bg-green-500 mt-3 h-10 w-48 rounded-lg shadow-md text-white font-medium cursor-pointer hover:bg-green-700'>Likes</button></Link> 
+    <Link to='/likes'>  <button
+    onClick={notify}
+    className='bg-green-500 mt-3 h-10 w-48 rounded-lg shadow-md text-white font-medium cursor-pointer hover:bg-green-700'>Likes</button></Link> 
     </div>
   </div>
  <div className='flex justify-center items-center  mt-20'>

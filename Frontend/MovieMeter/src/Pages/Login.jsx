@@ -6,6 +6,7 @@ import { BiCameraMovie } from "react-icons/bi";
 import { CiUser } from "react-icons/ci";
 import  {UserDataContext}  from '../../Context/UserContext.jsx'
 import axios from 'axios'
+import { toast } from 'react-toastify';
 function Login() {
   const [email, setemail] = useState('');
       const [password, setpassword] = useState('');
@@ -34,6 +35,9 @@ function Login() {
         //console.log(userData)
         setemail('')
         setpassword('')
+    }
+    const notify =()=>{
+      toast.success("User Logged In")
     }
   return (
    <div className='h-screen w-full  bg-[#4432dc]'>
@@ -70,7 +74,9 @@ function Login() {
         className='rounded- border bg-[#f8f9fe] px-2 w-72 h-10 text-lg placeholder:text-base'
         placeholder='your@your.com'
         />
-        <button className='w-72 h-8 rounded-lg mt-10 ml-2 bg-[#4432dc] text-white '>Login </button>
+        <button
+        onClick={notify}
+        className='w-72 h-8 rounded-lg mt-10 ml-2 bg-[#4432dc] text-white '>Login </button>
         <h2 className='mt-2 text-center'>New Here?<Link to='/signup'><span className='ml-1 text-blue-500'>Sign in</span></Link></h2>
     </form>
     </div>

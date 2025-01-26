@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect,useState } from 'react'
 import { Link } from 'react-router-dom';
 import CardSkelton from '../Components/Skelton/CardSkelton'
+import { toast } from 'react-toastify';
 function RandomMovie() {
     const [random, setrandom] = useState('');
     const [loading, setloading] = useState(true)
@@ -22,6 +23,9 @@ function RandomMovie() {
       }
         fetchRandom();
     },[])
+    const notify =()=>{
+      toast.info("Service Unavailable")
+    }
   return (
     <div>
         {
@@ -45,8 +49,7 @@ function RandomMovie() {
               
               <div className='flex justify-around  text-white items-center text-center pt-3'>
 
-              <div className="Watch Now bg-yellow-500  w-1/2 h-9 font-semibold pt-2 rounded-lg text-center"><Link to='/watchnow'><button>Watch Now</button></Link></div>
-              {/* <div className="Watch Now bg-yellow-500  w-1/2 h-9 font-semibold pt-2 rounded-lg text-center"><button>Go To Discussion</button></div> */}
+              <div className="Watch Now bg-yellow-500  w-1/2 h-9 font-semibold pt-2 rounded-lg text-center"><Link to='/watchnow'><button onClick={notify}>Watch Now</button></Link></div>
               </div>
             
               </div>

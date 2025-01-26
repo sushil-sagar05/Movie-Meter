@@ -6,6 +6,7 @@ import Footer from '../Components/Footer'
 import StarRating from '../Components/Rating'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import CardSkelton from '../Components/Skelton/CardSkelton'
+import { toast } from 'react-toastify'
 function ReviewPage2() {
     const{movieId}=useParams()
     const [movie, setmovie] = useState(null)
@@ -46,13 +47,16 @@ function ReviewPage2() {
         } catch (err) {
           console.error('Error posting review:', err);
         } 
-        setcomment('')
-        setrating('')
+        setcomment(' ')
+        setrating(' ')
     }
    
     const handleRatingChange = (newRating) => {
-      setrating(newRating); // Update the rating state when user clicks on a star
+      setrating(newRating); 
     };
+    const notify =()=>{
+      toast.success('Review Added')
+    }
   return (
     <>
     <div className='bg-[#111111]'>
@@ -126,7 +130,7 @@ class="flex items-center">
 
 </div>
 <button 
-     
+     onClick={notify}
      className=' bg-[#23c65d] mb-5 w-36 h-9 ml-4 mt-4 font-semibold cursor-pointer rounded-lg text-center '>Add Review
      </button>
      

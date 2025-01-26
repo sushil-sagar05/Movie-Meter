@@ -6,6 +6,7 @@ import { CiUser } from "react-icons/ci";
 import { SiWelcometothejungle } from "react-icons/si";
 import { UserDataContext } from '../../Context/UserContext';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 function Signup() {
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
@@ -39,7 +40,9 @@ const submitHandler = async (e)=>{
     setlastname('')
 
 }
-
+const notify =()=>{
+  toast.success("Account Registered")
+}
   return (
     <div className='h-screen w-full  items-center  bg-[#4432dc]'>
         <h1 className='flex text-3xl '>
@@ -96,7 +99,9 @@ const submitHandler = async (e)=>{
             <p className='text-sm'>I accept the terms of use & privacy policy</p>
             </span>
             
-            <button className='w-72 h-8 rounded-lg mt-3 ml-4 bg-[#4432dc] text-white '>Register </button>
+            <button
+            onClick={notify}
+            className='w-72 h-8 rounded-lg mt-3 ml-4 bg-[#4432dc] text-white '>Register </button>
             <h2 className='mt-2 text-center'>Aleary have a Accout?<Link to='/login'><span className='ml-1 text-blue-500'>Login</span></Link></h2>
         </form>
         </div>
