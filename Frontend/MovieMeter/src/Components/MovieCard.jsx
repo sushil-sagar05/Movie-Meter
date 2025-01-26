@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function MovieCard({ movie }) {
   return (
-    <div className=''>
+    <div style={{ overflowX: 'hidden' }}>
       <Link to={`/movie/${movie._id}`}>
         <div className='bg-[#141b23] rounded-lg shadow-md w-80 ml-5 mt-5'>
           <div className="cover rounded-lg h-72 w-80">

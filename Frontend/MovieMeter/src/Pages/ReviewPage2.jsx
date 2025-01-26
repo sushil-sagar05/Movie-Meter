@@ -59,7 +59,7 @@ function ReviewPage2() {
     }
   return (
     <>
-    <div className='bg-[#111111]'>
+    <div className='bg-[#111111] w-full'style={{ overflowX: 'hidden' }}>
         <Navbar/>
         {
           loading?

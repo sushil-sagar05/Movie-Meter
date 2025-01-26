@@ -1,14 +1,9 @@
 const axios = require('axios');
 
-module.exports.FetchMovieFromTMDB = async (movieId) => {
+module.exports.FetchMovieFromTMDB = async (page=1) => {
   const apikey = process.env.TMDB_API_KEY;
-  let url;
+  const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apikey}&page=${page}`;
 
-  if (movieId) {
-    url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apikey}`;
-  } else {
-    url = `https://api.themoviedb.org/3/movie/popular?api_key=${apikey}`;
-  }
 
   try {
     const response = await axios.get(url);

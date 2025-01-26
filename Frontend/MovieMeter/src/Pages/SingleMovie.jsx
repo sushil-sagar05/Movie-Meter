@@ -10,7 +10,7 @@ import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import CardSkelton from '../Components/Skelton/CardSkelton'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 function SingleMovie() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
@@ -18,7 +18,6 @@ function SingleMovie() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [addReview, setAddReview] = useState(false);
-  const [fill, setfill] = useState(false)
   const addReviewRef = useRef(null);
   const navigate = useNavigate();
 
@@ -88,16 +87,18 @@ const [favorite, setfavorite] = useState(false)
 
 
 const submitHandler=async(e)=>{
+  e.preventDefault()
 try {
   const token = localStorage.getItem('token');
-  if (!favorite) {
-    await axios.post(`${import.meta.env.VITE_BASE_URL}/user/favourites/${movieId}`, {}, {
+  if(!favorite) {
+    await axios.post(`${import.meta.env.VITE_BASE_URL}/user/favourites/${movieId}`,{},  {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+ 
     setfavorite(true);
-    
+    toast.success('Added To favorites')
   }
   else {
     await axios.delete(`${import.meta.env.VITE_BASE_URL}/user/favourites/${movieId}`, {
@@ -106,21 +107,17 @@ try {
       },
     });
     setfavorite(false)
+    toast.success("Remove")
   }
 } catch (error) {
   console.error('Error toggling favorite:', error);
 }
 
 }
-const toggleBtn =(e)=>{
-  e.preventDefault()
-  toast.success('Added To WatchList');
-  setfavorite(!favorite)
-}
 
   return (
     <>
-      <div className='bg-[#111111] w-full'>
+      <div className='bg-[#111111] w-full' style={{ overflowX: 'hidden' }} >
         <Navbar />
         {
           loading?
@@ -130,7 +127,7 @@ const toggleBtn =(e)=>{
       ))}
           </>
             :
-            <div className='border-2 rounded-lg'>
+            <div className='border-2 rounded-lg  '>
             <div onClick={() => setAddReview(false)} className="cover  rounded-lg ">
               <div className="image">
               <img className='h-72 w-full rounded-lg' src={movie.poster} 
@@ -138,12 +135,10 @@ const toggleBtn =(e)=>{
               alt={movie.title} />
               </div>
              <div className="love absolute text-4xl right-0">
-              <form  onSubmit={
-                submitHandler
-              }>
+              <form onSubmit={submitHandler}>
               <button
               type='submit'
-             onClick={toggleBtn}
+          
               className='cursor-pointer text-white mr-4 pt-2'>{favorite ? <FaHeart color="red" /> : <CiHeart color="white" />}
               </button>
               </form>

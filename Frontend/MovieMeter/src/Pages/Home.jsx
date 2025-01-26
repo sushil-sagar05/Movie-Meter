@@ -11,10 +11,10 @@ function Home() {
 
   return (
     <>
-    <div className='h-screen bg-[#282828]'>
+    <div className='h-screen bg-[#282828] 'style={{ overflowX: 'hidden' }}>
       <div  >
       <Navbar/>
-      <div className="hero h-screen bg-[#111111]">
+      <div className="hero h-screen bg-[#111111]"style={{ overflowX: 'hidden' }}>
     <h2 className='text-5xl text-center pt-5 text-white font-semibold'>Connecting Movie Lovers Accross the World...</h2>
    <hr className='mt-6' />
    <h2 className='font-bold bg-[#0d1017] flex gap-3 py-6 pl-10  text-white text-2xl'>

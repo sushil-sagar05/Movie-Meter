@@ -24,7 +24,7 @@ function Movies() {
 
 
   return (
-    <div className='bg-[#111111]  w-full'>
+    <div className='bg-[#111111]  w-full' style={{ overflowX: 'hidden' }}>
         <Navbar/>
  <h2 className='text-white text-4xl font-semibold text-center pb-5 pt-5'>Movies Section</h2>
     {
