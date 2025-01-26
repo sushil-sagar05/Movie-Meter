@@ -4,9 +4,11 @@ import { Link,useParams } from 'react-router-dom'
 import axios from 'axios'
 import Footer from '../Components/Footer'
 import StarRating from '../Components/Rating'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import CardSkelton from '../Components/Skelton/CardSkelton'
 function ReviewPage2() {
     const{movieId}=useParams()
-    const [movie, setmovie] = useState([])
+    const [movie, setmovie] = useState(null)
     const [comment, setcomment] = useState('')
     const [rating, setrating] = useState('')
     const [loading, setloading] = useState(true)
@@ -19,6 +21,8 @@ function ReviewPage2() {
             setmovie(data)
           } catch (error) {
             
+          }finally{
+            setloading(false)
           }
        }
     
@@ -41,10 +45,11 @@ function ReviewPage2() {
           // console.log(FormData)
         } catch (err) {
           console.error('Error posting review:', err);
-        }
+        } 
         setcomment('')
         setrating('')
     }
+   
     const handleRatingChange = (newRating) => {
       setrating(newRating); // Update the rating state when user clicks on a star
     };
@@ -52,30 +57,40 @@ function ReviewPage2() {
     <>
     <div className='bg-[#111111]'>
         <Navbar/>
-        <div className='justify-center items-center flex'>
-        <div className='border-2   rounded-lg'>
-          <div  className="cover flex justify-center items-center rounded-lg ">
-            <div className="image">
-            <img className='h-72 w-80 rounded-lg' src={movie.poster} 
-            
-             />
-            </div>
-          </div>
-          <hr className='mt-2' />
-          <div className="content rounded-lg h-28 bg-[#141b23] text-white">
-            <div className="name  text-sm">
-              <span className='ml-1'>{movie.title}</span>
-              <span className='ml-2'>Director: {movie.director}</span>
-              <div>
-                <span className='ml-2'>Cast: {movie.cast}</span>
-                <span className='ml-2 mr-2'>Release date:{movie.year}</span>
-                <p className='ml-6'>Review: 5★★★★★</p>
+        {
+          loading?
+          <>
+           {Array.from({ length: 1 }).map((_, i) => (
+      <CardSkelton/>
+    ))}
+          </>
+          :
+          <div className='justify-center items-center flex'>
+          <div className='border-2   rounded-lg'>
+            <div  className="cover flex justify-center items-center rounded-lg ">
+              <div className="image">
+              <img className='h-72 w-80 rounded-lg' src={movie.poster} 
+              
+               />
               </div>
-            
+            </div>
+            <hr className='mt-2' />
+            <div className="content rounded-lg h-28 bg-[#141b23] text-white">
+              <div className="name  text-sm">
+                <span className='ml-1'>{movie.title}</span>
+                <span className='ml-2'>Director: {movie.director}</span>
+                <div>
+                  <span className='ml-2'>Cast: {movie.cast}</span>
+                  <span className='ml-2 mr-2'>Release date:{movie.year}</span>
+                  <p className='ml-6'>Review: 5★★★★★</p>
+                </div>
+              
+              </div>
             </div>
           </div>
-        </div>
-        </div>
+          </div>
+        }
+       
         <h2 className='text-2xl font-semibold text-yellow-500 '>Review</h2>
         
         <form action=""

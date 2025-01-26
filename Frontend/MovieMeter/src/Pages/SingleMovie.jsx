@@ -8,6 +8,8 @@ import AddReview from '../Components/AddReview';
 import { Link } from 'react-router-dom';
 import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import CardSkelton from '../Components/Skelton/CardSkelton'
 function SingleMovie() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
@@ -81,9 +83,7 @@ const [favorite, setfavorite] = useState(false)
     return <div>Error: {error}</div>;
   }
 
-  if (!movie) {
-    return <div>Loading...</div>;
-  }
+
 
 const submitHandler=async(e)=>{
 try {
@@ -118,47 +118,57 @@ const toggleBtn =(e)=>{
     <>
       <div className='bg-[#111111] w-full'>
         <Navbar />
-        <div className='border-2 rounded-lg'>
-          <div onClick={() => setAddReview(false)} className="cover  rounded-lg ">
-            <div className="image">
-            <img className='h-72 w-full rounded-lg' src={movie.poster} 
-            
-            alt={movie.title} />
-            </div>
-           <div className="love absolute text-4xl right-0">
-            <form  onSubmit={
-              submitHandler
-            }>
-            <button
-            type='submit'
-           onClick={toggleBtn}
-            className='cursor-pointer text-white mr-4 pt-2'>{favorite ? <FaHeart color="red" /> : <CiHeart color="white" />}
-            </button>
-            </form>
-           </div>
-            
-          </div>
-          <hr className='mt-2' />
-          <div className="content rounded-lg h-36 bg-[#141b23] text-white">
-            <div className="name  text-sm">
-              <span className='ml-1'>{movie.title}</span>
-              <span className='ml-2'>Director: {movie.director}</span>
-              <div>
-                <span className='ml-2'>Cast: {movie.cast}</span>
-                <span className='ml-2 mr-2'>Release date: {movie.year}</span>
-                <span>Review: 5★★★★★</span>
-              </div>
-              <div className='flex justify-around text-white items-center text-center pt-1'>
+        {
+          loading?
+          <>
+          {Array.from({ length: 1 }).map((_, i) => (
+        <CardSkelton/>
+      ))}
+          </>
+            :
+            <div className='border-2 rounded-lg'>
+            <div onClick={() => setAddReview(false)} className="cover  rounded-lg ">
+              <div className="image">
+              <img className='h-72 w-full rounded-lg' src={movie.poster} 
               
-                <div className="Watch Now bg-[#23c65d] w-1/2 h-9 font-semibold pt-2 rounded-lg text-center">
-                  <Link to={`/discussion/movie/${movieId}`}><button>Go To Discussion</button></Link>
+              alt={movie.title} />
+              </div>
+             <div className="love absolute text-4xl right-0">
+              <form  onSubmit={
+                submitHandler
+              }>
+              <button
+              type='submit'
+             onClick={toggleBtn}
+              className='cursor-pointer text-white mr-4 pt-2'>{favorite ? <FaHeart color="red" /> : <CiHeart color="white" />}
+              </button>
+              </form>
+             </div>
+              
+            </div>
+            <hr className='mt-2' />
+            <div className="content rounded-lg h-36 bg-[#141b23] text-white">
+              <div className="name  text-sm">
+                <span className='ml-1'>{movie.title}</span>
+                <span className='ml-2'>Director: {movie.director}</span>
+                <div>
+                  <span className='ml-2'>Cast: {movie.cast}</span>
+                  <span className='ml-2 mr-2'>Release date: {movie.year}</span>
+                  <span>Review: 5★★★★★</span>
+                </div>
+                <div className='flex justify-around text-white items-center text-center pt-1'>
+                
+                  <div className="Watch Now bg-[#23c65d] w-1/2 h-9 font-semibold pt-2 rounded-lg text-center">
+                    <Link to={`/discussion/movie/${movieId}`}><button>Go To Discussion</button></Link>
+                    
+                  </div>
                   
                 </div>
-                
               </div>
             </div>
           </div>
-        </div>
+        }
+       
       </div>
       <div className='bg-[#111111] text-white z-50'>
         <h2 className='text-2xl font-semibold text-center pb-5 pt-5'>Review</h2>

@@ -1,8 +1,10 @@
 import axios from 'axios'
 import React, { useEffect,useState } from 'react'
 import { Link } from 'react-router-dom';
+import CardSkelton from '../Components/Skelton/CardSkelton'
 function RandomMovie() {
     const [random, setrandom] = useState('');
+    const [loading, setloading] = useState(true)
     useEffect(()=>{
 
             const fetchRandom = async()=>{
@@ -14,12 +16,21 @@ function RandomMovie() {
             }catch (error) {
          
             
-        }}
+        }finally {
+          setloading(false)
+        }
+      }
         fetchRandom();
     },[])
   return (
     <div>
-        <div className='bg-[#141b23] h-full rounded-lg shadow-md w-80  mt-5'>
+        {
+          loading?
+          <>
+          {Array.from({ length: 1 }).map((_, i) => (
+     <CardSkelton/>
+   ))}
+         </>:<div className='bg-[#141b23] h-full rounded-lg shadow-md w-80  mt-5'>
          <Link to={`/movie/${random._id}`}><div className="cover rounded-lg h-64 w-80  ">
             <img className='h-full w-full rounded-lg' src={random.poster} alt="" />
           </div>
@@ -41,6 +52,12 @@ function RandomMovie() {
               </div>
           </div>
         </div>
+
+        }
+
+
+
+        
     </div>
   )
 }
