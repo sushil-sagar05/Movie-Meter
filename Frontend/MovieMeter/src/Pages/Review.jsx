@@ -6,24 +6,34 @@ import { useEffect,useState } from 'react'
 import { Link } from 'react-router-dom'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import CardSkelton from '../Components/Skelton/CardSkelton'
+import Pagination from '../Components/Pagination'
 function Contact() {
-  const [data, setdata] = useState(null)
+  const [data, setdata] = useState([])
   const [loading, setloading] = useState(true)
+  const [totalMovies, settotalMovies] = useState(0)
+  const [currentPage, setcurrentPage] = useState(1)
+  const LIMIT = 10;
 useEffect(()=>{
-  const FetchMovie = async ()=>{
+  const FetchMovie = async (page)=>{
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/get-movies`)
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/get-movies`,{
+        params:{page,limit:LIMIT}
+      });
       // console.log(data)
-      setdata(data)
+      setdata(response.data.movies)
+      settotalMovies(response.data.total)
     } catch (error) {
-      
+      console.error('Error fetching movies:', error);
     } finally{
       setloading(false)
     }
     }
-    FetchMovie()
-})
-
+    FetchMovie(currentPage)
+},[currentPage])
+const totalPages =  Math.ceil(totalMovies / LIMIT);
+const handlePageChange = (page) => {
+ setcurrentPage(page);
+};
 
   return (
     <div className='bg-[#111111] ' style={{ overflowX: 'hidden' }}>
@@ -68,6 +78,7 @@ useEffect(()=>{
               )
             })
           }
+          <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
         </div>
     }
 

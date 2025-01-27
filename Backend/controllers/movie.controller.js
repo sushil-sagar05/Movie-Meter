@@ -8,15 +8,20 @@ module.exports.getMovies = async (req, res, next) => {
       return res.status(400).json({ errors: errors.array() });
     }
   
-    const page = req.query.page || 1; 
+   const page = parseInt(req.query.page) || 1; 
+    const limit = parseInt(req.query.limit)||10;
+    const skip =(page-1)*limit;
+    // apiData = apiData.skip(skip).limit(limit)
+
   
     try {
+      const totalMovies = await Movie.countDocuments()
       // Fetch movies from database 
-      let movies = await Movie.find(); 
+      let movies = await Movie.find().skip(skip).limit(limit); 
   
       // If no movies found, fetch from TMDb
       if (movies.length === 0) {
-        const tmdbMovies = await movieService.FetchMovieFromTMDB(page); 
+        const tmdbMovies = await movieService.FetchMovieFromTMDB(5); 
   
         // Limit saving to 500 movies (adjust as needed)
         // const moviesToSave = tmdbMovies.slice(0, 500); 
@@ -38,8 +43,8 @@ module.exports.getMovies = async (req, res, next) => {
   
         movies = savedMovies;
       }
-  
-      return res.status(200).json(movies);
+      
+      return res.status(200).json({movies,total:totalMovies});
     } catch (error) {
       console.error('Error fetching movies:', error);
       res.status(500).json({ error: 'Failed to fetch movies' });
