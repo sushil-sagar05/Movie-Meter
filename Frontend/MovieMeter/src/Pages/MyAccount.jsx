@@ -7,6 +7,9 @@ function MyAccount() {
   const notify = ()=>{
     toast.info("Service Unavailable")
   }
+  const notify2 = ()=>{
+    toast.success("Logged Out")
+  }
   return (
   <><div className='bg-[#111111] text-white h-screen '>
   <Navbar/>
@@ -26,7 +29,10 @@ function MyAccount() {
     </div>
   </div>
  <div className='flex justify-center items-center  mt-20'>
- <button className='w-48 h-10 rounded-lg  mb-5 text-white bg-red-500 font-medium cursor-pointer hover:bg-red-700'>Log Out</button></div> 
+<Link to='/user/logout'>
+ <button 
+onClick={notify2}
+className='w-48 h-10 rounded-lg  mb-5 text-white bg-red-500 font-medium cursor-pointer hover:bg-red-700'>Log Out</button></Link></div> 
 
     <Footer/>
     </div>
