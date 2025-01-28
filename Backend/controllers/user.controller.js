@@ -171,13 +171,13 @@ module.exports.getFavorites = async (req, res, next) => {
 };
 module.exports.deleteFavorites = async(req,res,next)=>{
   try {
-    const userId = req.user._id;  // Get user from JWT or session
-    const { movieId } = req.body;  // Send the movieName or identifier from the client
+    const userId = req.user._id; 
+    const { movieId } = req.body;  
 
-    // Find the user and remove the movie from the favorites list
+   
     const user = await userModel.findOneAndUpdate(
       { _id: userId },
-      { $pull: { favorites: movieId } },  // Adjust this depending on your schema
+      { $pull: { favorites: movieId } },  
       { new: true }
     );
 
