@@ -17,7 +17,6 @@ const fetchAllReviews = async()=>{
       Authorization: `Bearer ${token}`, 
     },
   });
-  // console.log(data[0])
   setcontributions(data)
   } catch (error) {
     setError('Error fetching data2:', error);

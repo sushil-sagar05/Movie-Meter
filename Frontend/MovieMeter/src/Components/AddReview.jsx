@@ -7,8 +7,6 @@ function AddReview(props) {
     const { movieId } = useParams();
 const [comment, setcomment] = useState('')
 const [rating, setrating] = useState('')
-
-    // console.log(props)
     const submitHandler =async(e)=>{
         e.preventDefault();
         const FormData ={
@@ -22,7 +20,6 @@ const [rating, setrating] = useState('')
               Authorization: `Bearer ${token}`,
             },
           });
-          // console.log(response.data);
         } catch (err) {
           console.error('Error posting review:', err);
         }

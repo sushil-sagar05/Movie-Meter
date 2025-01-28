@@ -41,7 +41,6 @@ const [favorite, setfavorite] = useState(false)
             Authorization: `Bearer ${token}`,
           },
         });
-        // console.log(data)
         setReview(data);
       } catch (err) {
         setError('You must be logged in to view this page', err);

@@ -11,9 +11,8 @@ module.exports.postReview = async(req,res,next) =>{
     try {
         const user = req.user;
     const {movieId} = req.params;
-    // console.log("Received MovieId:", movieId);
+   
     const {comment,rating} = req.body;
-    console.log("Recieved:",rating)
     const movie = await Movie.findById(movieId);
     if(!movie){
         return res.status(400).json({message:"No Movie Found"})
@@ -26,9 +25,6 @@ module.exports.postReview = async(req,res,next) =>{
         
     })
     const savedReview = await newReview.save(); 
-    // res.status(201).json({ success: true, message: "Review Published Successfully" })
-    // console.log("newReview:",newReview)
-    // console.log("Typeof",typeof savedReview)
     const populatedReview = await savedReview.populate('user', 'fullname'); 
        res.status(201).json(populatedReview)
     } catch (error) {

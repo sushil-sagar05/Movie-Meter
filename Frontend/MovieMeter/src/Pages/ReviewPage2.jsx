@@ -18,7 +18,6 @@ function ReviewPage2() {
        const fetchData = async()=>{
         try {
             const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/movie/${movieId}`)
-            // console.log(data)
             setmovie(data)
           } catch (error) {
             
@@ -43,7 +42,6 @@ function ReviewPage2() {
             },
            
           });
-          // console.log(FormData)
         } catch (err) {
           console.error('Error posting review:', err);
         } 

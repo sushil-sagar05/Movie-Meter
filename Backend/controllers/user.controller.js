@@ -159,7 +159,6 @@ module.exports.getFavorites = async (req, res, next) => {
         }
     
         const favoriteMovieIds = user.favorites; 
-    console.log(favoriteMovieIds)
         const favoriteMovies = await movieModel.find({ _id: { $in: favoriteMovieIds } }); 
         res.status(200).json({ 
           favoriteMovies: favoriteMovies 

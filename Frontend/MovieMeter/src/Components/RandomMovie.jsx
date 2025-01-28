@@ -13,7 +13,6 @@ function RandomMovie() {
                 const {data} = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/random`)
             
             setrandom(data.movie)
-            // console.log(data.movie)
             }catch (error) {
          
             

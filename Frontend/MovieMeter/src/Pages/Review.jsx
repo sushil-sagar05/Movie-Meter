@@ -19,7 +19,6 @@ useEffect(()=>{
       const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/get-movies`,{
         params:{page,limit:LIMIT}
       });
-      // console.log(response.data)
       setdata(response.data.movies)
       settotalMovies(response.data.total)
     } catch (error) {

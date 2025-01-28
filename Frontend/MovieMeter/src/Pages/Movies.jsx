@@ -19,7 +19,7 @@ function Movies() {
       const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/get-movies`, {
         params: { page, limit: LIMIT },
       });
-      // console.log(response.data.total);
+
       setMovies(response.data.movies);
       setTotalMovie(response.data.total);
     } catch (error) {
@@ -32,9 +32,7 @@ function Movies() {
   useEffect(() => {
     fetchMovies(currentPage);
   }, [currentPage]);
-// console.log(totalMovie)
   const totalPages =  Math.ceil(totalMovie / LIMIT);
-  // console.log(totalPages)
 
   const handlePageChange = (page) => {
     setCurrentPage(page);

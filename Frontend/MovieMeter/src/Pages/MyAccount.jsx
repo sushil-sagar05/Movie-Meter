@@ -13,7 +13,6 @@ function MyAccount() {
         Authorization: `Bearer ${token}`,
       },
     })
-    // console.log(response.data.fullname)
     setdata(response.data.fullname)
   }
   useEffect(()=>{

@@ -33,7 +33,6 @@ const submitHandler = async (e)=>{
     localStorage.setItem('token',data.token)
     navigate('/home')
     }
-    //console.log(userData)
     setemail('')
     setpassword('')
     setfirstname('')

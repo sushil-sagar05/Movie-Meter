@@ -17,7 +17,6 @@ const [loading, setloading] = useState(true)
             Authorization: `Bearer ${token}`,
           },
         });
-        // console.log(response.data.favoriteMovies[0]._id)
         setFavourite(response.data.favoriteMovies);
       } catch (error) {
         console.error('Error fetching favorite movies:', error);
@@ -32,7 +31,6 @@ const [loading, setloading] = useState(true)
 
 
   const removeFavorite = async(movieId)=>{
-    // console.log(movieId)
         try {
           const token = localStorage.getItem('token')
         const response =  await axios.delete(`${import.meta.env.VITE_BASE_URL}/user/deletefavourite`,{

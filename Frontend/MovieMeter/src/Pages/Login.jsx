@@ -32,7 +32,6 @@ function Login() {
       } catch (error) {
         console.log(error)
       }
-        //console.log(userData)
         setemail('')
         setpassword('')
     }
