@@ -57,7 +57,9 @@ const [loading, setloading] = useState(true)
   
   return (
     <div className=''>
+      <div>
       <Navbar />
+      </div>
       <div>
         <h2 className='text-center text-2xl md:text-4xl w-full  text-red-500 font-semibold border-2 rounded-lg'>
           Your All Favorite Movie At One Place

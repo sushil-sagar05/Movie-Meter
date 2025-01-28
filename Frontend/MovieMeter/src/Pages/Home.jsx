@@ -60,7 +60,7 @@ function Home() {
         </div>
       </div>
       <div className="Latest  bg-[#111111]"> 
-      <h2 className='text-white text-4xl font-semibold text-center pb-5'>Latest In's</h2>
+      <h2 className='text-white text-4xl font-semibold text-center pb-5 pt-5'>Latest In's</h2>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8'>
       <div className='bg-[#141b23]  rounded-lg shadow-md w-80 ml-5 mt-5'>
           <div className="cover rounded-lg h-72 w-80  ">

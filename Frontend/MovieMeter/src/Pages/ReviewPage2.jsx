@@ -59,7 +59,7 @@ function ReviewPage2() {
     }
   return (
     <>
-    <div className='bg-[#111111] w-full'style={{ overflowX: 'hidden' }}>
+    <div className='bg-[#111111]  w-full'style={{ overflowX: 'hidden' }}>
         <Navbar/>
         {
           loading?
@@ -68,9 +68,11 @@ function ReviewPage2() {
       <CardSkelton/>
     ))}
           </>
+          
           :
-          <div className='justify-center items-center flex'>
-          <div className='border-2   rounded-lg'>
+          
+          <div className='justify-center  items-center flex'>
+          <div className='border-2  mt-4 rounded-lg'>
             <div  className="cover flex justify-center items-center rounded-lg ">
               <div className="image">
               <img className='h-72 w-80 rounded-lg' src={movie.poster} 
@@ -93,10 +95,11 @@ function ReviewPage2() {
             </div>
           </div>
           </div>
+          
         }
-       
+       <div className='flex justify-center'>
         <h2 className='text-2xl font-semibold text-yellow-500 '>Review</h2>
-        
+        <div >
         <form action=""
       onSubmit={(e)=>{
         submitHandler(e);
@@ -111,12 +114,12 @@ function ReviewPage2() {
       placeholder='add review'
       
       />
-      <div className="rating text-white  flex ">
+      <div className="rating text-white   flex ">
 <h2>Rate</h2>
 
 <div
 
-class="flex items-center">
+class="flex items-center ">
  <StarRating totalStars={5} onRatingChange={handleRatingChange}/>
         <input
           type="number"
@@ -136,10 +139,18 @@ class="flex items-center">
      
       </div>
       </form>
+      </div>
+      
+      </div>
+      
     </div>
-   <div className='fixed bottom-0 ml-20 '>
-   <Footer/>
+    <div className='fixed bottom-0 w-full bg-black flex justify-center items-center '>
+      <div className=' w-full'>
+      <Footer/>
+      </div>
+   
    </div>
+  
       
 
     </>

@@ -52,11 +52,14 @@ const notify =()=>{
         <h2 className='font-bold text-3xl   text-yellow-400 text-left ml-4'>Movie Meter</h2>
         <h2 className='font-bold text-3xl mt-5  text-white text-center'>Welcome </h2>
         <p className='text-white text-md font-serif text-center pt-2'>Dive into the World of Movie Lovers</p>
-        <div className=' flex ml-20 mt-7 w-48 rounded-lg  gap-2 bg-white '>
+       <div className='flex justify-center items-center'>
+        <div className=' flex mt-7 w-48 rounded-lg  gap-2 bg-white '>
         <Link to='/login'> <button className='bg-white w-24 h-10  rounded-lg shadow-lg border font-semibold  '>Login</button></Link>
       <button className='bg-red-500 w-24 h-10 rounded-lg shadow-lg border font-semibold  '>Sign In</button>
     </div>
-        <div className='bg-white py-1 mt-7 shadow-md rounded-lg h-96 w-80 ml-7 '>
+    </div>
+    <div className='flex justify-center items-center'>
+        <div className='bg-white py-1 mt-7 shadow-md rounded-lg h-96 w-80  '>
         <form onSubmit={(e)=>{
             submitHandler(e)
         }}>
@@ -105,7 +108,7 @@ const notify =()=>{
             <h2 className='mt-2 text-center'>Aleary have a Accout?<Link to='/login'><span className='ml-1 text-blue-500'>Login</span></Link></h2>
         </form>
         </div>
-        
+        </div>
     </div>
   )
 }

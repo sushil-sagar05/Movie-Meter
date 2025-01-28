@@ -48,11 +48,14 @@ function Login() {
    <h2 className='font-bold text-3xl   text-yellow-400 text-left ml-4'>Movie Meter</h2>
     <h2 className='font-bold text-3xl mt-5  text-white text-center'>Welcome Back</h2>
     <p className='text-white text-md font-serif text-center pt-2'>You need to provide the access details to move in</p>
-    <div className=' flex items-center ml-20 mt-7 w-48 rounded-lg  gap-2 bg-white '>
+    <div className='flex justify-center items-center'>
+    <div className=' flex items-center  mt-7 w-48 rounded-lg  gap-2 bg-white '>
       <button className='bg-red-500 w-24 h-10  rounded-lg shadow-lg border font-semibold  '>Login</button>
      <Link to='/signup'> <button className='bg-white w-24 h-10 rounded-lg shadow-lg border font-semibold  '>Sign In</button></Link>
     </div>
-    <div className="login p-y-1 h-80 bg-white mt-7 w-80 ml-7 rounded-lg shadow-lg">
+    </div>
+    <div className='flex justify-center items-center'>
+    <div className="login p-y-1 h-80 bg-white mt-7 w-80 rounded-lg shadow-lg">
     <form
      onSubmit={(e)=>{
       submitHandler(e)
@@ -79,6 +82,7 @@ function Login() {
         className='w-72 h-8 rounded-lg mt-10 ml-2 bg-[#4432dc] text-white '>Login </button>
         <h2 className='mt-2 text-center'>New Here?<Link to='/signup'><span className='ml-1 text-blue-500'>Sign in</span></Link></h2>
     </form>
+    </div>
     </div>
     <p className='text-sm ml-6 mt-2 text-white'>By signing in, you agree to our Conditions of Use and Privacy Policy.</p>
    </div>

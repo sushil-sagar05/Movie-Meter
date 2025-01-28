@@ -31,8 +31,8 @@ fetchAccount()
  <Navbar/>
  </div>
  <h2 className='text-3xl m-4 font-semibold'>{String(data.firstname+data.lastname)}</h2>
-  <div className="box  h-72">
-    <div className="innerbox  rounded-lg shadow-md h-full pl-2 m-2  ">
+  <div className="box flex justify-center items-center  h-72">
+    <div className="innerbox  rounded-lg shadow-md h-full border-2 rounded-lg pl-2 m-2  ">
         <h2 className='text-md font-semibold mt-3'>Show All Your Contributions at one Place</h2>
     <Link to='/account'><button className='bg-green-500 h-10 w-48 mt-3 rounded-lg shadow-md text-white font-medium cursor-pointer hover:bg-green-700 border-2 border-green-500'>contributions</button></Link>
     <hr className='border-1 mt-1 border-white' />

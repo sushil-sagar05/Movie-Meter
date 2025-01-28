@@ -128,10 +128,11 @@ try {
       ))}
           </>
             :
+            <div className='flex justify-center pt-5'>
             <div className='border-2 rounded-lg  '>
             <div onClick={() => setAddReview(false)} className="cover  rounded-lg ">
-              <div className="image">
-              <img className='h-72 w-full rounded-lg' src={movie.poster} 
+              <div className="image  flex justify-center items-center">
+              <img className='h-80 w-full rounded-lg' src={movie.poster} 
               
               alt={movie.title} />
               </div>
@@ -168,6 +169,7 @@ try {
                 </div>
               </div>
             </div>
+          </div>
           </div>
         }
        
