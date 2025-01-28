@@ -70,7 +70,7 @@ function ReviewPage2() {
           :
           
           <div className='justify-center  items-center flex'>
-          <div className='border-2  mt-4 rounded-lg'>
+          <div className='border-2  rounded-lg'>
             <div  className="cover flex justify-center items-center rounded-lg ">
               <div className="image">
               <img className='h-72 w-80 rounded-lg' src={movie.poster} 
@@ -95,7 +95,7 @@ function ReviewPage2() {
           </div>
           
         }
-       <div className='flex justify-center'>
+       <div className=''>
         <h2 className='text-2xl font-semibold text-yellow-500 '>Review</h2>
         <div >
         <form action=""
