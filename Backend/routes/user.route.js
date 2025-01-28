@@ -23,4 +23,6 @@ router.post('/likes/:movieId',authMiddleware.authUser,userController.likes)
 router.post('/dislikes/:movieId',authMiddleware.authUser,userController.dislikes)
 router.get('/getlikes',authMiddleware.authUser,userController.getLiked)
 router.get('/getfavourites',authMiddleware.authUser,userController.getFavorites)
+router.delete('/deletefavourite',authMiddleware.authUser,userController.deleteFavorites)
+
 module.exports = router;

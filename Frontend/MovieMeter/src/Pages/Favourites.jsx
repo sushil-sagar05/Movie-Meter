@@ -3,8 +3,10 @@ import axios from 'axios';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import CardSkelton from '../Components/Skelton/CardSkelton';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 function Favourites() {
-  const [favourite, setFavourite] = useState(null);
+  const [favourite, setFavourite] = useState([]);
 const [loading, setloading] = useState(true)
   useEffect(() => {
     const fetchFavourites = async () => {
@@ -15,6 +17,7 @@ const [loading, setloading] = useState(true)
             Authorization: `Bearer ${token}`,
           },
         });
+        // console.log(response.data.favoriteMovies[0]._id)
         setFavourite(response.data.favoriteMovies);
       } catch (error) {
         console.error('Error fetching favorite movies:', error);
@@ -23,14 +26,40 @@ const [loading, setloading] = useState(true)
       }
     };
 
+
     fetchFavourites();
   }, []);
 
+
+  const removeFavorite = async(movieId)=>{
+    // console.log(movieId)
+        try {
+          const token = localStorage.getItem('token')
+        const response =  await axios.delete(`${import.meta.env.VITE_BASE_URL}/user/deletefavourite`,{
+            headers:{
+              Authorization:`Bearer ${token}`
+            },
+            data: { movieId }
+           
+        })
+        if (response.status === 200) {
+          // console.log(response.data.message);  // Show success message
+          setFavourite(favourite.filter(fav => fav._id !== movieId));  // Update the UI by removing the movie from the state
+          toast.success("Movie Removed")
+        } else {
+          console.error(response.data.message);  // Handle any errors
+        }
+        } catch (error) {
+          
+        }
+      }
+
+  
   return (
-    <div className='bg-[#111111]'>
+    <div className=''>
       <Navbar />
       <div>
-        <h2 className='text-center text-2xl md:text-4xl w-full border-black text-red-500 font-semibold border-2 rounded-lg'>
+        <h2 className='text-center text-2xl md:text-4xl w-full  text-red-500 font-semibold border-2 rounded-lg'>
           Your All Favorite Movie At One Place
         </h2>
       </div>
@@ -38,14 +67,16 @@ const [loading, setloading] = useState(true)
         loading?
         <>
         {Array.from({ length: 3 }).map((_, i) => (
-      <CardSkelton/>
+      <CardSkelton key={i}/>
     ))}
         </>:
         <div className='flex justify-center items-center'>
         <div className='  mt-4'>
+        
           {favourite.length > 0 ? (
             favourite.map((favourite, idx) => (
               favourite && (
+                
                 <div key={idx} className="box h-96 w-80">
                   <div className="cover h-64">
                     <img className='h-full w-full rounded-lg' src={favourite.poster} alt="" />
@@ -54,14 +85,22 @@ const [loading, setloading] = useState(true)
                     <h2 className='ml-3'>Name: {favourite.title}</h2>
                     <h2 className='ml-3'>Date Added: {favourite.year}</h2>
                     <div className='flex justify-center items-center mt-1'>
-                      <button  className='w-36 h-10 bg-red-500 rounded-lg shadow-md'>Remove</button>
+                      
+                      <button 
+                      onClick={() => removeFavorite(favourite._id)}
+                      className='w-36 h-10 bg-red-500 rounded-lg shadow-md'>Remove</button>
+                     
                     </div>
                   </div>
                 </div>
               )
             ))
           ) : (
-            <div>No favorite movies found.</div>
+            <div className='bg-white'>
+            <h3 className='text-3xl  font-serif'>No Favourite Found For Yours!</h3>
+            <h4 className='text-xl pb-4 font-semibold text-red-500'>Make to See Here :D</h4>
+          <Link to='/movies'> <button className='w-64 h-10 bg-green-500 rounded-lg shadow-md text-white font-semibold ml-16'>Go To Movies</button></Link>
+            </div>
           )}
         </div>
         </div>

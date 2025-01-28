@@ -47,15 +47,28 @@ module.exports.getUserProfile = async(req,res,next) =>{
     res.status(200).json(req.user)
 }
 module.exports.logoutUser = async(req,res,next) =>{
-    res.clearCookie('token');
-    const token = req.cookies.token || req.headers.authorization.split(' ')[1]
-    const isBlacklisted = await blacklistTokenModel.findOne({ token: token });
-    if(!isBlacklisted){
-        await blacklistTokenModel.create({token})
+  try {
+    const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
+    if (!token) {
+      return res.status(400).json({ message: 'Token is required' });
     }
-    
 
-    res.status(200).json({message:'user logged out'});
+    const existingToken = await blacklistTokenModel.findOne({ token });
+    if (existingToken) {
+      return res.status(200).json({ message: 'Token already blacklisted' });
+    }
+
+    const newBlacklistToken = new blacklistTokenModel({ token });
+    await newBlacklistToken.save();
+
+    res.status(200).json({ message: 'User logged out and token blacklisted' });
+  } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({ message: 'Token already blacklisted' });
+    }
+    console.error('Error logging out user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 }
 module.exports.favourites = async (req, res, next) => {
   try {
@@ -148,7 +161,6 @@ module.exports.getFavorites = async (req, res, next) => {
         const favoriteMovieIds = user.favorites; 
     console.log(favoriteMovieIds)
         const favoriteMovies = await movieModel.find({ _id: { $in: favoriteMovieIds } }); 
-    
         res.status(200).json({ 
           favoriteMovies: favoriteMovies 
         });
@@ -157,3 +169,25 @@ module.exports.getFavorites = async (req, res, next) => {
         res.status(500).json({ success: false, message: "Server error" });
       }
 };
+module.exports.deleteFavorites = async(req,res,next)=>{
+  try {
+    const userId = req.user._id;  // Get user from JWT or session
+    const { movieId } = req.body;  // Send the movieName or identifier from the client
+
+    // Find the user and remove the movie from the favorites list
+    const user = await userModel.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { favorites: movieId } },  // Adjust this depending on your schema
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({ message: "Movie removed from favorites" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Server error" });
+  }
+}
