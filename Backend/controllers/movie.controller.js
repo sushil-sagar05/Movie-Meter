@@ -103,3 +103,22 @@ module.exports.RandomMovie = async(req,res,next)=>{
         res.status(500).json({ success: false, message: "Internal server error" });
     }
 }
+module.exports.Popular = async(req,res,next)=>{
+    try {
+      const count = await Movie.countDocuments();
+      if (count === 0) {
+        return res.status(404).json({ message: "No movies found" });
+      }
+  
+      const movies = await Movie.aggregate([
+        { $sample: { size: 5 } } 
+      ]);
+  
+      return res.status(200).json({ movies });
+  
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Internal server error" });
+    }
+  
+}

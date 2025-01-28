@@ -12,6 +12,7 @@ router.get('/get-movies',
 movieController.getMovies
 );
 router.get('/random',movieController.RandomMovie)
+router.get('/popular',movieController.Popular)
 router.get('/movie/:movieId', movieController.getMovieById);
 router.post('/addmovie',[
   body('title').isString().isLength({min:3}).withMessage("Invalid Title"),

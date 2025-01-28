@@ -7,6 +7,7 @@ import Rating4 from '../Components/svgs/Rating4'
 import { FaRegUser } from "react-icons/fa6";
 import Footer from '../Components/Footer'
 import RandomMovie from '../Components/RandomMovie'
+import Popular from '../Components/Popular'
 function Home() {
 
   return (
@@ -60,71 +61,9 @@ function Home() {
         </div>
       </div>
       <div className="Latest  bg-[#111111]"> 
-      <h2 className='text-white text-4xl font-semibold text-center pb-5 pt-5'>Latest In's</h2>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8'>
-      <div className='bg-[#141b23]  rounded-lg shadow-md w-80 ml-5 mt-5'>
-          <div className="cover rounded-lg h-72 w-80  ">
-            <img className='h-full w-full rounded-lg' src="https://ccdiscovery.com/wp-content/uploads/2019/11/Laal-Singh-Chaddha-New-Poster.jpg" alt="" />
-          </div>
-          <div className="content">
-            <div className="name  text-[#797d80] text-sm">
-              <span className='ml-1'>Bahubali-the-begining</span>
-              <span className='ml-2'>Director: Sagar </span>
-              <div>
-              <span className='ml-2'>Cast: Sagar, Swati</span>
-              <span className='ml-2'>Release date: 20/20/2024</span>
-              <span>Review:5★★★★★</span>
-              </div>
-              <div className='flex justify-around  text-white items-center text-center pt-3'>
-              <div className="Review bg-yellow-500   h-9 font-semibold pt-2 w-1/2 rounded-lg mr-2"><button>Review</button></div>
-              <div className="Watch Now bg-yellow-500  w-1/2 h-9 font-semibold pt-2 rounded-lg text-center"><button>Watch Now</button></div>
-              </div>
-             <div><h4 className='text-sm'>Get Ai Powered StoryLine of this Movie?</h4><button className='bg-white w-1/2 rounded-lg h-8 font-semibold text-black'>Click Here</button></div>
-              </div>
-          </div>
-        </div>
-        <div className='bg-[#141b23]  rounded-lg shadow-md w-80 ml-5 mt-5'>
-          <div className="cover rounded-lg h-72 w-80  ">
-            <img className='h-full w-full rounded-lg' src="https://www.itl.cat/pngfile/big/61-611138_bahubali-movie.jpg" alt="" />
-          </div>
-          <div className="content">
-            <div className="name  text-[#797d80] text-sm">
-              <span className='ml-1'>Bahubali-the-begining</span>
-              <span className='ml-2'>Director: Sagar </span>
-              <div>
-              <span className='ml-2'>Cast: Sagar, Swati</span>
-              <span className='ml-2'>Release date: 20/20/2024</span>
-              <span>Review:5★★★★★</span>
-              </div>
-              <div className='flex justify-around  text-white items-center text-center pt-3'>
-              <div className="Review bg-yellow-500   h-9 font-semibold pt-2 w-1/2 rounded-lg mr-2"><button>Review</button></div>
-              <div className="Watch Now bg-yellow-500  w-1/2 h-9 font-semibold pt-2 rounded-lg text-center"><button>Watch Now</button></div>
-              </div>
-             <div><h4 className='text-sm'>Get Ai Powered StoryLine of this Movie?</h4><button className='bg-white w-1/2 rounded-lg h-8 font-semibold text-black'>Click Here</button></div>
-              </div>
-          </div>
-        </div>
-        <div className='bg-[#141b23]  rounded-lg shadow-md w-80 ml-5 mt-5'>
-          <div className="cover rounded-lg h-72 w-80  ">
-            <img className='h-full w-full rounded-lg' src="https://assets.gadgets360cdn.com/pricee/assets/product/202205/Kabhi-Khushi-Kabhie-Gham-poster_1652288523.jpg" alt="" />
-          </div>
-          <div className="content">
-            <div className="name  text-[#797d80] text-sm">
-              <span className='ml-1'>Bahubali-the-begining</span>
-              <span className='ml-2'>Director: Sagar </span>
-              <div>
-              <span className='ml-2'>Cast: Sagar, Swati</span>
-              <span className='ml-2'>Release date: 20/20/2024</span>
-              <span>Review:5★★★★★</span>
-              </div>
-              <div className='flex justify-around  text-white items-center text-center pt-3'>
-              <div className="Review bg-yellow-500   h-9 font-semibold pt-2 w-1/2 rounded-lg mr-2"><button>Review</button></div>
-              <div className="Watch Now bg-yellow-500  w-1/2 h-9 font-semibold pt-2 rounded-lg text-center"><button>Watch Now</button></div>
-              </div>
-             <div><h4 className='text-sm'>Get Ai Powered StoryLine of this Movie?</h4><button className='bg-white w-1/2 rounded-lg h-8 font-semibold text-black'>Click Here</button></div>
-              </div>
-          </div>
-        </div>
+      <h2 className='text-white text-4xl font-semibold text-center pb-5 pt-5'>Popular Movies</h2>
+        <div>
+          <Popular/>
         </div>
       </div>
       <div className="About-Us pt-9 bg-[#111111]">
