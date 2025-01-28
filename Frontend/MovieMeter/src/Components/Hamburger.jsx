@@ -39,7 +39,7 @@ function Hamburger() {
         {hamburgerOpen? <RxCross1/>:<GiHamburgerMenu />}
         </button>
       <div ref={hamburgerRef} 
-      className={`bg-white rounded-lg h-36 text-xl text-center w-24 cursor-pointer text-black${hamburgerOpen ? 'opacity-100' : 'opacity-0'}`}
+      className={`bg-white text-black rounded-lg h-36 text-xl text-center w-24 cursor-pointer text-black${hamburgerOpen ? 'opacity-100' : 'opacity-0'}`}
       style={{ opacity: 0, position: 'absolute', top: '65px', right:'0' }}>
         {/* Menu content */}
         <ul className='border rounded-lg '>
