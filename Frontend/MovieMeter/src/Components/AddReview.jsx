@@ -22,14 +22,14 @@ const [rating, setrating] = useState('')
               Authorization: `Bearer ${token}`,
             },
           });
-        //   console.log(response);
+          // console.log(response.data);
         } catch (err) {
           console.error('Error posting review:', err);
         }
     }
 
     const toggleButton =()=>{
-      props.setaddreview(!props.addreview)
+      props.setAddReview(!props.addReview)
     }
   return (
 
@@ -59,7 +59,7 @@ const [rating, setrating] = useState('')
       onChange={(e)=>{
         setrating(e.target.value)
       }}
-      className=' h-5 w-24 rounded-lg  border text-sm placeholder:text-base'>
+      className=' h-5 w-24 rounded-lg bg-black  border text-sm placeholder:text-base'>
         <option value='' disabled>Select Option</option>
         <option value='1' >1</option>
         <option value='2' >2</option>

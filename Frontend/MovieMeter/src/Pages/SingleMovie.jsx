@@ -41,6 +41,7 @@ const [favorite, setfavorite] = useState(false)
             Authorization: `Bearer ${token}`,
           },
         });
+        // console.log(data)
         setReview(data);
       } catch (err) {
         setError('You must be logged in to view this page', err);
@@ -183,6 +184,8 @@ try {
               key={idx}
               comment={elem.comment}
               username={elem.user ? elem.user.fullname.firstname : 'Anonymous'}
+              rating = {elem.rating}
+              createdAt = {elem.createdAt}
             />
           ))
         ) : (

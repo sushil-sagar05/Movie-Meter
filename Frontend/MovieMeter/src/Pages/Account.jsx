@@ -3,7 +3,7 @@ import Navbar from '../Components/Navbar'
 import { FaRegUser } from "react-icons/fa6";
 import axios from 'axios'
 import Footer from '../Components/Footer';
-
+import { Link } from 'react-router-dom';
 import ContributionsSkelton from '../Components/Skelton/ContributionsSkelton';
 function Account() {
  const [contributions, setcontributions] = useState([])
@@ -69,12 +69,12 @@ const fetchAllReviews = async()=>{
           <Link to='/review'> <button className='w-64 h-10 bg-green-500 rounded-lg shadow-md text-white font-semibold ml-16'>Start Review</button></Link>
             </div>
         )}    
-    </div>
+    
   
-    <div className="footer  bottom-0 w-full bg-white ">
+    <div className="footer bg-[#111111]   text-black ">
     <Footer/>
 </div>
-
+</div>
 </>
   )
 }

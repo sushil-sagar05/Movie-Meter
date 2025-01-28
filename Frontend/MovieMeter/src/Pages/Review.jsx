@@ -11,7 +11,7 @@ function Contact() {
   const [data, setdata] = useState([])
   const [loading, setloading] = useState(true)
   const [totalMovies, settotalMovies] = useState(0)
-  const [currentPage, setcurrentPage] = useState(1)
+  const [currentPage, setcurrentPage] = useState(3)
   const LIMIT = 10;
 useEffect(()=>{
   const FetchMovie = async (page)=>{
@@ -19,7 +19,7 @@ useEffect(()=>{
       const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/get-movies`,{
         params:{page,limit:LIMIT}
       });
-      // console.log(data)
+      // console.log(response.data)
       setdata(response.data.movies)
       settotalMovies(response.data.total)
     } catch (error) {
@@ -63,10 +63,10 @@ const handlePageChange = (page) => {
                         <span className='ml-1'>{data.title}</span>
                         <span className='ml-2'>{data.director} </span>
                         <div>
-                          <span className='ml-2'>Cast: Sagar, Swati</span>
-                          <span className='ml-2'>Release date: 20/20/2024</span>
+                          <span className='ml-2'>Cast: {data.cast}</span>
+                          <span className='ml-2'>Release date: {data.year}</span>
                         </div>
-                        <div className='flex justify-around text-white items-center text-center pt-5'>
+                        <div className='flex justify-around text-white items-center text-center '>
                           <div className="Review bg-yellow-500 h-9 font-semibold pt-2 w-1/2 rounded-lg mr-2">
                             <Link to={`/movie/${data._id}/review`}><button>Review</button></Link>
                           </div>

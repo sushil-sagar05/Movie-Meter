@@ -43,11 +43,11 @@ const [loading, setloading] = useState(true)
            
         })
         if (response.status === 200) {
-          // console.log(response.data.message);  // Show success message
-          setFavourite(favourite.filter(fav => fav._id !== movieId));  // Update the UI by removing the movie from the state
+          
+          setFavourite(favourite.filter(fav => fav._id !== movieId));  
           toast.success("Movie Removed")
         } else {
-          console.error(response.data.message);  // Handle any errors
+          console.error(response.data.message); 
         }
         } catch (error) {
           

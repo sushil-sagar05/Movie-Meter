@@ -11,7 +11,7 @@ function Footer() {
     
       return (
         <>
-          <footer className='flex h-8 justify-center '>
+          <footer className='flex h-8 text-white justify-center 'style={{ overflowX: 'hidden' }}>
             <hr />
             <div className='flex w-8 mt-1 mr-1 justify-between '>
               <FaGithub onClick={(e) => {

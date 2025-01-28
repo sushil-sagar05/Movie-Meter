@@ -4,6 +4,7 @@ import Navbar from '../Components/Navbar';
 import CardSkelton from '../Components/Skelton/CardSkelton';
 import MovieCard from '../Components/MovieCard';
 import Pagination from '../Components/Pagination';
+import Footer from '../Components/Footer';
 
 function Movies() {
   const [movies, setMovies] = useState([]);
@@ -41,7 +42,9 @@ function Movies() {
 
   return (
     <div className='bg-[#111111] w-full' style={{ overflowX: 'hidden' }}>
-      <Navbar />
+     <div>
+     <Navbar />
+     </div>
       <h2 className='text-white text-4xl font-semibold text-center pb-5 pt-5'>Movies Section</h2>
       {loading ? (
         <>
@@ -57,6 +60,9 @@ function Movies() {
         </div>
       )}
       <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
+      <div className=''>
+        <Footer/>
+      </div>
     </div>
   );
 }

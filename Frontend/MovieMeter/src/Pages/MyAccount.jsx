@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import Navbar from '../Components/Navbar'
 import Footer from '../Components/Footer'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import axios from 'axios'
 function MyAccount() {
+  const [data, setdata] = useState('')
+  const fetchAccount = async ()=>{
+    const token = localStorage.getItem('token')
+    const response =  await axios.get(`${import.meta.env.VITE_BASE_URL}/user/profile`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    // console.log(response.data.fullname)
+    setdata(response.data.fullname)
+  }
+  useEffect(()=>{
+fetchAccount()
+  })
   const notify = ()=>{
     toast.info("Service Unavailable")
   }
@@ -11,11 +26,13 @@ function MyAccount() {
     toast.success("Logged Out")
   }
   return (
-  <><div className='bg-[#111111] text-white h-screen '>
-  <Navbar/>
-  <h2 className='text-3xl m-4 font-semibold'>Sushil Sagar</h2>
+  <><div className='bg-[#111111] text-white h-screen ' style={{ overflowX: 'hidden' }}>
+ <div>
+ <Navbar/>
+ </div>
+ <h2 className='text-3xl m-4 font-semibold'>{String(data.firstname+data.lastname)}</h2>
   <div className="box  h-72">
-    <div className="innerbox border-2 border-white rounded-lg shadow-md h-full pl-2 m-2  ">
+    <div className="innerbox  rounded-lg shadow-md h-full pl-2 m-2  ">
         <h2 className='text-md font-semibold mt-3'>Show All Your Contributions at one Place</h2>
     <Link to='/account'><button className='bg-green-500 h-10 w-48 mt-3 rounded-lg shadow-md text-white font-medium cursor-pointer hover:bg-green-700 border-2 border-green-500'>contributions</button></Link>
     <hr className='border-1 mt-1 border-white' />

@@ -6,17 +6,24 @@ import { Link } from 'react-router-dom';
 function Navbar() {
 
   return (
-    <nav className='bg-[#4432dc] h-16 flex border-2 border-pink-400 rounded-lg '>
-        <div className="right w-1/2  h-full">
-            <Link to='/'><h2 className='font-bold text-3xl text-center text-yellow-300 pt-3'>MovieMeter</h2></Link>
+    <nav className='bg-[#4432dc] h-16  border-2 border-pink-400 rounded-lg w-full 'style={{ overflowX: 'hidden' }}>
+       
+       <div className='flex justify-evenly gap-10 pt-3 items-center'>
+        <div className="right   h-full">
+            <Link to='/'><h2 className='font-bold text-3xl text-center text-yellow-300 '>MovieMeter</h2></Link>
         </div>
 
-        <div className="left w-1/2 h-full  flex items-center justify-end ">
-      <div  className='text-4xl mr-3 flex gap-3 rounded-lg text-white'>
+        <div className="left text-4xl gap-3    flex items-center justify-around ">
+      <div  className='  flex  rounded-lg text-white'>
         {/* <GiHamburgerMenu /> */}
         <Link to='/MyAccount'><FaRegUser className='cursor-pointer' /></Link>
-      <Hamburger  />
-      </div>
+        </div>
+        <div className='' >
+        <Hamburger  />
+        </div>
+      
+      
+        </div>
         </div>
     </nav>
   )
