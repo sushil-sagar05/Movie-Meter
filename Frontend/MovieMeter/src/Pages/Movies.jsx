@@ -46,9 +46,11 @@ function Movies() {
       <h2 className='text-white text-4xl font-semibold text-center pb-5 pt-5'>Movies Section</h2>
       {loading ? (
         <>
+        <div className='w-full md:flex'>
           {Array.from({ length: 10 }).map((_, i) => (
             <CardSkelton key={i} />
           ))}
+          </div>
         </>
       ) : (
         <div className="Movies grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">

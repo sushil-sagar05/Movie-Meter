@@ -6,7 +6,7 @@ function CardSkelton() {
   return (
   <div className='h-screen'>
     <SkeletonTheme baseColor="#202020" highlightColor="#444">
-  <div className='bg-[#141b23] rounded-lg shadow-md w-80 ml-5 mt-5'>
+  <div className='bg-[#141b23] rounded-lg shadow-md w-80 ml-5 mt-5 '>
       {/* Skeleton for Image */}
       <div className="cover rounded-lg h-72 w-80">
         <Skeleton height="100%" width="100%" className="rounded-lg h-full w-full" />
