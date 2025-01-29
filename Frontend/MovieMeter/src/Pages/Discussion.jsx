@@ -66,6 +66,7 @@ function Discussion() {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/movie/${movieId}/messages`, { message }, {
+        withCredentials:true,
         headers: {
           Authorization: `Bearer ${token}`,
         },

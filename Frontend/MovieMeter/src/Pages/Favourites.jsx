@@ -13,6 +13,7 @@ const [loading, setloading] = useState(true)
       try {
         const token = localStorage.getItem('token');
         const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/getfavourites`, {
+          withCredentials:true,
           headers: {
             Authorization: `Bearer ${token}`,
           },

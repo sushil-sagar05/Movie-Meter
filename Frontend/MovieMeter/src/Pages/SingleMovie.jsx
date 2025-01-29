@@ -36,14 +36,16 @@ const [favorite, setfavorite] = useState(false)
     const fetchData2 = async () => {
       try {
         const token = localStorage.getItem('token');
-        const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/review/${movieId}/getreviews`, {
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/review/${movieId}/getreviews`, {
+          withCredentials:true,
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setReview(data);
+        setReview(response.data);
       } catch (err) {
-        setError('You must be logged in to view this page', err);
+        console.log(err)
+        // setError('You must be logged in to view this page', err);
         toast.error("You must be logged in to view this page")
         navigate('/login');
       }

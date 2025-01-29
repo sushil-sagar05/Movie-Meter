@@ -16,6 +16,7 @@ const [rating, setrating] = useState('')
         const token = localStorage.getItem('token');
         try {
           const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/review/${movieId}/postreviews`, FormData, {
+            withCredentials:true,
             headers: {
               Authorization: `Bearer ${token}`,
             },
