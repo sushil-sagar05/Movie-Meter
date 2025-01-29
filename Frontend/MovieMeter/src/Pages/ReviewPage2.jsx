@@ -17,8 +17,8 @@ function ReviewPage2() {
     useEffect(() => {
        const fetchData = async()=>{
         try {
-            const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/movie/${movieId}`)
-            setmovie(data)
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/movie/${movieId}`)
+            setmovie(response.data)
           } catch (error) {
             
           }finally{
