@@ -10,14 +10,14 @@ const ReviewRoutes = require('./routes/review.routes')
 const DiscussionRoutes = require('./routes/discussion.routes')
 const app = express();
 connectdb();
-app.use(cors());
+// app.use(cors());
 app.use(require('cors')({
     origin: "https://movie-meter-fullstack.onrender.com", 
     credentials: true
 }));
 app.use(cookieParser());
 app.use((req,res,next)=>{
-    res.setHeader('Acess-Control-Allow-Credentials','true');
+    res.setHeader('Access-Control-Allow-Credentials','true');
     next()
 })
 app.use(express.json());
