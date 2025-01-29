@@ -23,6 +23,12 @@ module.exports.registerUser = async(req,res,next) => {
         password:hashedPassword
     });
     const token = user.generateAuthToken();
+    res.cookie('token',token,{
+      httpOnly:true,
+      secure:process.env.NODE_ENV==='production',
+      sameSite:'none',
+      maxAge:360000000
+    })
     res.status(201).json({token,user});
 }
 module.exports.loginUser = async(req,res,next)=>{
@@ -43,7 +49,7 @@ module.exports.loginUser = async(req,res,next)=>{
     res.cookie('token',token,{
       httpOnly:true,
       secure:process.env.NODE_ENV==='production',
-      sameSite:'None',
+      sameSite:'none',
       maxAge:360000000
     })
     res.status(200).json({token,user})

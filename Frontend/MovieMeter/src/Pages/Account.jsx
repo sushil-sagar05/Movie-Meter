@@ -12,13 +12,13 @@ function Account() {
 const fetchAllReviews = async()=>{
   try {
     const token = localStorage.getItem('token');
-  const {data} = await axios.get(`${import.meta.env.VITE_BASE_URL}/review/getallreview`,{
+  const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/review/getallreview`,{
     withCredentials:true,
     headers: {
       Authorization: `Bearer ${token}`, 
     },
   });
-  setcontributions(data)
+  setcontributions(response.data)
   } catch (error) {
     setError('Error fetching data2:', error);
   } finally{
