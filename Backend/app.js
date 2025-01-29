@@ -11,7 +11,7 @@ const DiscussionRoutes = require('./routes/discussion.routes')
 const app = express();
 connectdb();
 app.use(cors({
-    origin: "https://movie-meter-fullstack.onrender.com", 
+    origin: process.env.FRONTEND_URL,
     credentials: true
 }));
 app.use(cookieParser());
