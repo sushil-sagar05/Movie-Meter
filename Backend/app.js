@@ -10,8 +10,7 @@ const ReviewRoutes = require('./routes/review.routes')
 const DiscussionRoutes = require('./routes/discussion.routes')
 const app = express();
 connectdb();
-// app.use(cors());
-app.use(require('cors')({
+app.use(cors({
     origin: "https://movie-meter-fullstack.onrender.com", 
     credentials: true
 }));
