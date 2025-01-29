@@ -40,7 +40,12 @@ module.exports.loginUser = async(req,res,next)=>{
         return res.status(401).json({message:'Invalid email or password'})
     }
     const token = user.generateAuthToken();
-    res.cookie('token',token)
+    res.cookie('token',token,{
+      httpOnly:true,
+      secure:process.env.NODE_ENV==='production',
+      sameSite:'None',
+      maxAge:360000000
+    })
     res.status(200).json({token,user})
 }
 module.exports.getUserProfile = async(req,res,next) =>{
