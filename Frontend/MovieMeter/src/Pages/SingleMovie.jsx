@@ -45,7 +45,7 @@ const [favorite, setfavorite] = useState(false)
         setReview(response.data);
       } catch (err) {
         console.log(err)
-        // setError('You must be logged in to view this page', err);
+        setError('You must be logged in to view this page', err);
         toast.error("You must be logged in to view this page")
         navigate('/login');
       }
