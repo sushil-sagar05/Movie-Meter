@@ -8,7 +8,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
 
   return (
     <>
-    <ul className='flex gap-1 justify-center items-center font-semibold text-white mt-4'>
+    <ul className='flex gap-1 justify-center items-center font-semibold text-white mt-4'style={{ overflowX: 'hidden' }}>
       {pages.map(pageNo => (
         <li
           key={pageNo}

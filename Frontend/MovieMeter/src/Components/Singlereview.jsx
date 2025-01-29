@@ -2,7 +2,7 @@ import React from 'react'
 import { FaRegUser } from "react-icons/fa6";
 function Singlereview({comment,createdAt,rating}) {
   return (
-    <div className="container border-2  bg-white mb-1 rounded-lg shadow-md flex items-center h-16 w-full ">
+    <div className="container border-2  bg-white mb-1 rounded-lg shadow-md flex items-center h-16 w-full "style={{ overflowX: 'hidden' }}>
         <div className="user ">
           <FaRegUser className=' border-2 border-black text-3xl  rounded-full text-black ' />
           

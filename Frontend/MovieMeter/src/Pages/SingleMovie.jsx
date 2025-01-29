@@ -117,7 +117,8 @@ try {
 
   return (
     <>
-      <div className='bg-[#111111] w-full' style={{ overflowX: 'hidden' }} >
+    <div style={{ overflowX: 'hidden' }}>
+    <div className='bg-[#111111] w-full'  >
         <Navbar />
         {
           loading?
@@ -193,6 +194,7 @@ try {
           <div>No reviews available.</div>
         )}
       </div>
+    </div>
     </>
   );
 }

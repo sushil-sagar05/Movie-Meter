@@ -36,7 +36,10 @@ const handlePageChange = (page) => {
 
   return (
     <div className='bg-[#111111] ' style={{ overflowX: 'hidden' }}>
-    <Navbar />
+      <div>
+      <Navbar />
+      </div>
+    
     <h2 className='text-white text-4xl font-semibold text-center pb-5 pt-5'>Review</h2>
     <h2 className='text-2xl text-yellow-500 font-semibold text-center pb-5 pt-5 '>Give Back To Community . Review and Rate Movies</h2>
     <h2 className='text-sm text-white font-semibold text-center pb-5 pt-1'> So Others Don't Have to Brainstorm Here and There..</h2>

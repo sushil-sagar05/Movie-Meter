@@ -11,7 +11,7 @@ const StarRating = ({ totalStars = 5, onRatingChange }) => {
   };
 
   return (
-    <div className="flex space-x-1">
+    <div className="flex space-x-1"style={{ overflowX: 'hidden' }}>
       {[...Array(totalStars)].map((_, index) => (
         <div
           key={index}

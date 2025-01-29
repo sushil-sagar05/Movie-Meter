@@ -34,7 +34,7 @@ function Hamburger() {
   toast.success('User Logged Out')
  }
   return (
-    <div>
+    <div style={{ overflowX: 'hidden' }}>
       <button   onClick={toggleButton}>
         {hamburgerOpen? <RxCross1/>:<GiHamburgerMenu />}
         </button>

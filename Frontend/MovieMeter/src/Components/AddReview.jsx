@@ -30,7 +30,7 @@ const [rating, setrating] = useState('')
     }
   return (
 
-    <div className='w-full fixed'>
+    <div className='w-full fixed' >
       <form action=""
       onSubmit={(e)=>{
         submitHandler(e);
