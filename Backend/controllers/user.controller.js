@@ -26,7 +26,7 @@ module.exports.registerUser = async(req,res,next) => {
     res.cookie('token',token,{
       httpOnly:true,
       secure:process.env.NODE_ENV==='production',
-      sameSite:'none',
+      sameSite:"None",
       maxAge:360000000
     })
     res.status(201).json({token,user});
