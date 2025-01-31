@@ -10,6 +10,7 @@ const ReviewRoutes = require('./routes/review.routes')
 const DiscussionRoutes = require('./routes/discussion.routes')
 const app = express();
 connectdb();
+app.set("trust proxy",1);
 app.use(cors({
     origin: process.env.FRONTEND_URL,
     credentials: true
