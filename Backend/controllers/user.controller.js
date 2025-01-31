@@ -23,13 +23,8 @@ module.exports.registerUser = async(req,res,next) => {
         password:hashedPassword
     });
     const token = user.generateAuthToken();
-    res.cookie('token',token,{
-      httpOnly:true,
-      secure:true,
-      sameSite:"None",
-      maxAge:360000000
-    })
-    res.status(201).json({token,user});
+    res.cookie('token', token);
+    res.status(200).json({token,user});
 }
 module.exports.loginUser = async(req,res,next)=>{
     const errors = validationResult(req);
@@ -46,15 +41,18 @@ module.exports.loginUser = async(req,res,next)=>{
         return res.status(401).json({message:'Invalid email or password'})
     }
     const token = user.generateAuthToken();
-    res.cookie('token',token,{
+    const options = {
       httpOnly:true,
       secure:true,
       sameSite:"None",
       domain: process.env.FRONTEND_DOMAIN, 
-        path: '/',
-      maxAge:360000000
-    })
-    res.status(200).json({token,user})
+      maxAge:360000,
+    }
+    
+   return res
+   .status(200)
+   .cookie("token",token,options)
+   .json({token,user})
 }
 module.exports.getUserProfile = async(req,res,next) =>{
     res.status(200).json(req.user)
