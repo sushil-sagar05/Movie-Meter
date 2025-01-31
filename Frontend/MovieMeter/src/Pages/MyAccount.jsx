@@ -9,7 +9,7 @@ function MyAccount() {
   const fetchAccount = async ()=>{
     const token = localStorage.getItem('token')
     const response =  await axios.get(`${import.meta.env.VITE_BASE_URL}/user/profile`,{
-      withCredentials:true,
+      withCredentials: true,
       headers: {
         Authorization: `Bearer ${token}`,
       },

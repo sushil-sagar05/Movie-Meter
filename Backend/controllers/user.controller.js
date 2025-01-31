@@ -50,6 +50,8 @@ module.exports.loginUser = async(req,res,next)=>{
       httpOnly:true,
       secure:true,
       sameSite:"None",
+      domain: process.env.FRONTEND_DOMAIN, 
+        path: '/',
       maxAge:360000000
     })
     res.status(200).json({token,user})
