@@ -38,7 +38,7 @@ const [favorite, setfavorite] = useState(false)
         const token = localStorage.getItem('token')
         console.log(token)
         const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/review/${movieId}/getreviews`, {
-          withCredentials:true,
+          withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },
