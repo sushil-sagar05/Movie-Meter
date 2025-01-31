@@ -13,7 +13,15 @@ connectdb();
 app.set("trust proxy",1);
 app.use(cors({
     origin: process.env.FRONTEND_URL,
-    credentials: true
+    credentials: true,
+    methods: ['GET', 'POST', 'OPTIONS'],  
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+app.options('*', cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,                  
+    methods: ['GET', 'POST', 'OPTIONS'],  
+    allowedHeaders: ['Content-Type', 'Authorization'], 
 }));
 app.use(cookieParser());
 app.use((req,res,next)=>{
