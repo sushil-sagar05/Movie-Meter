@@ -22,7 +22,9 @@ function Login() {
             password:password
         }
       try {
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`,userData)
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`,userData,{
+          withCredentials:"true",
+        })
         if(response.status===200){
           const data = response.data
           setuser(data.user)
