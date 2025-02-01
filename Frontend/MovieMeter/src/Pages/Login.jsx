@@ -25,6 +25,7 @@ function Login() {
         const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`, userData, {
           withCredentials: true,
         })
+        console.log('Response Status:', response.status);
         if (response.status === 200) {
           const data = response.data
           setuser(data.user)
