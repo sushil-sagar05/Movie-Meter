@@ -31,7 +31,8 @@ const submitHandler = async (e)=>{
     });
     if (response.status === 201) {
       const data = response.data;
-      setuser(data.user);  
+      setuser(data.user);
+      localStorage.setItem('token',data.token)  
       navigate('/home');    
     }
     setemail('')
