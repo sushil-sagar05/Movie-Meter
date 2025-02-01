@@ -26,12 +26,13 @@ const submitHandler = async (e)=>{
         email:email,
         password:password
     }
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/register`,newUser)
-    if(response.status===201){
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/register`, newUser, {
+      withCredentials: true,  
+    });
+    if (response.status === 201) {
       const data = response.data;
-    setuser(data.user)
-    localStorage.setItem('token',data.token)
-    navigate('/home')
+      setuser(data.user);  
+      navigate('/home');    
     }
     setemail('')
     setpassword('')
