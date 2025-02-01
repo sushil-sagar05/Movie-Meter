@@ -28,6 +28,7 @@ function Login() {
         if (response.status === 200) {
           const data = response.data
           setuser(data.user)
+          localStorage.setItem('token',data.token)
           navigate('/home')
         }
       } catch (error) {
