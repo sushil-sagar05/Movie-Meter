@@ -1,4 +1,8 @@
 const express = require('express');
+const dotenv  = require("dotenv")
+dotenv.config(
+    {path:'.env'}
+)
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectdb = require('./DB/db')
