@@ -7,12 +7,12 @@ import axios from 'axios'
 function MyAccount() {
   const [data, setdata] = useState('')
   const fetchAccount = async ()=>{
-    const token = localStorage.getItem('token')
+    // const token = localStorage.getItem('token')
     const response =  await axios.get(`${import.meta.env.VITE_BASE_URL}/user/profile`,{
       withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      // headers: {
+      //   Authorization: `Bearer ${token}`,
+      // },
     })
     setdata(response.data.fullname)
   }
