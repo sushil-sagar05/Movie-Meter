@@ -15,10 +15,17 @@ app.set("trust proxy",1);
 
 const corsOptions = {
     origin: (origin, callback) => {
-      if (origin === process.env.FRONTEND_URL || !origin) {
-        callback(null, true); 
+      // Log the origin to see what is being sent
+      // console.log('Request Origin:', origin);
+  
+      const allowedOrigin = process.env.FRONTEND_URL;
+  
+      // Allow the request if the origin matches the allowed frontend URL, or it's a local request with no origin (e.g., during testing)
+      if (origin === allowedOrigin || !origin) {
+        callback(null, true);  
       } else {
-        callback(new Error('Not allowed by CORS')); 
+        // console.log('CORS Error: Origin not allowed:', origin);
+        callback(new Error('Not allowed by CORS'), false);  
       }
     },
     credentials: true, 
@@ -27,6 +34,7 @@ const corsOptions = {
   };
   
   app.use(cors(corsOptions));
+  
   
 
 

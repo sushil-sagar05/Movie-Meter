@@ -18,7 +18,7 @@ module.exports.authUser = async (req, res, next) => {
     console.log('Token is blacklisted');
     return res.status(401).json({ message: 'Unauthorized' });
   }
-
+console.log(token)
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log('Decoded token:', decoded);
