@@ -143,8 +143,8 @@ class="flex items-center ">
       </div>
       
     </div>
-    <div className='fixed bottom-0 w-full bg-black flex justify-center items-center '>
-      <div className=' w-full'>
+    <div className='fixed bottom-0 bg-black flex justify-center items-center '>
+      <div className='w-full'>
       <Footer/>
       </div>
    

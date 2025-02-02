@@ -45,7 +45,6 @@ module.exports.loginUser = async(req,res,next)=>{
       httpOnly:true,
       secure:true,
       sameSite:"None",
-      domain: process.env.FRONTEND_DOMAIN, 
       maxAge:30 * 24 * 60 * 60 * 1000,
     }
     
