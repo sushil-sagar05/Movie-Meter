@@ -28,17 +28,18 @@ function Home() {
               </h2>
             </div>
           </div>
-          <div className='flex justify-center items-center mt-6'>
-            <div className="features bg-[#111111] mt-5 w-full">
+          <div className=' features  bg-[#111111] flex justify-center items-center w-full'>
+            <div className="featurews w-full  ">
               <h3 className="text-white text-center text-5xl font-semibold">Features</h3>
-              <div className="container mt-5">
-                <div className="First flex justify-center w-full items-center h-1/4">
+              <div className="container flex justify-center items-center  mt-5">
+                <div className=''>
+                <div className="First flex justify-center w-full items-center pb-5 h-1/4">
                   <h3 className='text-3xl font-semibold pl-2 text-yellow-300'>Featured Rating</h3>
                   <div className='w-1/2 mr-6'>
                     <Rating4 />
                   </div>
                 </div>
-                <div className="second h-1/4">
+                <div className="second  pb-4 h-1/4">
                   <div className="First flex justify-center w-full items-center h-1/4">
                     <h3 className='text-3xl font-semibold pl-2 text-white'>Featured Review</h3>
                     <div className='w-1/2'>
@@ -55,6 +56,7 @@ function Home() {
                   </div>
                 </div>
               </div>
+                </div>
             </div>
           </div>
         </div>
