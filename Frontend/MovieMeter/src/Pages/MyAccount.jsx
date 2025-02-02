@@ -30,7 +30,7 @@ fetchAccount()
  <div>
  <Navbar/>
  </div>
- <h2 className='text-3xl m-4 font-semibold'>{String(data.firstname+data.lastname)}</h2>
+ <h2 className='text-3xl m-4 font-semibold '>{String(data.firstname+data.lastname)}</h2>
   <div className="box flex justify-center items-center  h-72">
     <div className="innerbox  rounded-lg shadow-md h-full border-2  pl-2 m-2  ">
         <h2 className='text-md font-semibold mt-3'>Show All Your Contributions at one Place</h2>

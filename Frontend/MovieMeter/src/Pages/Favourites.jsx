@@ -55,7 +55,7 @@ const [loading, setloading] = useState(true)
 
   
   return (
-    <div className=''>
+    <div className='w-full'style={{ overflowX: 'hidden' }}>
       <div>
       <Navbar />
       </div>
@@ -78,7 +78,7 @@ const [loading, setloading] = useState(true)
             favourite.map((favourite, idx) => (
               favourite && (
                 
-                <div key={idx} className="box h-96 w-80">
+                <div key={idx} className="box h-96 bg-[#141b23] mb-3 rounded-lg shadow-md w-80">
                   <div className="cover h-64">
                     <img className='h-full w-full rounded-lg' src={favourite.poster} alt="" />
                   </div>

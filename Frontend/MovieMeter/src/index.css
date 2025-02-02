@@ -1,12 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body {
-  overflow-x: hidden;
+*root{
+  margin: 0;
+  padding: 0;
+ box-sizing:border-box;
 }
 
-#root{
-    margin: 0;
-    padding: 0;
-   
+html,body,#root {
+  overflow-x: hidden;
+  width: 100%;
 }

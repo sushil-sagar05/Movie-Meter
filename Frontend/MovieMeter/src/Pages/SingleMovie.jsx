@@ -36,7 +36,7 @@ const [favorite, setfavorite] = useState(false)
     const fetchData2 = async () => {
       try {
         const token = localStorage.getItem('token')
-        console.log(token)
+       
         const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/review/${movieId}/getreviews`, {
           withCredentials: true,
           headers: {
