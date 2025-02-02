@@ -13,12 +13,21 @@ connectdb();
 
 app.set("trust proxy",1);
 
-app.use(cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-    methods: ['GET', 'POST', 'OPTIONS'],  
+const corsOptions = {
+    origin: (origin, callback) => {
+      if (origin === process.env.FRONTEND_URL || !origin) {
+        callback(null, true); 
+      } else {
+        callback(new Error('Not allowed by CORS')); 
+      }
+    },
+    credentials: true, 
+    methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+  };
+  
+  app.use(cors(corsOptions));
+  
 
 
 app.use((req,res,next)=>{
