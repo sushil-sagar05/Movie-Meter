@@ -39,7 +39,7 @@ function Movies() {
   };
 
   return (
-  <div className='bg-[#111111]' style={{ overflowX: 'hidden' }}>
+  <div className='bg-[#111111]'style={{ overflowX: 'hidden' }} >
       <div className=' w-full'>
      <div >
      <Navbar />
@@ -54,7 +54,7 @@ function Movies() {
           </div>
         </>
       ) : (
-        <div className="Movies grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="Movies grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" style={{ overflowX: 'hidden' }}>
           {movies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}

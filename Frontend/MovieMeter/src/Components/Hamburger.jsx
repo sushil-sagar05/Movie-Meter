@@ -8,6 +8,9 @@ import { toast } from 'react-toastify';
 function Hamburger() {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const hamburgerRef = useRef(null);
+   const token = localStorage.getItem('token')
+
+  
   useEffect(() => {
     if (hamburgerOpen) {
       gsap.to(hamburgerRef.current, {
@@ -34,8 +37,10 @@ function Hamburger() {
   toast.success('User Logged Out')
  }
   return (
-    <div style={{ overflowX: 'hidden' }}>
-      <button   onClick={toggleButton}>
+    <div style={{ overflowX: 'hidden' }} >
+      <button  
+      className='text-white'
+      onClick={toggleButton}>
         {hamburgerOpen? <RxCross1/>:<GiHamburgerMenu />}
         </button>
       <div ref={hamburgerRef} 
@@ -52,9 +57,15 @@ function Hamburger() {
           <hr />
          <Link to='/MyAccount'><li>Account</li></Link> 
           <hr />
-          <Link
-          onClick={notify}
-          to='/user/logout'><li>Logout</li></Link>
+          {
+            token ?  <Link
+            onClick={notify}
+            to='/user/logout'><li>Logout</li></Link>
+            : <Link
+            onClick={notify}
+            to='/user/login'><li>Login</li></Link>
+          }
+         
           <hr />
         </ul>
       </div>

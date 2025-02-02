@@ -33,7 +33,7 @@ function RandomMovie() {
           {Array.from({ length: 1 }).map((_, i) => (
      <CardSkelton/>
    ))}
-         </>:<div className='bg-[#141b23] h-full  rounded-lg border-2 border-pink-500  shadow-md w-80  mt-5'style={{ overflowX: 'hidden' }}>
+         </>:<div className='bg-[#141b23] h-full  rounded-lg border-2 border-pink-500  shadow-md w-80  mt-5'>
          
          <div className='w-full flex justify-center items-center '>
          <div className="cover  rounded-lg h-64 w-80  ">

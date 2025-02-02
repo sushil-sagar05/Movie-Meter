@@ -22,7 +22,7 @@ function Popular() {
     },[])
 
   return (
-    <div className='grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-white gap-8'style={{ overflowX: 'hidden' }}>
+    <div className='grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-white gap-8'>
       {
         popular.map((pop,idx)=>{
             return (

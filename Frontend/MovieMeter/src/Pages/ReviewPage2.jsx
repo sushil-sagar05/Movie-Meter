@@ -71,7 +71,7 @@ function ReviewPage2() {
           :
           
           <div className='justify-center  items-center flex'>
-          <div className='border-2  rounded-lg'>
+          <div className='border shadow-md mt-5  rounded-lg w-80'>
             <div  className="cover flex justify-center items-center rounded-lg ">
               <div className="image">
               <img className='h-72 w-80 rounded-lg' src={movie.poster} 
@@ -126,7 +126,7 @@ class="flex items-center ">
           name="rating"
           value={rating}
           readOnly
-          className="ml-1 text-2xl font-semibold w-4 bg-black text-white "
+          className="ml-1 text-2xl font-semibold w-4 bg-[#141b23] text-white "
         />
    
 
@@ -143,8 +143,8 @@ class="flex items-center ">
       </div>
       
     </div>
-    <div className='fixed bottom-0 bg-black flex justify-center items-center '>
-      <div className='w-full'>
+    <div className='fixed bottom-0 w-screen bg-black flex justify-center items-center '>
+      <div className=''>
       <Footer/>
       </div>
    
