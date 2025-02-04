@@ -23,8 +23,17 @@ module.exports.registerUser = async(req,res,next) => {
         password:hashedPassword
     });
     const token = user.generateAuthToken();
-    res.cookie('token', token);
-    res.status(200).json({token,user});
+    const options = {
+      httpOnly:true,
+      secure:true,
+      sameSite:"None",
+      maxAge:30 * 24 * 60 * 60 * 1000,
+    }
+    
+   return res
+   .status(200)
+   .cookie("token",token,options)
+   .json({token,user})
 }
 module.exports.loginUser = async(req,res,next)=>{
     const errors = validationResult(req);
