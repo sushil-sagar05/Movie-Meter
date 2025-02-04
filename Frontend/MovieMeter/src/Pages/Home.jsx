@@ -31,7 +31,7 @@ function Home() {
           <div className='features bg-[#111111] flex justify-center items-center w-full'>
             <div className="featurews w-full">
               <h3 className="text-white text-center text-5xl font-semibold">Features</h3>
-              <div className="container mt-5">
+              <div className="container md:flex  mt-5">
                 <div className="First flex justify-center w-full items-center h-1/4">
                   <h3 className='text-3xl font-semibold pl-2 text-yellow-300'>Featured Rating</h3>
                   <div className='w-1/2 mr-6'>
@@ -54,6 +54,9 @@ function Home() {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="mdscreen">
+                
               </div>
             </div>
           </div>

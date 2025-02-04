@@ -37,7 +37,7 @@ function Navbar() {
         
         >Logout</Link>
         :
-        <Link to='/user/login'
+        <Link to='/login'
         
         >Login</Link>
        }
