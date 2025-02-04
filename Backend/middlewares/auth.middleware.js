@@ -11,7 +11,7 @@ module.exports.authUser = async (req, res, next) => {
   }
 
   const isBlacklisted = await blacklistTokenModel.findOne({ token: token });
-  // console.log('Blacklisted token check:', isBlacklisted);
+  
 
 
   if (isBlacklisted) {
@@ -22,8 +22,7 @@ module.exports.authUser = async (req, res, next) => {
   try {
     console.log(token)
     const decoded = jwt.verify(token, process.env.jwt_Secret);
-    // console.log("token 1:",token)
-    // console.log('Decoded token:', decoded);
+    
     const user = await userModel.findById(decoded._id);
 
     if (!user) {
