@@ -29,7 +29,7 @@ const corsOptions = {
       }
     },
     credentials: true, 
-    methods: ['GET', 'POST', 'OPTIONS'],
+    methods: ['GET', 'POST', 'OPTIONS','DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   };
   

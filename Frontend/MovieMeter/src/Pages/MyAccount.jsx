@@ -23,7 +23,7 @@ fetchAccount()
   const notify = ()=>{
     toast.info("Service Unavailable")
   }
-  const notify2 = ()=>{
+  const notify2= ()=>{
     toast.success("Logged Out")
   }
   return (
@@ -52,9 +52,9 @@ fetchAccount()
   <button 
  onClick={notify2}
  className='w-48 h-10 rounded-lg  mb-5 text-white bg-red-500 font-medium cursor-pointer hover:bg-red-700'>Log Out</button></Link>
- :<Link to='/user/login'>
+ :<Link to='/login'>
  <button 
-onClick={notify2}
+onClick={toast.success('Logged In')}
 className='w-48 h-10 rounded-lg  mb-5 text-white bg-red-500 font-medium cursor-pointer hover:bg-red-700'>Log In</button></Link>
 }
 </div> 
