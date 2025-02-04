@@ -6,8 +6,9 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 function MyAccount() {
   const [data, setdata] = useState('')
+  const token = localStorage.getItem('token')
   const fetchAccount = async ()=>{
-    // const token = localStorage.getItem('token')
+    
     const response =  await axios.get(`${import.meta.env.VITE_BASE_URL}/user/profile`,{
       withCredentials: true,
       // headers: {
@@ -46,10 +47,17 @@ fetchAccount()
     </div>
   </div>
  <div className='flex justify-center items-center  mt-20'>
-<Link to='/user/logout'>
+{
+  token ? <Link to='/user/logout'>
+  <button 
+ onClick={notify2}
+ className='w-48 h-10 rounded-lg  mb-5 text-white bg-red-500 font-medium cursor-pointer hover:bg-red-700'>Log Out</button></Link>
+ :<Link to='/user/login'>
  <button 
 onClick={notify2}
-className='w-48 h-10 rounded-lg  mb-5 text-white bg-red-500 font-medium cursor-pointer hover:bg-red-700'>Log Out</button></Link></div> 
+className='w-48 h-10 rounded-lg  mb-5 text-white bg-red-500 font-medium cursor-pointer hover:bg-red-700'>Log In</button></Link>
+}
+</div> 
 
     <Footer/>
     </div>

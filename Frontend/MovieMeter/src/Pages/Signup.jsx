@@ -26,24 +26,27 @@ const submitHandler = async (e)=>{
         email:email,
         password:password
     }
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/register`, newUser, {
-      withCredentials: true,  
-    });
-    if (response.status === 201) {
-      const data = response.data;
-      setuser(data.user);
-      localStorage.setItem('token',data.token)  
-      navigate('/home');    
-    }
+try{
+  const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/register`, newUser,{
+    withCredentials: true,
+  })
+  if(response.status === 200){
+    const data = response.data
+    setuser(data.user)
+    toast.success("Account Created")
+   localStorage.setItem('token',data.token)
+    navigate('/home')
+  } 
+}
+catch (error) {
+        toast.error(error.response.data.message);
+        
+      }
     setemail('')
     setpassword('')
     setfirstname('')
     setlastname('')
-
-}
-const notify =()=>{
-  toast.success("Account Registered")
-}
+    }
   return (
     <div className='h-screen w-full  items-center  bg-[#4432dc]'>
         <h1 className='flex text-3xl '>
@@ -71,14 +74,14 @@ const notify =()=>{
                 setfirstname(e.target.value)
             }}
             className='rounded-md ml-2 border bg-[#f8f9fe] px-2 w-1/2 h-10 text-lg placeholder:text-base'            required-type='text'
-            placeholder='First Name'
+            placeholder='First Name min:3'
             />
               <input type={lastname}
               onChange={(e)=>{
                 setlastname(e.target.value)
               }}
             className='rounded-md border mr-5 ml-2 bg-[#f8f9fe] px-2 w-1/2 h-10 text-lg placeholder:text-base'            required-type='text'
-            placeholder='Last Name'
+            placeholder='Last Name min:3'
             />
            </div>
            <h3 className='text-xl ml-2 font-semibold '>What's Your Email</h3>
@@ -104,7 +107,7 @@ const notify =()=>{
             </span>
             
             <button
-            onClick={notify}
+            
             className='w-72 h-8 rounded-lg mt-3 ml-4 bg-[#4432dc] text-white '>Register </button>
             <h2 className='mt-2 text-center'>Aleary have a Accout?<Link to='/login'><span className='ml-1 text-blue-500'>Login</span></Link></h2>
         </form>

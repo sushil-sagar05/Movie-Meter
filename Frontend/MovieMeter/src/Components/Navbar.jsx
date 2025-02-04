@@ -4,6 +4,7 @@ import { FaRegUser } from "react-icons/fa6";
 import Hamburger from './Hamburger';
 import { Link,NavLink } from 'react-router-dom';
 function Navbar() {
+  const token = localStorage.getItem('token')
 
   return (
     <nav className='bg-[#4432dc] h-16  border-2 border-pink-400 rounded-lg w-full '>
@@ -31,9 +32,15 @@ function Navbar() {
         <NavLink to='/about'
          className={({isActive}) => `${isActive ? "text-yellow-400" : "text-white"} `}
          >About</NavLink>
-        <Link to='/user/logout'
+       {
+        token ?  <Link to='/user/logout'
         
         >Logout</Link>
+        :
+        <Link to='/user/login'
+        
+        >Login</Link>
+       }
         </div>
       
         </div>

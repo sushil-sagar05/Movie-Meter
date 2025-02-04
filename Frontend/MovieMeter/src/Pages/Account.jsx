@@ -8,7 +8,7 @@ import ContributionsSkelton from '../Components/Skelton/ContributionsSkelton';
 function Account() {
  const [contributions, setcontributions] = useState([])
  const [loading, setloading] = useState(true)
-   const [error, setError] = useState('');
+   const [error, setError] = useState('')
 const fetchAllReviews = async()=>{
   try {
     const token = localStorage.getItem('token');
@@ -18,6 +18,7 @@ const fetchAllReviews = async()=>{
       Authorization: `Bearer ${token}`, 
     },
   });
+  
   setcontributions(response.data)
   } catch (error) {
     setError('Error fetching data2:', error);
@@ -46,10 +47,14 @@ const fetchAllReviews = async()=>{
           ))}
             
             </>
-        :
-        contributions.length > 0 ? (
+        :<div> 
+
+          {
+            contributions ? <h2>Contributions :{contributions.length}</h2>:""
+          }
+        {contributions.length > 0 ? (
           contributions.map((d, idx) => (
-            <div key={idx} className="container bg-white border-2 mb-1 rounded-lg shadow-md flex items-center h-16 w-full ">
+            <div key={idx} className="container bg-white border-2 mb-1 rounded-lg shadow-md flex items-center  w-full ">
               <div className="user ">
                 <FaRegUser className=' border-2 border-black text-3xl rounded-full text-black ' />
               </div>
@@ -57,7 +62,11 @@ const fetchAllReviews = async()=>{
                 <h4 className='text-black font-serif'>
                   {d.comment }
                 </h4>
+                <p className='flex justify-around'>
                 <p><span className='mr-1'>at:</span> {d.createdAt.slice(0, 10)}</p>
+                <p><span className='mr-1'>rating:</span> {d.rating}</p>
+                </p>
+               
                 <p>{d.movie?.title}</p> {/* Display movie title if available */}
               </div>
             </div>
@@ -68,9 +77,9 @@ const fetchAllReviews = async()=>{
             <h4 className='text-xl pb-4 font-semibold text-red-500'>Make to See Here :D</h4>
           <Link to='/review'> <button className='w-64 h-10 bg-green-500 rounded-lg shadow-md text-white font-semibold ml-16'>Start Review</button></Link>
             </div>
-        )}    
+        )}  </div>  }
     
-  
+   
     <div className="footer bg-[#111111]   text-black ">
     <Footer/>
 </div>

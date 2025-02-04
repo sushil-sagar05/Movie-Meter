@@ -82,13 +82,11 @@ const handlePageChange = (page) => {
               )
             })
           }
-          <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
         </div>
     }
-
-    <div className="footer bg-white"><Footer /></div>
+<Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
+    <div className="footer "><Footer /></div>
 </div>
-
   )
 }
 

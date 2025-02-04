@@ -62,8 +62,8 @@ function Hamburger() {
             onClick={notify}
             to='/user/logout'><li>Logout</li></Link>
             : <Link
-            onClick={notify}
-            to='/user/login'><li>Login</li></Link>
+            
+            to='/login'><li>Login</li></Link>
           }
          
           <hr />
