@@ -28,17 +28,16 @@ function Login() {
         if (response.status === 200) {
           const data = response.data
           setuser(data.user)
+          toast.success("User Logged In")
           localStorage.setItem('token',data.token)
           navigate('/home')
         }
       } catch (error) {
-        console.log(error)
+        toast.error(error.response.data.errors[0].msg);
+        toast.error(error.response.data.errors[1].msg);
       }
         setemail('')
         setpassword('')
-    }
-    const notify =()=>{
-      toast.success("User Logged In")
     }
   return (
    <div className='h-screen w-full  bg-[#4432dc]'>
@@ -79,7 +78,7 @@ function Login() {
         placeholder='your@your.com'
         />
         <button
-        onClick={notify}
+        
         className='w-72 h-8 rounded-lg mt-10 ml-2 bg-[#4432dc] text-white '>Login </button>
         <h2 className='mt-2 text-center'>New Here?<Link to='/signup'><span className='ml-1 text-blue-500'>Sign in</span></Link></h2>
     </form>

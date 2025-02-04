@@ -70,7 +70,7 @@ function ReviewPage2() {
           
           :
           
-          <div className='justify-center  items-center flex'>
+          <div className='justify-center items-center flex'>
           <div className='border shadow-md mt-5  rounded-lg w-80'>
             <div  className="cover flex justify-center items-center rounded-lg ">
               <div className="image">
@@ -96,6 +96,7 @@ function ReviewPage2() {
           </div>
           
         }
+        <div className="flex justify-center text-center">
        <div className=''>
         <h2 className='text-2xl font-semibold text-yellow-500 '>Review</h2>
         <div >
@@ -143,7 +144,8 @@ class="flex items-center ">
       </div>
       
     </div>
-    <div className='fixed bottom-0 w-screen bg-black flex justify-center items-center '>
+    </div>
+    <div className='fixed  w-screen bg-black flex justify-center items-center '>
       <div className=''>
       <Footer/>
       </div>

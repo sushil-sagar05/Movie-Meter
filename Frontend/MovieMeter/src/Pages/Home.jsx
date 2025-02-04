@@ -11,8 +11,8 @@ import Popular from '../Components/Popular'
 
 function Home() {
   return (
-    <div className='w-full' style={{ overflowX: 'hidden' }}>
-      <div className="header">
+    <div className='w-full ' style={{ overflowX: 'hidden' }}>
+      <div className="header w-full">
         <Navbar />
       </div>
       <div className="H flex justify-center items-center">
@@ -28,18 +28,17 @@ function Home() {
               </h2>
             </div>
           </div>
-          <div className=' features  bg-[#111111] flex justify-center items-center w-full'>
-            <div className="featurews w-full  ">
+          <div className='features bg-[#111111] flex justify-center items-center w-full'>
+            <div className="featurews w-full">
               <h3 className="text-white text-center text-5xl font-semibold">Features</h3>
-              <div className="container flex justify-center items-center  mt-5">
-                <div className=''>
-                <div className="First flex justify-center w-full items-center pb-5 h-1/4">
+              <div className="container mt-5">
+                <div className="First flex justify-center w-full items-center h-1/4">
                   <h3 className='text-3xl font-semibold pl-2 text-yellow-300'>Featured Rating</h3>
                   <div className='w-1/2 mr-6'>
                     <Rating4 />
                   </div>
                 </div>
-                <div className="second  pb-4 h-1/4">
+                <div className="second h-1/4">
                   <div className="First flex justify-center w-full items-center h-1/4">
                     <h3 className='text-3xl font-semibold pl-2 text-white'>Featured Review</h3>
                     <div className='w-1/2'>
@@ -56,7 +55,6 @@ function Home() {
                   </div>
                 </div>
               </div>
-                </div>
             </div>
           </div>
         </div>
@@ -78,14 +76,9 @@ function Home() {
         <h2 className='text-white text-4xl font-semibold text-center pb-5'>About Us</h2>
         <p className='text-lg pl-3 text-white'>"We are passionate about connecting movie lovers with the best films and reviews. Our mission is to provide an engaging platform where you can discover new movies, read insightful reviews, and share your own thoughts with a community of fellow film enthusiasts."</p>
       </div>
-      <div className="Community  flex justify-center items-center w-full ">
-        <div className='pt-9 bg-[#111111] '>
-        <div className=''>
-        <h2 className='text-white text-4xl w-screen font-semibold text-center'>What our Community Says</h2>
-        </div>
-        <div className='flex justify-center items-center'>
-          <div>
-        <div className='h-40  rounded-lg shadow-md w-80 bg-white mt-8 '>
+      <div className="Community h-screen pt-9 bg-[#111111] w-full">
+        <h2 className='text-white text-4xl font-semibold text-center'>What our Community Says</h2>
+        <div className='h-40 rounded-lg shadow-md w-80 bg-white mt-8 ml-6'>
           <div className="content h-24 flex pt-5 pl-3">
             <div className="user h-1/2 text-7xl"><FaRegUser /></div>
             <div className="name h-1/2 text-2xl">
@@ -98,7 +91,7 @@ function Home() {
             ⭐⭐⭐⭐⭐
           </div>
         </div>
-        <div className='h-40 rounded-lg shadow-md w-80 bg-white mt-8 '>
+        <div className='h-40 rounded-lg shadow-md w-80 bg-white mt-8 ml-6'>
           <div className="content h-24 flex pt-5 pl-3">
             <div className="user h-1/2 text-7xl"><FaRegUser /></div>
             <div className="name h-1/2 text-2xl">
@@ -110,12 +103,9 @@ function Home() {
             <h2>"Awesome List of Movies"</h2>
             ⭐⭐⭐⭐⭐
           </div>
-        </div>
-        </div>
-        </div>
         </div>
       </div>
-      <div className="footer bg-[#111111] w-full" >
+      <div className="footer bg-[#111111] w-full" style={{ overflowX: 'hidden' }}>
         <Footer />
       </div>
     </div>

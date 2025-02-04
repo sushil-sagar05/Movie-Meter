@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 function Favourites() {
   const [favourite, setFavourite] = useState([]);
 const [loading, setloading] = useState(true)
+const [length, setlength] = useState([])
   useEffect(() => {
     const fetchFavourites = async () => {
       try {
@@ -19,6 +20,7 @@ const [loading, setloading] = useState(true)
           },
         });
         setFavourite(response.data.favoriteMovies);
+        setlength(response.data.favoriteMovies.length)
       } catch (error) {
         console.error('Error fetching favorite movies:', error);
       } finally{
@@ -44,6 +46,7 @@ const [loading, setloading] = useState(true)
         if (response.status === 200) {
           
           setFavourite(favourite.filter(fav => fav._id !== movieId));  
+         setlength(length-1)
           toast.success("Movie Removed")
         } else {
           console.error(response.data.message); 
@@ -73,7 +76,9 @@ const [loading, setloading] = useState(true)
         </>:
         <div className='flex justify-center items-center'>
         <div className='  mt-4'>
-        
+          {
+            length ? <h2 className='font-semibold'>Favourite: {length}</h2> :""
+          }
           {favourite.length > 0 ? (
             favourite.map((favourite, idx) => (
               favourite && (

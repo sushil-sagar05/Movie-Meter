@@ -132,19 +132,19 @@ try {
           </>
             :
             <div className='flex justify-center pt-5'>
-            <div className='border-2 rounded-lg  '>
+            <div className='border-2 rounded-lg w-80 '>
             <div onClick={() => setAddReview(false)} className="cover  rounded-lg ">
               <div className="image  flex justify-center items-center">
-              <img className='h-80 w-full rounded-lg' src={movie.poster} 
+              <img className='h-80 w-80 rounded-lg' src={movie.poster} 
               
               alt={movie.title} />
               </div>
-             <div className="love absolute text-4xl right-0">
+             <div className="love  text-4xl right-0">
               <form onSubmit={submitHandler}>
               <button
               type='submit'
           
-              className='cursor-pointer text-white mr-4 pt-2'>{favorite ? <FaHeart color="red" /> : <CiHeart color="white" />}
+              className='cursor-pointer text-white  '>{favorite ? <FaHeart color="red" /> : <CiHeart color="white" />}
               </button>
               </form>
              </div>
