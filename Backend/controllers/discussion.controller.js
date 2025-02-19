@@ -4,11 +4,6 @@ const { getIo } = require('../Socket');
 const User = require('../models/user.model');
 
 module.exports.sendMessage = async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   const { movieId } = req.params;
   const { message } = req.body;
 
@@ -18,33 +13,29 @@ module.exports.sendMessage = async (req, res, next) => {
     }
 
     const user = await User.findById(req.user._id).select('fullname');
-    const NewMessage = {
+    const newMessage = {
       sender: req.user ? req.user._id : null,
       fullname: user ? user.fullname : 'Anonymous',
       message: message,
       timestamp: Date.now(),
     };
-
-    let Discussion = await discussion.findOne({ movieId });
-    if (!Discussion) {
-      Discussion = new discussion({ movieId });
-    }
-    Discussion.messages.push(NewMessage);
-    await Discussion.save();
-
-    const io = getIo();
-    if (io) {
-      io.to(movieId).emit('chat', NewMessage);
-    } else {
-      console.error('Socket.io not initialized.');
+    let movieDiscussion = await discussion.findOne({ movieId });
+    if (!movieDiscussion) {
+      movieDiscussion = new discussion({ movieId });
     }
 
-    res.status(200).json(NewMessage);
+    movieDiscussion.messages.push(newMessage);
+    await movieDiscussion.save();
+
+    res.status(200).json(newMessage);
   } catch (error) {
     console.error('Error sending message:', error);
     res.status(500).json({ error: 'Failed to send message' });
   }
 };
+
+
+
 
 module.exports.getMessages = async (req, res, next) => {
   const { movieId } = req.params;
