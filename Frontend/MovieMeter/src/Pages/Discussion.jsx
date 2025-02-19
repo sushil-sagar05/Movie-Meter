@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import DiscussionCard from '../Components/DiscussionCard';
 import DiscussionStart from '../Components/DiscussionStart';
 import gsap from 'gsap';
-const socket = io('http://localhost:8080');
+const socket = io(import.meta.env.VITE_BASE_URL);
 
 function Discussion() {
   const [message, setMessage] = useState('');
@@ -31,36 +31,41 @@ function Discussion() {
         }
       }
     }, [panelOpen]);
-  useEffect(() => {
-    const roomName = `movie_${movieId}`;
-    socket.emit('joinRoom', roomName);
-
-    socket.on('chat', (payload) => {
-      setChat((chat) => [...chat, payload]);
-    });
-
-    const fetchMessages = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/movie/${movieId}/messages`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+    useEffect(() => {
+      const roomName = `${movieId}`;
+      socket.emit('joinRoom', roomName);
+      socket.on('chat', (payload) => {
+        setChat((prevChat) => {
+          const updatedChat = [...prevChat, payload];
+          return updatedChat;
         });
-        setChat(response.data);
-      } catch (error) {
-        console.error('Error fetching messages:', error);
-      }
-    };
-
-    fetchMessages();
-
-    return () => {
-      socket.emit('leaveRoom', roomName);
-      socket.disconnect();
-    };
-  }, [movieId]);
-
+      });
+    
+      const fetchMessages = async () => {
+        try {
+          const token = localStorage.getItem('token');
+          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/movie/${movieId}/messages`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setChat(response.data); // Set initial messages
+        } catch (error) {
+          console.error('Error fetching messages:', error);
+        }
+      };
+    
+      fetchMessages();
+    
+      return () => {
+        socket.emit('leaveRoom', roomName); // Ensure you leave the room
+        socket.off('chat'); // Clean up the 'chat' listener to avoid duplication
+      };
+    }, [movieId]);
+    
+    
+    
+    
   const handleSendMessage = async (e) => {
     e.preventDefault();
     try {
@@ -89,7 +94,7 @@ function Discussion() {
       <hr />
       <div className='messages overflow-y-scroll h-4/5'>
         {chat.map((msg, index) => (
-          <DiscussionCard key={index} message={msg.message} fullname={msg.fullname} />
+          <DiscussionCard key={msg._id} message={msg.message} fullname={msg.fullname} />
         ))}
       </div>
       <div className='w-full absolute bottom-2'>

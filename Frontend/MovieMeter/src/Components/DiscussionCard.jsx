@@ -1,17 +1,16 @@
-import React from 'react';
-import { FaRegUser } from "react-icons/fa6";
 
-function DiscussionCard({ message,fullname }) {
+
+export default function DiscussionCard({ message, fullname }) {
+  // Extract the first name and last name from the fullname object
+  const displayName = fullname && fullname.firstname ? `${fullname.firstname} ${fullname.lastname}` : "Anonymous"; 
+
   return (
     <div className="container border-2 bg-white mb-1 rounded-lg shadow-md flex items-center h-12 w-full">
-      
       <div className="comment pl-2">
         <h4 className='text-black font-serif'>
-         {fullname.firstname}: {message}
+          {displayName}: {message}
         </h4>
       </div>
     </div>
   );
 }
-
-export default DiscussionCard;
