@@ -8,7 +8,7 @@ import Rating4 from '../Components/svgs/Rating4'
 import Footer from '../Components/Footer'
 import RandomMovie from '../Components/RandomMovie'
 import Popular from '../Components/Popular'
-import Community from '../Components/community'
+import Community from '../Components/Community'
 
 function Home() {
   return (
