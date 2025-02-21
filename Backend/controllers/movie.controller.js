@@ -9,7 +9,7 @@ module.exports.getMovies = async (req, res, next) => {
     }
   
    const page = parseInt(req.query.page) || 1; 
-    const limit = parseInt(req.query.limit)||10;
+    const limit = parseInt(req.query.limit)||25;
     const skip =(page-1)*limit;
     // apiData = apiData.skip(skip).limit(limit)
 
@@ -21,7 +21,7 @@ module.exports.getMovies = async (req, res, next) => {
   
       // If no movies found, fetch from TMDb
       if (movies.length === 0) {
-        const tmdbMovies = await movieService.FetchMovieFromTMDB(5); 
+        const tmdbMovies = await movieService.FetchMovieFromTMDB(500); 
   
         // Limit saving to 500 movies (adjust as needed)
         // const moviesToSave = tmdbMovies.slice(0, 500); 

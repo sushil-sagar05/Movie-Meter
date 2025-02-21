@@ -7,7 +7,7 @@ function Navbar() {
   const token = localStorage.getItem('token')
 
   return (
-    <nav className='bg-[#4432dc] h-16  border-2 border-pink-400 rounded-lg w-full '>
+    <nav className='bg-[#4432dc] h-16  border-2 border-pink-400 rounded-lg w-[100vw] '>
        
        <div className='flex justify-around md:flex-row  pt-3 items-center'>
         <div className="right w-1/2  h-full">

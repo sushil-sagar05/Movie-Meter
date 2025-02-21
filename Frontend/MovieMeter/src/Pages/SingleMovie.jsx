@@ -8,6 +8,8 @@ import AddReview from '../Components/AddReview';
 import { Link } from 'react-router-dom';
 import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
+import { SlLike } from "react-icons/sl";
+import { SlDislike } from "react-icons/sl";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import CardSkelton from '../Components/Skelton/CardSkelton'
 import { toast } from 'react-toastify';
@@ -20,12 +22,16 @@ function SingleMovie() {
   const [addReview, setAddReview] = useState(false);
   const addReviewRef = useRef(null);
   const navigate = useNavigate();
+ 
 
 const [favorite, setfavorite] = useState(false)
+const [like, setlike] = useState(false)
+const [dislike, setdislike] = useState(false)
   useEffect(() => {
     const fetchData1 = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/movie/${movieId}`);
+       
         setMovie(response.data);
       } catch (err) {
         setError('Failed to fetch movie details.');
@@ -89,15 +95,13 @@ const [favorite, setfavorite] = useState(false)
 
 
 
-const submitHandler=async(e)=>{
+const submitHandler1=async(e)=>{
   e.preventDefault()
 try {
-  const token = localStorage.getItem('token');
+  
   if(!favorite) {
     await axios.post(`${import.meta.env.VITE_BASE_URL}/user/favourites/${movieId}`,{},  {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+     withCredentials:true
     });
  
     setfavorite(true);
@@ -105,9 +109,7 @@ try {
   }
   else {
     await axios.delete(`${import.meta.env.VITE_BASE_URL}/user/favourites/${movieId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    withCredentials:true
     });
     setfavorite(false)
     toast.success("Remove")
@@ -117,10 +119,39 @@ try {
 }
 
 }
+const Like = async (e)=>{
+  e.preventDefault()
+try {
+ if(!like){
+  await axios.post(`${import.meta.env.VITE_BASE_URL}/user/likes/${movieId}`,{},{
+    withCredentials:true
+  });
+  setlike(true);
+  toast.success("Liked")
+ }
+} catch (error) {
+  console.error('Error toggling like:', error);
+}
+}
 
+const Dislike = async (e)=>{
+  e.preventDefault();
+  try {
+    if(!dislike){
+      await axios.post(`${import.meta.env.VITE_BASE_URL}/user/dislikes/${movieId}`,{},{
+        withCredentials:true
+      })
+      setdislike(true),
+      setlike(false)
+      toast.success("Disliked")
+    }
+  } catch (error) {
+    console.error('Error toggling like:', error);
+  }
+}
   return (
     <>
-    <div style={{ overflowX: 'hidden' }}>
+    <div style={{ overflowX: 'hidden' }} className='w-full h-full '>
     <div className='bg-[#111111] w-full'  >
         <Navbar />
         {
@@ -131,53 +162,74 @@ try {
       ))}
           </>
             :
-            <div className='flex justify-center pt-5'>
-            <div className='border-2 rounded-lg w-80 '>
-            <div onClick={() => setAddReview(false)} className="cover  rounded-lg ">
-              <div className="image  flex justify-center items-center">
-              <img className='h-80 w-80 rounded-lg' src={movie.poster} 
-              
-              alt={movie.title} />
-              </div>
-             <div className="love  text-4xl right-0">
-              <form onSubmit={submitHandler}>
-              <button
-              type='submit'
+            <>
+            <div className='flex flex-wrap justify-center items-center m-0 p-0 w-[100vw] 'style={{ overflowX: 'hidden' }}>
+            <div className='grid min-h-96 sm:grid-cols-12 gap-4 m-3 '>
+            <div className='sm:h-80  w-full border rounded-lg shadow-md sm:col-span-5'>
+              <div className="inner flex rounded-lg  sm:h-80   ">
+                            <div 
+                            onClick={() => setAddReview(false)}
+                            className="image rounded-lg h-72 w-1/2   m-4">
+                              <img 
+                              className='h-60 w-full  rounded-lg'
+                              src={movie.poster} alt="" />
+                              <div className='justify-evenly  items-center gap-3 border  text-center rounded-lg  flex'>
+                                
+                                <form onSubmit={submitHandler1}>
+                                 <button
+                                type='submit'
           
-              className='cursor-pointer text-white  '>{favorite ? <FaHeart color="red" /> : <CiHeart color="white" />}
-              </button>
-              </form>
-             </div>
-              
+                                 className='cursor-pointer text-white text-4xl m-2 '>{favorite ? <FaHeart color="red" /> : <CiHeart color="white" />}
+                                </button>
+                                 </form>
+                                
+                                <div>
+                                <form onSubmit={Like}>
+                                 <button
+                                type='submit'
+          
+                                 className='cursor-pointer text-white text-3xl m-2 '>{like? <SlLike color='yellow'/>:<SlLike color='white'/> }
+                                </button>
+                                 </form>
+                                </div>
+                                <div>
+                                <form onSubmit={Dislike}>
+                                 <button
+                                type='submit'
+          
+                                 className='cursor-pointer text-white text-3xl m-2 '>{dislike ? <SlDislike color='red' />:<SlDislike color='white'/>}
+                                </button>
+                                 </form>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="content w-1/2 m-1 h-72  py-3 text-white">
+                              <h2 className='text-md font-normal'>Name: {movie.title}</h2>
+                              <h2 className='text-md font-normal'>Director:{movie.director??"Unknown"} </h2>
+                              <h2 className='text-md font-normal'>Cast: {movie.cast??"Unknown"}</h2>
+                              <h2 className='text-md font-normal'>Release : {movie.year}</h2>
+                              <h2 className='text-md font-normal'>Rating: {movie.rating}</h2>
+                              <div className="button mt-2"><Link to={`/discussion/movie/${movieId}`}><button className='sm:w-48  h-10 text-sm bg-green-500 hover:bg-green-800 hover:outline rounded-lg shadow-md '>Go to Discussion Room</button></Link></div>
+                            </div>
+                          </div>
             </div>
-            <hr className='mt-2' />
-            <div className="content rounded-lg h-36 bg-[#141b23] text-white">
-              <div className="name  text-sm">
-                <span className='ml-1'>{movie.title}</span>
-                <span className='ml-2'>Director: {movie.director}</span>
-                <div>
-                  <span className='ml-2'>Cast: {movie.cast}</span>
-                  <span className='ml-2 mr-2'>Release date: {movie.year}</span>
-                  <span>Review: 5★★★★★</span>
-                </div>
-                <div className='flex justify-around text-white items-center text-center pt-1'>
-                
-                  <div className="Watch Now bg-[#23c65d] w-1/2 h-9 font-semibold pt-2 rounded-lg text-center">
-                    <Link to={`/discussion/movie/${movieId}`}><button
-                    
-                    >Go To Discussion</button></Link>
-                    
-                  </div>
-                  
-                </div>
-              </div>
+            <div className='h-80 border rounded-lg sm:col-span-7 hidden sm:block bg-teal-900 '>
+              <h2 className='text-yellow-300 font-semibold text-center m-4 underline'>Description</h2>
+              <p className='text-white text-lg  m-4'>
+             {
+              movie.plot
+             }
+              </p>
             </div>
-          </div>
-          </div>
+            </div>
+            </div>
+
+
+            </>
         }
        
       </div>
-      <div className='bg-[#111111] text-white z-50'>
+      <div className='bg-[#111111] text-white z-50 'style={{ overflowX: 'hidden' }}>
         <h2 className='text-2xl font-semibold text-center pb-5 pt-5'>Review</h2>
         <button onClick={() => setAddReview(true)} className='bg-red-500 text-white w-36 rounded-lg shadow-md h-9 font-semibold ml-32 mb-2'>Add Review</button>
         <div ref={addReviewRef} className="review mb-4 bg-white h-1/2 w-full fixed" style={{ transform: 'translateY(250px)' }}>

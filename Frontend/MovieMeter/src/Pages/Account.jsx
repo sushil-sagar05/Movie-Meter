@@ -5,6 +5,9 @@ import axios from 'axios'
 import Footer from '../Components/Footer';
 import { Link } from 'react-router-dom';
 import ContributionsSkelton from '../Components/Skelton/ContributionsSkelton';
+import Rating2 from '../Components/svgs/Rating2';
+import Rating3 from '../Components/svgs/Rating3';
+import Rating4 from '../Components/svgs/Rating4';
 function Account() {
  const [contributions, setcontributions] = useState([])
  const [loading, setloading] = useState(true)
@@ -67,16 +70,24 @@ const fetchAllReviews = async()=>{
                 <p><span className='mr-1'>rating:</span> {d.rating}</p>
                 </p>
                
-                <p>{d.movie?.title}</p> {/* Display movie title if available */}
+                <p> Film : {d.movie?.title}</p> {/* Display movie title if available */}
               </div>
             </div>
           ))
         ) : (
-          <div className=''>
-            <h3 className='text-3xl font-serif'>You have not made any Contribution yet!</h3>
-            <h4 className='text-xl pb-4 font-semibold text-red-500'>Make to See Here :D</h4>
-          <Link to='/review'> <button className='w-64 h-10 bg-green-500 rounded-lg shadow-md text-white font-semibold ml-16'>Start Review</button></Link>
+          <div className='sm:min-h-[65vh] sm:min-w-[95vw]  sm:m-4 rounded-lg '>
+            <h2 className='text-center text-3xl font-semibold p-1 sm:p-2'>You have Not Made Contributions yet !</h2>
+           
+            <div className=' min-h-[45vh] max-w-[95vw] grid  sm:grid-cols-12 gap-4 m-1 sm:m-3'>
+            <div className=' sm:h-[35vh] sm:w-[15vw]  rounded-full border-2 border-black  m-10 sm:col-span-4'>
+              <Rating2/>
             </div>
+            <div className=' rounded-lg sm:p-2 sm:col-span-8'>
+              <h2 className=' text-md sm:text-5xl sm:font-semibold'>"Looks like you haven't shared your movie thoughts yet! 🤔 Let the world know what you think—your reviews are waiting to be written! 🎥💬"</h2>
+              <Link to='/review'> <button className='w-64 h-10 bg-green-500 rounded-lg shadow-md text-white font-semibold m-10'>Start Contributing</button></Link>
+            </div>
+            </div>
+           </div>
         )}  </div>  }
     
    

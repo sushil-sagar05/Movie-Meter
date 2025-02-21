@@ -5,6 +5,9 @@ import Footer from '../Components/Footer';
 import CardSkelton from '../Components/Skelton/CardSkelton';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Rating3 from '../Components/svgs/Rating3';
+import Rating4 from '../Components/svgs/Rating4';
+import Rating1 from '../Components/svgs/Rating1';
 function Favourites() {
   const [favourite, setFavourite] = useState([]);
 const [loading, setloading] = useState(true)
@@ -58,7 +61,7 @@ const [length, setlength] = useState([])
 
   
   return (
-    <div className='w-full'style={{ overflowX: 'hidden' }}>
+    <div className='w-full bg-[#f4f4f4] 'style={{ overflowX: 'hidden' }}>
       <div>
       <Navbar />
       </div>
@@ -102,11 +105,21 @@ const [length, setlength] = useState([])
               )
             ))
           ) : (
-            <div className='bg-white'>
-            <h3 className='text-3xl  font-serif'>No Favourite Found For Yours!</h3>
-            <h4 className='text-xl pb-4 font-semibold text-red-500'>Make to See Here :D</h4>
-          <Link to='/movies'> <button className='w-64 h-10 bg-green-500 rounded-lg shadow-md text-white font-semibold ml-16'>Go To Movies</button></Link>
+            <div className='sm:min-h-[65vh] sm:min-w-[95vw]  sm:m-4 rounded-lg '>
+            <h2 className='text-center text-3xl font-semibold p-2'>You have Not Made Favourites yet !</h2>
+           
+            <div className=' min-h-[45vh] max-w-[95vw] grid  sm:grid-cols-12 gap-4  m-3'>
+            <div className=' sm:h-[35vh] sm:w-[15vw]  rounded-full border-2 border-black  m-10 sm:col-span-4'>
+              <img
+              className='h-full w-full'
+              src="https://cdn-icons-png.flaticon.com/512/2297/2297834.png" alt="" />
             </div>
+            <div className=' rounded-lg p-2 sm:col-span-8'>
+              <h2 className=' text-2xl sm:text-5xl font-semibold'>"Your favorites are feeling a bit lonely! 😜 Pop some movies on that list and let the movie magic begin! 🍿✨"</h2>
+              <Link to='/movies'> <button className='w-64 h-10 bg-green-500 rounded-lg shadow-md text-white font-semibold  m-10'>Start Exploring</button></Link>
+            </div>
+            </div>
+           </div>
           )}
         </div>
         </div>
