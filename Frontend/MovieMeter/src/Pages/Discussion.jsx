@@ -14,6 +14,7 @@ function Discussion() {
   const { movieId } = useParams();
     const [panelOpen, setpanelOpen] = useState(true)
     const PanelRef = useRef(null)
+    const messageEndRef = useRef(null)
     useEffect(() => {
       if (PanelRef.current) {
         if (panelOpen) {
@@ -84,20 +85,31 @@ function Discussion() {
       console.error('Error sending message:', error);
     }
   };
-
+  useEffect(()=>{
+    messageEndRef.current.scrollIntoView({behavior:"smooth"})
+  },[chat])
+ 
   return (
     <div className='bg-white h-screen fixed w-full'>
       <Navbar />
+      <div className='h-28 '>
       <h2 className='text-black text-4xl font-semibold text-center pb-3 pt-5'>Discussion</h2>
       
       <h3 className='bg-red-500'>Maintain healthy chat here :D</h3>
       <hr />
-      <div className='messages overflow-y-scroll h-4/5'>
-        {chat.map((msg, index) => (
-          <DiscussionCard key={msg._id} message={msg.message} fullname={msg.fullname} />
-        ))}
       </div>
-      <div className='w-full absolute bottom-2'>
+      <div className='h-96  overflow-y-scroll'>
+      <div className='messages  '>
+        {chat.map((msg, index) => (
+          <div key={msg._id} className='h-full'>
+            <DiscussionCard key={msg._id} message={msg.message} fullname={msg.fullname} />
+             </div>
+        ))}
+        <div ref={messageEndRef} />
+      </div>
+      </div>
+      <div className=' h-16 flex text-center'>
+      <div className='w-full pt-3 '>
         <form onSubmit={handleSendMessage}>
           <input
             type='text'
@@ -108,6 +120,7 @@ function Discussion() {
           />
           <button className='bg-red-500 ml-1 h-8 w-16 font-semibold rounded-lg'>Send</button>
         </form>
+      </div>
       </div>
       <div ref={PanelRef}>
         <DiscussionStart setpanelOpen={setpanelOpen} panelOpen={panelOpen} />

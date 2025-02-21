@@ -33,29 +33,35 @@ function RandomMovie() {
           {Array.from({ length: 1 }).map((_, i) => (
      <CardSkelton/>
    ))}
-         </>:<div className='bg-[#141b23] h-full  rounded-lg border-2 border-pink-500  shadow-md w-80  mt-5'>
+         </>:<>
+         <div className="container grid sm:grid-cols-12 min-h-80 m-4">
+          <div className=' col-span-4  w-80 h-96 sm:h-full p-4 sm:w-full text-white rounded-lg shadow-lg border '>
+            <div className="inner flex rounded-lg h-72 w-full ">
+              <div className="image rounded-lg h-72 w-1/2   m-4">
+                <img 
+                className='h-64 w-full  rounded-lg'
+                src={random.poster} alt="" />
+              </div>
+              <div className="content w-1/2 m-1   py-1">
+                <h2 className='text-md font-normal'>Name: {random.title}</h2>
+                <h2 className='text-md font-normal'>Director:{random.director??"Unknown"} </h2>
+                <h2 className='text-md font-normal'>Cast: {random.cast??"Unknown"}</h2>
+                <h2 className='text-md font-normal'>Release : {random.year}</h2>
+                <h2 className='text-md font-normal'>Rating: {random.rating}</h2>
+                <div className="button mt-2"><Link to='/watchnow'><button className='w-24 h-10  bg-green-500 hover:bg-green-800 hover:outline rounded-lg shadow-md '>Watch Now</button></Link></div>
+              </div>
+            </div>
+          </div>
+          <div className='col-span-8  rounded-lg shadow-lg border hidden sm:block'>
+            <h2 className='text-md text-white font-semibold m-8 py-4'>
+            Each day, we highlight a movie that deserves your attention — from iconic classics to hidden gems and the latest releases. Explore the film's plot, themes, and characters, and get a deeper understanding of what makes it special. After watching, join the community discussion and share your thoughts, opinions, and interpretations. Whether you're a casual viewer or a film enthusiast, the "Movie of the Day" is the perfect way to discover something new and connect with fellow movie lovers. Don’t miss out — come back every day for a fresh cinematic experience!            </h2>
+          </div>
+         </div>
          
-         <div className='w-full flex justify-center items-center '>
-         <div className="cover  rounded-lg h-64 w-80  ">
-         <Link to={`/movie/${random._id}`}>  <img className='h-64 w-80 rounded-lg' src={random.poster} alt="" /></Link>
-          </div>
-          </div>
-          <div className="content h-56 ">
-            <div className="name  text-[#797d80] text-sm">
-              <span className='ml-1'>Name: {random.title}</span>
-              <span className='ml-2'>Director:{random.director} </span>
-              <h3 className='ml-2 h-12 font-serif '>Cast: {random.cast}</h3>
-              <h3 className='ml-2'>Release : {random.year}</h3>
-              <h3 className='ml-2'>Rating: {random.rating}</h3>
-              
-              <div className='flex justify-around  text-white items-center text-center pt-3'>
-
-              <div className="Watch Now bg-yellow-500  w-1/2 h-9 font-semibold pt-2 rounded-lg text-center"><Link to='/watchnow'><button onClick={notify}>Watch Now</button></Link></div>
-              </div>
-            
-              </div>
-          </div>
-        </div>
+         
+         
+         
+         </>
 
         }
 

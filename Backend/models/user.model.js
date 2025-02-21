@@ -30,22 +30,16 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'movie' 
       }],
-    likes:[
-        {
-            movieId:{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"movieModel"
-        }
-    }
-    ],
+      likes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "movie"  // Removed the extra 'movieId' object wrapper
+    }],
     dislikes:[
-        {
-            movieId:{
-  type:mongoose.Schema.Types.ObjectId,
-            ref:"movieModel"
+            {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"movie"
             }
           
-        }
     ]
 })
 userSchema.methods.generateAuthToken = function(){

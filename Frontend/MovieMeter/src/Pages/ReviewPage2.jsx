@@ -70,8 +70,9 @@ function ReviewPage2() {
           
           :
           
-          <div className='justify-center items-center flex'>
-          <div className='border shadow-md mt-5  rounded-lg w-80'>
+          <div className='justify-center items-center gap-4 min-h-[65vh] max-w-[100vw]  m-3 grid grid-cols-12  text-white'>
+          <div className=' sm:col-span-5 rounded-lg sm:p-10'>
+          <div className='border shadow-md mt-5  rounded-lg bg-black w-80 m-5 sm:m-10'>
             <div  className="cover flex justify-center items-center rounded-lg ">
               <div className="image">
               <img className='h-72 w-80 rounded-lg' src={movie.poster} 
@@ -94,9 +95,49 @@ function ReviewPage2() {
             </div>
           </div>
           </div>
+          <div className=' sm:col-span-6 border-2 min-h-[65vh] rounded-lg m-2 hidden sm:block '>
+            <h2 className='text-center sm:text-3xl sm:font-semibold sm:p-4 bg-[#141b23]'>Add Your Review</h2>
+            <hr />
+            <div className="form min-h-[50vh]  m-2">
+              <form action="">
+                <input type="text"
+                  value={comment}
+                  onChange={(e)=>{
+                    setcomment(e.target.value)
+                  }}
+                className='w-full text-black p-2 min-h-[30vh] rounded-lg border outline-orange-500 '
+                placeholder=' Enter your Review here ...'
+                />
+                 <div className="rating    flex ">
+              <h2 className=' text-2xl font-semibold m-2'>Rate</h2>
+
+<div
+
+class="flex items-center ">
+ <StarRating totalStars={5} onRatingChange={handleRatingChange}/>
+        <input
+          type="number"
+          id="rating"
+          name="rating"
+          value={rating}
+          readOnly
+          className="ml-1 text-2xl font-semibold w-4 bg-[#141b23] text-red-500 "
+        />
+      </div>
+        </div>
+        <button 
+     onClick={notify}
+     className=' bg-[#23c65d]  w-48 h-9 ml-4 mt-4 font-semibold cursor-pointer rounded-lg text-center '>Add Review
+     </button>
+     
+              </form>
+
+            </div>
+          </div>
+          </div>
           
         }
-        <div className="flex justify-center text-center">
+        <div className="flex justify-center text-center sm:hidden">
        <div className=''>
         <h2 className='text-2xl font-semibold text-yellow-500 '>Review</h2>
         <div >

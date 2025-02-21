@@ -27,7 +27,7 @@ module.exports.registerUser = async(req,res,next) => {
       httpOnly:true,
       secure:true,
       sameSite:"None",
-      maxAge:30 * 24 * 60 * 60 * 1000,
+      maxAge:7 * 24 * 60 * 60 * 1000,
     }
     
    return res
@@ -54,7 +54,7 @@ module.exports.loginUser = async(req,res,next)=>{
       httpOnly:true,
       secure:true,
       sameSite:"None",
-      maxAge:30 * 24 * 60 * 60 * 1000,
+      maxAge:2 * 24 * 60 * 60 * 1000,
     }
     
    return res
@@ -121,8 +121,8 @@ module.exports.likes = async(req,res,next)=>{
     const userId = req.user._id;
     const movieId = req.params.movieId;
     const user = await userModel.findByIdAndUpdate(userId, {
-        $addToSet: { likes: {movieId }},
-        $pull: { dislikes:{ movieId} } 
+        $addToSet: { likes: movieId },
+        $pull: { dislikes: movieId } 
       }, { new: true });
     res.status(200).json({
       success: true,
@@ -137,10 +137,10 @@ module.exports.likes = async(req,res,next)=>{
 module.exports.dislikes = async(req,res,next)=>{
     try {
         const userId = req.user._id;
-        const movieId = req.params.movieId;
+        const movieId = req.params.movieId ;
         const user = await userModel.findByIdAndUpdate(userId, {
-            $addToSet: { dislikes: {movieId }},
-            $pull: { likes: {movieId} } 
+            $addToSet: { dislikes: movieId },
+            $pull: { likes: movieId } 
           }, { new: true });
         res.status(200).json({
           success: true,
@@ -155,12 +155,15 @@ module.exports.dislikes = async(req,res,next)=>{
 module.exports.getLiked = async(req,res,next)=>{
    try {
     const userId = req.user._id;
-    const user = await userModel.findById(userId)
+    const user = await userModel.findById(userId).populate('likes','movieId')
     if(!user){
         res.status(400).json({message:"No User"})
     }
-   
-    return res.status(200).json({ success: true, likes:user.likes });
+   const LikedMoviesID = user.likes;
+
+    const LikedMovies = await movieModel.find({ _id: { $in: LikedMoviesID } })
+
+     res.status(200).json({ LikedMovies:LikedMovies,success: true });
    } catch (error) {
     console.log(error)
     res.status(500).json({ success: false, message: "Server error" });
@@ -178,6 +181,7 @@ module.exports.getFavorites = async (req, res, next) => {
         }
     
         const favoriteMovieIds = user.favorites; 
+        console.log("Liked ID: ",favoriteMovieIds);
         const favoriteMovies = await movieModel.find({ _id: { $in: favoriteMovieIds } }); 
         res.status(200).json({ 
           favoriteMovies: favoriteMovies 
@@ -208,4 +212,24 @@ module.exports.deleteFavorites = async(req,res,next)=>{
     console.error(error);
     return res.status(500).json({ message: "Server error" });
   }
+}
+module.exports.deleteLikes =async(req,res)=>{
+try{
+  const userId = req.user._id
+const {movieId} = req.body
+const user = await userModel.findByIdAndUpdate(
+  {_id:userId},
+  {$pull:{likes:movieId}},
+  {new : true}
+)
+if (!user) {
+  return res.status(404).json({ message: "User not found" });
+}
+
+return res.status(200).json({ message: "Movie removed from Likes" });
+}
+catch (error) {
+console.error(error);
+return res.status(500).json({ message: "Server error" });
+}
 }

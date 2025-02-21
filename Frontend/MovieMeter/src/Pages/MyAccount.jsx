@@ -31,20 +31,42 @@ fetchAccount()
  <div>
  <Navbar/>
  </div>
- <h2 className='text-3xl m-4 font-semibold '>{String(data.firstname+data.lastname)}</h2>
-  <div className="box flex justify-center items-center  h-72">
-    <div className="innerbox  rounded-lg shadow-md h-full border-2  pl-2 m-2  ">
-        <h2 className='text-md font-semibold mt-3'>Show All Your Contributions at one Place</h2>
-    <Link to='/account'><button className='bg-green-500 h-10 w-48 mt-3 rounded-lg shadow-md text-white font-medium cursor-pointer hover:bg-green-700 border-2 border-green-500'>contributions</button></Link>
-    <hr className='border-1 mt-1 border-white' />
-    <h2 className='text-md font-semibold mt-3'>Show All Your Favourite at one Place</h2>
-   <Link to='/favourite'><button className='bg-green-500 h-10 w-48 mt-3 rounded-lg shadow-md text-white font-medium cursor-pointer hover:bg-green-700'>Favorites</button></Link> 
-    <hr  className='border-1 mt-1 border-white' />
-    <h2 className='text-md font-semibold mt-3'>Show All Your Likes at one Place</h2>
-    <Link to='/likes'>  <button
-    onClick={notify}
+ <div className="heading">
+  <h2 className='text-5xl font-semibold m-3'>Hi</h2>
+  <h2 className='text-3xl m-4 font-semibold text-yellow-400 '>{String(data.firstname+data.lastname)}</h2>
+ </div>
+  <div className="box min-h-[25vw] max-w-80 sm:max-w-[100vw] m-3 gap-3 grid sm:grid-cols-12  ">
+      <div className='border bg-yellow-900 rounded-lg shadow-md m-0 p-2 sm:col-span-4'>
+        <h2 className='text-center text-3xl font-semibold m-2'>Favourites</h2>
+        <div className=" sm:h-[30vh] sm:w-[13vw]  rounded-full bg-white">
+        <img 
+        className='h-full w-full rounded-full'
+        src="https://cdn-icons-png.flaticon.com/512/2297/2297834.png" alt="" />
+        </div>
+        <h2 className='text-2xl font-medium'>Show All your Favourites at one Place</h2>
+        <Link to='/favourite'><button className='bg-green-500 h-10 w-48 mt-3 rounded-lg shadow-md text-white font-medium cursor-pointer hover:bg-green-700'>Favorites</button></Link> 
+      </div>
+      <div className='border bg-blue-900 rounded-lg shadow-md m-0 p-2 sm:col-span-4'>
+        <h2 className='text-center text-3xl font-semibold m-2'>Contribution</h2>
+        <div className=" sm:h-[30vh] sm:w-[13vw]  rounded-full bg-white">
+        <img 
+        className='h-full w-full rounded-full'
+        src="https://static.vecteezy.com/system/resources/previews/017/398/636/original/3d-icon-comment-social-media-isolated-png.png" alt="" />
+        </div>
+        <h2 className='text-2xl font-medium'>Show All Your Contributions at one Place</h2>
+        <Link to='/account'><button className='bg-green-500 h-10 w-48 mt-3 rounded-lg shadow-md text-white font-medium cursor-pointer hover:bg-green-700 border-2 border-green-500'>contributions</button></Link>
+      </div>
+      <div className='border bg-teal-900 rounded-lg shadow-md m-0 p-2 sm:col-span-4'>
+        <h2 className='text-center text-3xl font-semibold m-2'>Likes</h2>
+        <div className=" sm:h-[30vh] sm:w-[13vw]  rounded-full bg-white">
+        <img 
+        className='h-full w-full rounded-full'
+        src="https://img.freepik.com/premium-photo/likes-icon_630753-5.jpg" alt="" />
+        </div>
+        <h2 className='text-2xl font-medium'>Show All Your Likes at one Place</h2>
+        <Link to='/likes'>  <button
     className='bg-green-500 mt-3 h-10 w-48 rounded-lg shadow-md text-white font-medium cursor-pointer hover:bg-green-700'>Likes</button></Link> 
-    </div>
+      </div>
   </div>
  <div className='flex justify-center items-center  mt-20'>
 {

@@ -58,8 +58,8 @@ const handlePageChange = (page) => {
             data.map((data, idx) => {
               return (
                 <div key={idx} className="card ">
-                  <div className='bg-[#141b23] rounded-lg shadow-md w-80 ml-5 mt-5'>
-                    <div className="cover rounded-lg h-64 w-80">
+                  <div className='bg-[#141b23] rounded-lg shadow-md w-80 ml-5 mt-5 border'>
+                    <div className="cover rounded-lg h-64 w-80 p-2">
                       <img className='h-full w-full rounded-lg' src={data.poster} alt="" />
                     </div>
                     <div className="content h-36 pt-3">
@@ -71,7 +71,7 @@ const handlePageChange = (page) => {
                           <span className='ml-2'>Release date: {data.year}</span>
                         </div>
                         <div className='flex justify-around text-white items-center text-center '>
-                          <div className="Review bg-yellow-500 h-9 font-semibold pt-2 w-1/2 rounded-lg mr-2">
+                          <div className="Review bg-green-500 h-9 font-semibold pt-2 w-1/2 rounded-lg mr-2">
                             <Link to={`/movie/${data._id}/review`}><button>Review</button></Link>
                           </div>
                         </div>
