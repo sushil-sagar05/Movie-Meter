@@ -37,7 +37,7 @@ function Hamburger() {
   toast.success('User Logged Out')
  }
   return (
-    <div style={{ overflowX: 'hidden' }} >
+    <div  >
       <button  
       className='text-white'
       onClick={toggleButton}>

@@ -14,7 +14,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import CardSkelton from '../Components/Skelton/CardSkelton'
 import { toast } from 'react-toastify';
 import socket from "../socket";
-console.log("Socket connected?", socket.connected);
+
 
 function SingleMovie() {
   const { movieId } = useParams();
@@ -33,10 +33,10 @@ const [dislike, setdislike] = useState(false)
 useEffect(() => {
   const roomName = `${movieId}`;
   socket.emit('joinRoom', roomName);
-  console.log(`Joined room: ${roomName}`);
+ 
 
   const handleUpdateReview = (newReview) => {
-      console.log('Received new review:', newReview);
+      
       setReview((prevReviews) => [...prevReviews, newReview]);
   };
 

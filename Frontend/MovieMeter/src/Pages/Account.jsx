@@ -6,8 +6,7 @@ import Footer from '../Components/Footer';
 import { Link } from 'react-router-dom';
 import ContributionsSkelton from '../Components/Skelton/ContributionsSkelton';
 import Rating2 from '../Components/svgs/Rating2';
-import Rating3 from '../Components/svgs/Rating3';
-import Rating4 from '../Components/svgs/Rating4';
+
 function Account() {
  const [contributions, setcontributions] = useState([])
  const [loading, setloading] = useState(true)

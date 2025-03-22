@@ -27,7 +27,7 @@ function Likes() {
   },[])
   const Dislike = async (movieId)=>{
     try {
-     const response =  axios.delete(`${import.meta.env.VITE_BASE_URL}/user/deletelike`,{
+     const response = await axios.delete(`${import.meta.env.VITE_BASE_URL}/user/deletelike`,{
         withCredentials:true,
         data : {movieId}
       })

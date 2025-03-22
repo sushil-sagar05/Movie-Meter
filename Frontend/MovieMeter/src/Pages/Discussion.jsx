@@ -92,7 +92,7 @@ function Discussion() {
   return (
     <div className='bg-white h-screen fixed w-full'>
       <Navbar />
-      <div className='h-28 '>
+      <div className='h-28  '>
       <h2 className='text-black text-4xl font-semibold text-center pb-3 pt-5'>Discussion</h2>
       
       <h3 className='bg-red-500'>Maintain healthy chat here :D</h3>
@@ -108,8 +108,8 @@ function Discussion() {
         <div ref={messageEndRef} />
       </div>
       </div>
-      <div className=' h-16 flex text-center'>
-      <div className='w-full pt-3 '>
+      <div className=' h-16  flex text-center'>
+      <div className='w-full pt-5'>
         <form onSubmit={handleSendMessage}>
           <input
             type='text'
