@@ -99,7 +99,11 @@ function ReviewPage2() {
             <h2 className='text-center sm:text-3xl sm:font-semibold sm:p-4 bg-[#141b23]'>Add Your Review</h2>
             <hr />
             <div className="form min-h-[50vh]  m-2">
-              <form action="">
+            <form action=""
+      onSubmit={(e)=>{
+        submitHandler(e);
+      }}
+      >
                 <input type="text"
                   value={comment}
                   onChange={(e)=>{
@@ -121,7 +125,7 @@ class="flex items-center ">
           name="rating"
           value={rating}
           readOnly
-          className="ml-1 text-2xl font-semibold w-4 bg-[#141b23] text-red-500 "
+          className="ml-1 text-2xl font-semibold w-0 bg-[#141b23] text-red-500 "
         />
       </div>
         </div>
@@ -168,7 +172,7 @@ class="flex items-center ">
           name="rating"
           value={rating}
           readOnly
-          className="ml-1 text-2xl font-semibold w-4 bg-[#141b23] text-white "
+          className="ml-1 text-2xl font-semibold w-0 bg-[#141b23] text-white "
         />
    
 

@@ -3,7 +3,7 @@ import Navbar from '../Components/Navbar';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Singlereview from '../Components/Singlereview';
-import gsap from 'gsap';
+
 import AddReview from '../Components/AddReview';
 import { Link } from 'react-router-dom';
 import { CiHeart } from "react-icons/ci";
@@ -13,6 +13,9 @@ import { SlDislike } from "react-icons/sl";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import CardSkelton from '../Components/Skelton/CardSkelton'
 import { toast } from 'react-toastify';
+import socket from "../socket";
+console.log("Socket connected?", socket.connected);
+
 function SingleMovie() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
@@ -27,6 +30,24 @@ function SingleMovie() {
 const [favorite, setfavorite] = useState(false)
 const [like, setlike] = useState(false)
 const [dislike, setdislike] = useState(false)
+useEffect(() => {
+  const roomName = `${movieId}`;
+  socket.emit('joinRoom', roomName);
+  console.log(`Joined room: ${roomName}`);
+
+  const handleUpdateReview = (newReview) => {
+      console.log('Received new review:', newReview);
+      setReview((prevReviews) => [...prevReviews, newReview]);
+  };
+
+  socket.on('updateReview', handleUpdateReview);
+
+  return () => {
+      socket.emit('leaveRoom', roomName);
+      socket.off('updateReview', handleUpdateReview);
+  };
+}, [movieId]); 
+
   useEffect(() => {
     const fetchData1 = async () => {
       try {
@@ -38,7 +59,7 @@ const [dislike, setdislike] = useState(false)
         console.error('Error fetching movie:', err); // Log the error for debugging
       }
     };
-
+    
     const fetchData2 = async () => {
       try {
         const token = localStorage.getItem('token')
@@ -71,23 +92,7 @@ const [dislike, setdislike] = useState(false)
     fetchData();
   }, [movieId]);
 
-  useEffect(() => {
-    if (addReviewRef.current) {
-      if (addReview) {
-        gsap.to(addReviewRef.current, {
-          y: -250,
-          duration: 0.5,
-          ease: 'power3.out',
-        });
-      } else {
-        gsap.to(addReviewRef.current, {
-          y: 250,
-          duration: 0.5,
-          ease: 'power3.in',
-        });
-      }
-    }
-  }, [addReview]);
+
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -164,7 +169,7 @@ const Dislike = async (e)=>{
             :
             <>
             <div className='flex flex-wrap justify-center items-center m-0 p-0 w-[100vw] 'style={{ overflowX: 'hidden' }}>
-            <div className='grid min-h-96 sm:grid-cols-12 gap-4 m-3 '>
+            <div className='grid min-h-96 sm:grid-cols-12 gap-4 m-8 '>
             <div className='sm:h-80  w-full border rounded-lg shadow-md sm:col-span-5'>
               <div className="inner flex rounded-lg  sm:h-80   ">
                             <div 
@@ -229,13 +234,17 @@ const Dislike = async (e)=>{
         }
        
       </div>
-      <div className='bg-[#111111] text-white z-50 'style={{ overflowX: 'hidden' }}>
-        <h2 className='text-2xl font-semibold text-center pb-5 pt-5'>Review</h2>
-        <button onClick={() => setAddReview(true)} className='bg-red-500 text-white w-36 rounded-lg shadow-md h-9 font-semibold ml-32 mb-2'>Add Review</button>
-        <div ref={addReviewRef} className="review mb-4 bg-white h-1/2 w-full fixed" style={{ transform: 'translateY(250px)' }}>
-          <AddReview addReview={addReview} setAddReview={setAddReview} />
-        </div>
-        {review.length > 0 ? (
+      <div className="heading items-center text-center font-semibold text-3xl text-white mb-2">
+            <h2>Review Section</h2>
+          </div>
+        <div className="reviewSection  sm:w-[85vw] flex justify-center   sm:ml-28 ">
+          <div className="inner w-full sm:w-[80vw] p-4 bg-white rounded-lg">
+          <div className="review ">
+            <AddReview/>
+          </div>
+          <hr className='p-4' />
+        <h2 className='p-2 font-semibold text-2xl'>Reviews :</h2>
+          {review.length > 0 ? (
           review.map((elem, idx) => (
             <Singlereview
               key={idx}
@@ -246,10 +255,10 @@ const Dislike = async (e)=>{
             />
           ))
         ) : (
-          <div>No reviews available.</div>
-        )}
-      </div>
-    </div>
+          <div className='p-4 tex'>Currently No Review Available for this movie... Be First To Review it.</div>
+        )}</div>
+          </div>
+        </div>
     </>
   );
 }

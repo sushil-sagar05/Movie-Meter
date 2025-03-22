@@ -7,7 +7,7 @@ const StarRating = ({ totalStars = 5, onRatingChange }) => {
   const handleClick = (index) => {
     const newRating = index + 1;
     setRating(newRating);
-    onRatingChange(newRating); // Send the new rating value to the parent component
+    onRatingChange(newRating); 
   };
 
   return (
@@ -21,7 +21,7 @@ const StarRating = ({ totalStars = 5, onRatingChange }) => {
           {rating > index ? (
             <FaStar className="text-yellow-500 text-2xl" />
           ) : (
-            <FaRegStar className="text-gray-400 text-2xl" />
+            <FaRegStar className=" text-2xl" />
           )}
         </div>
       ))}

@@ -63,7 +63,7 @@ function Likes() {
       <div className='flex justify-center items-center'>
       <div className='  mt-4'>
         {
-          length ? <h2 className='font-semibold'>Favourite: {length}</h2> :""
+          length ? <h2 className='font-semibold'>Like: {length}</h2> :""
         }
         {liked.length > 0 ? (
           liked.map((liked, idx) => (
@@ -89,7 +89,7 @@ function Likes() {
           ))
         ) : (
           <div className='sm:min-h-[65vh] sm:min-w-[95vw]  sm:m-4 rounded-lg '>
-          <h2 className='text-center text-3xl font-semibold p-2'>You have Not Made Favourites yet !</h2>
+          <h2 className='text-center text-3xl font-semibold p-2'>You have Not Liked yet !</h2>
          
           <div className=' min-h-[45vh] max-w-[95vw] grid  sm:grid-cols-12 gap-4  m-3'>
           <div className=' sm:h-[35vh] sm:w-[15vw]  rounded-full border-2 border-black  m-10 sm:col-span-4'>

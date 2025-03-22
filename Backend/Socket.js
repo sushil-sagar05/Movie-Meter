@@ -27,10 +27,15 @@ function initializeSocket(server) {
       };
       io.to(roomId).emit('chat', newMessage); 
   });
+  socket.on('newReview', (review) => {
+   
+    
+   
+    io.to(review.movieId).emit('updateReview', review);
+});
   
-
     socket.on('disconnect', () => {
-      // console.log(`Client disconnected: ${socket.id}`);
+     
     });
   });
 }

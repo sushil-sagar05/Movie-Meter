@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import CardSkelton from '../Components/Skelton/CardSkelton'
 function Popular() {
     const [popular, setpopular] = useState([]);
     const [loading, setloading] = useState(true)
@@ -22,6 +23,15 @@ function Popular() {
     },[])
 
   return (
+    <>
+    {
+      loading ?
+      <div className='w-full md:flex'>
+      {Array.from({ length: 10}).map((_, i) => (
+        <CardSkelton key={i} />
+      ))}
+      </div>
+    :
     <div className='grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-white gap-8'>
       {
         popular.map((pop,idx)=>{
@@ -53,7 +63,8 @@ function Popular() {
             )
         })
       }
-        </div>
+        </div>}
+        </>
   )
 }
 
