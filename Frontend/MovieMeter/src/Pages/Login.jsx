@@ -7,16 +7,19 @@ import { CiUser } from "react-icons/ci";
 import  {UserDataContext}  from '../../Context/UserContext.jsx'
 import axios from 'axios'
 import { toast } from 'react-toastify';
+import {BeatLoader} from 'react-spinners'
 function Login() {
   const [email, setemail] = useState('');
       const [password, setpassword] = useState('');
       const {user,setuser} = useContext(UserDataContext);
       const [userData, setuserData] = useState({});
+      const[loading,setloading] =useState(false);
       const navigate = useNavigate()
 
 
       const submitHandler = async (e)=>{
         e.preventDefault();
+        setloading(true);
         const userData ={
             email:email,
             password:password
@@ -25,6 +28,7 @@ function Login() {
         const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`, userData, {
           withCredentials: true,
         })
+        
         if (response.status === 200) {
           const data = response.data
           setuser(data.user)
@@ -33,9 +37,23 @@ function Login() {
           navigate('/home')
         }
       } catch (error) {
-        toast.error(error.response.data.errors[0].msg);
-        toast.error(error.response.data.errors[1].msg);
+        
+       if ( error.response.data.errors){
+      error = error.response.data.errors;
+      const emailErrors= error.find(err=>err.path==="email");
+      if(emailErrors){
+        toast.error(emailErrors.msg)
       }
+      const passwordErrors = error.find(err=>err.path==="password");
+      if(passwordErrors){
+        toast.error(passwordErrors.msg)
+      }
+    }else if(error.response.data){
+      let error2 = error.response.data;
+      toast.error(error2.message)
+    }
+      }
+        setloading(false)
         setemail('')
         setpassword('')
     }
@@ -78,13 +96,19 @@ function Login() {
         placeholder='your@your.com'
         />
         <button
-        
-        className='w-72 h-8 rounded-lg mt-10 ml-2 bg-[#4432dc] text-white '>Login </button>
+        type="submit"
+        disabled={loading}
+        className={`w-72 h-8 rounded-lg mt-10 ml-2 text-white ${loading ? 'bg-gray-500' : 'bg-[#4432dc]'}`}>
+          {loading? <>
+          <BeatLoader size={20} color='yellow'/>
+          </>
+            :"Login" }
+          </button>
         <h2 className='mt-2 text-center'>New Here?<Link to='/signup'><span className='ml-1 text-blue-500'>Sign in</span></Link></h2>
     </form>
     </div>
     </div>
-    <p className='text-sm ml-6 mt-2 text-white'>By signing in, you agree to our Conditions of Use and Privacy Policy.</p>
+    <p className='text-sm ml-6 mt-2 text-white text-center'>By signing in, you agree to our Conditions of Use and Privacy Policy.</p>
    </div>
   )
 }

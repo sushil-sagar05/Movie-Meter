@@ -7,6 +7,7 @@ import { SiWelcometothejungle } from "react-icons/si";
 import { UserDataContext } from '../../Context/UserContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import {BeatLoader} from 'react-spinners'
 function Signup() {
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
@@ -14,10 +15,12 @@ function Signup() {
     const [lastname, setlastname] = useState('')
     const{user,setuser} = useContext(UserDataContext)
     const [userData, setuserData] = useState({})
+    const[loading,setloading]=useState(false)
     const navigate = useNavigate()
 
 const submitHandler = async (e)=>{
     e.preventDefault();
+    setloading(true)
     const newUser ={
       fullname:{
         firstname:firstname,
@@ -39,9 +42,29 @@ try{
   } 
 }
 catch (error) {
-        toast.error(error.response.data.message);
-        
+       const  errorData=error.response.data
+       const validationError=errorData.errors
+       const AlreadyUserError=errorData.message
+        if(validationError){
+          const firstnameError = validationError.find(err=>err.path==="fullname.firstname");
+        if(firstnameError){
+          toast.error(firstnameError.msg)
+        }
+        const emailError = validationError.find(err=>err.path==="email");
+        if(emailError){
+          toast.error(emailError.msg)
+        }
+        const passwordError = validationError.find(err=>err.path==="password");
+        if(passwordError){
+          toast.error(passwordError.msg)
+        }
+        }else if(AlreadyUserError){
+          toast.error(AlreadyUserError)
+        }else{
+          toast.error("something went wrong, please try again")
+        }
       }
+      setloading(false)
     setemail('')
     setpassword('')
     setfirstname('')
@@ -107,8 +130,9 @@ catch (error) {
             </span>
             
             <button
-            
-            className='w-72 h-8 rounded-lg mt-3 ml-4 bg-[#4432dc] text-white '>Register </button>
+            type='submit'
+            disabled={loading}
+            className={`w-72 h-8 rounded-lg mt-3 ml-4 ${loading?'bg-gray-500':"bg-[#4432dc]"} text-white `}>{loading?<><BeatLoader size={20} color="yellow"/></>:'Register'} </button>
             <h2 className='mt-2 text-center'>Aleary have a Accout?<Link to='/login'><span className='ml-1 text-blue-500'>Login</span></Link></h2>
         </form>
         </div>

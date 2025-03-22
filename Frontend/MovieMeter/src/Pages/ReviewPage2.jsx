@@ -7,12 +7,14 @@ import StarRating from '../Components/Rating'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import CardSkelton from '../Components/Skelton/CardSkelton'
 import { toast } from 'react-toastify'
+import {MoonLoader} from 'react-spinners'
 function ReviewPage2() {
     const{movieId}=useParams()
     const [movie, setmovie] = useState(null)
     const [comment, setcomment] = useState('')
     const [rating, setrating] = useState('')
     const [loading, setloading] = useState(true)
+    const [spinloader,setspinloader] = useState(false)
     
     useEffect(() => {
        const fetchData = async()=>{
@@ -30,6 +32,7 @@ function ReviewPage2() {
       }, [movieId]);
       const submitHandler =async(e)=>{
         e.preventDefault();
+        setspinloader(true)
         const FormData ={
             comment:comment,
             rating:rating
@@ -43,9 +46,26 @@ function ReviewPage2() {
             },
            
           });
+          if(response.status===201){
+            toast.success("Congratulations! Review added")
+          }
         } catch (err) {
-          console.error('Error posting review:', err);
+          const errorData=err.response.data
+                  const validationError=errorData.error
+                  if(validationError){
+                   const reviewError = validationError.find(err=>err.path==="comment");
+                   if(reviewError){
+                     toast.error(reviewError.msg)
+                   }
+                   const ratingError = validationError.find(err=>err.path==="rating");
+                   if(ratingError){
+                     toast.error(ratingError.msg)
+                   }
+                  }else{
+                   toast.error("Something went wrong")
+                  }
         } 
+        setspinloader(false)
         setcomment(' ')
         setrating(' ')
     }
@@ -53,9 +73,9 @@ function ReviewPage2() {
     const handleRatingChange = (newRating) => {
       setrating(newRating); 
     };
-    const notify =()=>{
-      toast.success('Review Added')
-    }
+    // const notify =()=>{
+    //   toast.success('Review Added')
+    // }
   return (
     <>
     <div className='bg-[#111111]  w-full'style={{ overflowX: 'hidden' }}>
@@ -130,8 +150,9 @@ class="flex items-center ">
       </div>
         </div>
         <button 
-     onClick={notify}
-     className=' bg-[#23c65d]  w-48 h-9 ml-4 mt-4 font-semibold cursor-pointer rounded-lg text-center '>Add Review
+     type='submit'
+     disabled={spinloader}
+     className=' bg-[#23c65d]  w-48 h-9 ml-4 mt-4 font-semibold cursor-pointer rounded-lg text-center '>{spinloader?<><MoonLoader size={18} color='white' /></>:"Add Review"}
      </button>
      
               </form>
@@ -178,8 +199,9 @@ class="flex items-center ">
 
 </div>
 <button 
-     onClick={notify}
-     className=' bg-[#23c65d] mb-5 w-36 h-9 ml-4 mt-4 font-semibold cursor-pointer rounded-lg text-center '>Add Review
+type='submit'
+disabled={spinloader}
+     className=' bg-[#23c65d] mb-5 w-36 h-9 ml-4 mt-4 font-semibold cursor-pointer rounded-lg text-center '>{spinloader?<><MoonLoader size={18} color='white' /></>:"Add Review"}
      </button>
      
       </div>
