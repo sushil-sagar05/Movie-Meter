@@ -12,7 +12,7 @@ function Contact() {
   const [loading, setloading] = useState(true)
   const [totalMovies, settotalMovies] = useState(0)
   const [currentPage, setcurrentPage] = useState(3)
-  const LIMIT = 10;
+  const LIMIT = 25;
 useEffect(()=>{
   const FetchMovie = async (page)=>{
     try {
@@ -62,12 +62,13 @@ const handlePageChange = (page) => {
                     <div className="cover rounded-lg h-64 w-80 p-2">
                       <img className='h-full w-full rounded-lg' src={data.poster} alt="" />
                     </div>
-                    <div className="content h-36 pt-3">
+                    <div className="content h-36 ">
                       <div className="name text-[#797d80] text-sm">
-                        <span className='ml-1'>{data.title}</span>
+                        <span className='ml-1'>Title : {data.title}</span>
                         <span className='ml-2'>{data.director} </span>
                         <div>
-                          <span className='ml-2'>Cast: {data.cast}</span>
+                          <span className='ml-2'>Cast: {data.cast.slice(0,2).join(', ')}</span>
+                          <h2 className='pl-1'>Rating: {data.Avgrating}</h2>
                           <span className='ml-2'>Release date: {data.year}</span>
                         </div>
                         <div className='flex justify-around text-white items-center text-center '>

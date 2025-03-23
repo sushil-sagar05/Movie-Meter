@@ -169,7 +169,7 @@ const Dislike = async (e)=>{
             :
             <>
             <div className='flex flex-wrap justify-center items-center m-0 p-0 w-[100vw] 'style={{ overflowX: 'hidden' }}>
-            <div className='grid min-h-96 sm:grid-cols-12 gap-4 m-8 '>
+            <div className='grid min-h-96 sm:grid-cols-12 gap-4 m-4  '>
             <div className='sm:h-80  w-full border rounded-lg shadow-md sm:col-span-5'>
               <div className="inner flex rounded-lg  sm:h-80   ">
                             <div 
@@ -178,7 +178,7 @@ const Dislike = async (e)=>{
                               <img 
                               className='h-60 w-full  rounded-lg'
                               src={movie.poster} alt="" />
-                              <div className='justify-evenly  items-center gap-3 border  text-center rounded-lg  flex'>
+                              <div className='justify-evenly mt-4 sm:m-0  items-center gap-3 border  text-center rounded-lg  flex'>
                                 
                                 <form onSubmit={submitHandler1}>
                                  <button
@@ -209,11 +209,11 @@ const Dislike = async (e)=>{
                               </div>
                             </div>
                             <div className="content w-1/2 m-1 h-72  py-3 text-white">
-                              <h2 className='text-md font-normal'>Name: {movie.title}</h2>
-                              <h2 className='text-md font-normal'>Director:{movie.director??"Unknown"} </h2>
-                              <h2 className='text-md font-normal'>Cast: {movie.cast??"Unknown"}</h2>
-                              <h2 className='text-md font-normal'>Release : {movie.year}</h2>
-                              <h2 className='text-md font-normal'>Rating: {movie.rating}</h2>
+                              <h2 className='text-sm pb-1  '>Name: {movie.title}</h2>
+                              <h2 className='text-sm pb-1'>Director:{movie.director??"Unknown"} </h2>
+                              <h2 className='text-sm pb-1'>Cast: {movie.cast.slice(0,3).join(", ")??"Unknown"}</h2>
+                              <h2 className='text-sm pb-1'>Release : {movie.year}</h2>
+                              <h2 className='text-sm pb-1'>Rating: {movie.Avgrating}</h2>
                               <div className="button mt-2"><Link to={`/discussion/movie/${movieId}`}><button className='sm:w-48  h-10 text-sm bg-green-500 hover:bg-green-800 hover:outline rounded-lg shadow-md '>Go to Discussion Room</button></Link></div>
                             </div>
                           </div>

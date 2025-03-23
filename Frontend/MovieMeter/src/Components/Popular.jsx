@@ -44,14 +44,14 @@ function Popular() {
             <img className='h-full w-80 rounded-lg' src={pop.poster} alt="" />
           </div>
          </div>
-          <div className="content p-1 h-32">
+          <div className="content p-1 h-34">
             <div className="name  text-[#797d80] text-sm">
-              <span className='ml-1'>Title :{pop.title}</span>
-              <span className='ml-2'>Director: {pop.director} </span>
+              <h3 className='ml-1'>Title :{pop.title}</h3>
+              <h3 className='ml-2'>Director: {pop.director} </h3>
               <div>
-              <span className='ml-2'>Cast: {pop.cast}</span>
-              <span className='ml-2'>Release date: {pop.year}</span>
-              <span>Review:5★★★★★</span>
+              <h3 className='ml-2'>Cast: {pop.cast.slice(0,2).join(", ")}</h3>
+              <h3 className='ml-2'>Release date: {pop.year}</h3>
+              <h3>Rating:{pop.Avgrating}</h3>
               </div>
               <div className='flex justify-around  text-white items-center text-center m-1'>
               <div className="Review bg-green-500 hover:bg-green-700 hover:outline   h-9 font-semibold pt-2 w-1/2 rounded-lg mr-2"><Link to={`/movie/${pop._id}/review`}><button>Review</button></Link></div>

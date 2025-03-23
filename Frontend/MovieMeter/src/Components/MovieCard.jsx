@@ -11,9 +11,10 @@ function MovieCard({ movie }) {
       <img className='h-full w-full rounded-lg' src={movie.poster} alt="" />
       </div>
       <div className='content h-36 p-3 w-80 '>
-         <h2>{movie.title}</h2>
+         <h2>Title: {movie.title}</h2>
          <h2>Director: {movie.director}</h2>
-         <h2>Cast: {movie.cast}</h2>
+         <h2 >Cast: {movie.cast.slice(0, 2).join(", ")}</h2>
+         <h2 >Genre: {movie.genres.slice(0, 2).join(", ")}</h2>
          <h2>Release date: {movie.year}</h2>
       </div>
       <div className="btns p-3 flex justify-center text-center w-80 items-center">
