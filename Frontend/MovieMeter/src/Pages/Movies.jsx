@@ -11,13 +11,14 @@ function Movies() {
   const [loading, setLoading] = useState(true);
   const [totalMovie, setTotalMovie] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery,setSearchQuery] = useState(" ")
   const LIMIT = 28;
 
-  const fetchMovies = async (page) => {
+  const fetchMovies = async (page,search) => {
     setLoading(true);
     try {
       const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/get-movies`, {
-        params: { page, limit: LIMIT },
+        params: { page, limit: LIMIT,search },
       });
       // console.log(response.data)
       setMovies(response.data.movies);
@@ -30,8 +31,17 @@ function Movies() {
   };
 
   useEffect(() => {
-    fetchMovies(currentPage);
-  }, [currentPage]);
+    fetchMovies(currentPage, searchQuery);
+  }, [currentPage, searchQuery]);
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSearchSubmit = () => {
+    setCurrentPage(1); 
+    fetchMovies(1, searchQuery);
+  };
   const totalPages =  Math.ceil(totalMovie / LIMIT);
 
   const handlePageChange = (page) => {
@@ -44,6 +54,25 @@ function Movies() {
 
      <Navbar />
       <h2 className='text-white text-4xl font-semibold text-center pb-5 pt-5'>Movies Section</h2>
+      <div className='w-full  p-2 flex justify-center items-center'>
+      <div className='h-[7vh] w-full sm:w-[85vw]  rounded-lg flex justify-center items-center'>
+        <div className="input w-[64vw] sm:w-[32vw] h-[5vh]">
+          <input
+          className='w-full h-full rounded-md p-2'
+          placeholder='Enter Movie name to search'
+          type="text "
+          value={searchQuery}
+          onChange={handleSearchChange}
+             />
+        </div>
+        <div className="button  p-2 mt-1">
+          <button 
+          className='w-[18vw] sm:w-[10vw] h-[5vh] bg-green-400 text-white rounded-md font-medium'
+          onClick={handleSearchSubmit}
+          >Search</button>
+        </div>
+      </div>
+      </div>
       {loading ? (
         <>
         <div className='w-full md:flex'>
@@ -56,7 +85,7 @@ function Movies() {
         <div className='flex justify-center items-center'>
           <div className="Movies grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" style={{ overflowX: 'hidden' }}>
           {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
+            <MovieCard key={movie._id} movie={movie} />
           ))}
         </div>
            </div>
