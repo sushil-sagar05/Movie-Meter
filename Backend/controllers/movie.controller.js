@@ -2,54 +2,61 @@ const { validationResult } = require('express-validator');
 const movieService = require('../Services/TMDB.services');
 const Movie = require('../models/movies.model'); 
 
-module.exports.getMovies = async (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-  
-   const page = parseInt(req.query.page) || 1; 
-    const limit = parseInt(req.query.limit)||25;
-    const skip =(page-1)*limit;
-    // apiData = apiData.skip(skip).limit(limit)
+module.exports.getMovies = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 25;
+  const skip = (page - 1) * limit;
+
+  try {
+    let totalMovies = await Movie.countDocuments();
 
   
-    try {
-      const totalMovies = await Movie.countDocuments()
-      // Fetch movies from database 
-      let movies = await Movie.find().skip(skip).limit(limit); 
-  
-      // If no movies found, fetch from TMDb
-      if (movies.length === 0) {
-        const tmdbMovies = await movieService.FetchMovieFromTMDB(500); 
-  
-        // Limit saving to 500 movies (adjust as needed)
-        // const moviesToSave = tmdbMovies.slice(0, 500); 
-  
-        const savedMovies = await Promise.all(
+    if (totalMovies === 0) {
+      console.log("Fetching movies from TMDB...");
+      const totalPages = 500; 
+      const tmdbMovies = await movieService.FetchMovieFromTMDB(totalPages);
+
+      if (tmdbMovies.length > 0) {
+        
+        await Promise.all(
           tmdbMovies.map(async (tmdbMovie) => {
-            const newMovie = new Movie({
-              tmdbId: tmdbMovie.id,
-              title: tmdbMovie.title,
-              year: tmdbMovie.release_date.substring(0, 4),
-              director: tmdbMovie.director ? tmdbMovie.director.name : 'Unknown',
-              cast: tmdbMovie.cast ,
-            plot: tmdbMovie.overview,
-            poster:  tmdbMovie.poster_path ,
-            });
-            return await newMovie.save();
+            await Movie.updateOne(
+              { tmdbId: tmdbMovie.id }, 
+              {
+                $set: {
+                  title: tmdbMovie.title,
+                  year: tmdbMovie.release_date ? tmdbMovie.release_date.substring(0, 4) : "Unknown",
+                  director: tmdbMovie.director || "Unknown",
+                  cast: tmdbMovie.cast || [],
+                  genres: tmdbMovie.genres || [],
+                  plot: tmdbMovie.overview || "No overview available",
+                  poster: tmdbMovie.poster_path || null,
+                },
+              },
+              { upsert: true } 
+            );
+
+           
+            await new Promise((resolve) => setTimeout(resolve, 500)); 
           })
         );
-  
-        movies = savedMovies;
+
+        totalMovies = await Movie.countDocuments(); 
       }
-      
-      return res.status(200).json({movies,total:totalMovies});
-    } catch (error) {
-      console.error('Error fetching movies:', error);
-      res.status(500).json({ error: 'Failed to fetch movies' });
     }
-  };
+
+    const movies = await Movie.find().skip(skip).limit(limit);
+    return res.status(200).json({ movies, total: totalMovies });
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+    res.status(500).json({ error: "Failed to fetch movies" });
+  }
+};
 
 module.exports.getMovieById = async (req, res, next) => {
   try {

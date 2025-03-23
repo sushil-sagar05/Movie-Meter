@@ -26,6 +26,14 @@ module.exports.postReview = async(req,res,next) =>{
     })
     const savedReview = await newReview.save(); 
     const populatedReview = await savedReview.populate('user', 'fullname'); 
+    const fetchReview = await Reveiw.find({movie:movieId},'rating');
+    if(!fetchReview){
+        return res.status(400).json({message:"No Review found for this movie"})
+    }
+    const ratings=fetchReview.map(reveiw=>reveiw.rating);
+    const ratinglength = ratings.length;
+    const Avgrating = ratinglength>0 ? ratings.reduce((sum,r)=>sum+r,0)/ratinglength:0;
+    await Movie.findByIdAndUpdate(movieId,{Avgrating});
        res.status(201).json(populatedReview)
     } catch (error) {
         console.error(error);
