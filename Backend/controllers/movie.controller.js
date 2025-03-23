@@ -11,7 +11,15 @@ module.exports.getMovies = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 25;
   const skip = (page - 1) * limit;
-
+  const search = req.query.search|| "";
+  let filter = {};
+  if(search){
+    filter={
+      $or:[
+        { title: { $regex: search, $options: "i" } },
+      ],
+    };
+  }
   try {
     let totalMovies = await Movie.countDocuments();
 
@@ -40,8 +48,6 @@ module.exports.getMovies = async (req, res) => {
               },
               { upsert: true } 
             );
-
-           
             await new Promise((resolve) => setTimeout(resolve, 500)); 
           })
         );
@@ -49,9 +55,9 @@ module.exports.getMovies = async (req, res) => {
         totalMovies = await Movie.countDocuments(); 
       }
     }
-
-    const movies = await Movie.find().skip(skip).limit(limit);
-    return res.status(200).json({ movies, total: totalMovies });
+    let totalFilteredMovies = await Movie.countDocuments(filter);
+    const movies = await Movie.find(filter).skip(skip).limit(limit);
+    return res.status(200).json({ movies, total: totalFilteredMovies });
   } catch (error) {
     console.error("Error fetching movies:", error);
     res.status(500).json({ error: "Failed to fetch movies" });
