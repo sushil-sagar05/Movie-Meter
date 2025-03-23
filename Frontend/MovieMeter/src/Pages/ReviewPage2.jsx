@@ -93,22 +93,22 @@ function ReviewPage2() {
           <div className='justify-center items-center gap-4 min-h-[65vh] max-w-[100vw]  m-3 grid grid-cols-12  text-white'>
           <div className=' sm:col-span-5 rounded-lg sm:p-10'>
           <div className='border shadow-md mt-5  rounded-lg bg-black w-80 m-5 sm:m-10'>
-            <div  className="cover flex justify-center items-center rounded-lg ">
-              <div className="image">
-              <img className='h-72 w-80 rounded-lg' src={movie.poster} 
+            <div  className="cover h-64 flex justify-center items-center rounded-lg ">
+              <div className="image h-full">
+              <img className='h-64 w-80 rounded-lg' src={movie.poster} 
               
                />
               </div>
             </div>
-            <hr className='mt-2' />
-            <div className="content rounded-lg h-28 bg-[#141b23] text-white">
+            <hr className='' />
+            <div className="content rounded-lg h-32 bg-[#141b23] text-white">
               <div className="name  text-sm">
-                <span className='ml-1'>{movie.title}</span>
-                <span className='ml-2'>Director: {movie.director}</span>
+                <h2 className='ml-2'>Title: {movie.title}</h2>
+                <h2 className='ml-2'>Director: {movie.director}</h2>
                 <div>
-                  <span className='ml-2'>Cast: {movie.cast}</span>
-                  <span className='ml-2 mr-2'>Release date:{movie.year}</span>
-                  <p className='ml-6'>Review: 5★★★★★</p>
+                  <h2 className='ml-2'>Cast: {movie.cast.slice(0,3).join(", ")}</h2>
+                  <h2 className='ml-2 mr-2'>Release date:{movie.year}</h2>
+                  <p className='ml-2'>Rating: {movie.Avgrating}</p>
                 </div>
               
               </div>
