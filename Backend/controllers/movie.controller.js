@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
 const movieService = require('../Services/TMDB.services');
 const Movie = require('../models/movies.model'); 
-
+const {getMovieOverview} = require('../Services/geminiMovie.services')
 module.exports.getMovies = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -135,3 +135,23 @@ module.exports.Popular = async(req,res,next)=>{
     }
   
 }
+module.exports.GeminiOverview = async (req, res) => {
+  try {
+    const { movieId } = req.params;
+
+    if (!movieId || movieId === "undefined") {
+      return res.status(400).json({ message: "Movie ID is required" }); 
+    }
+    const movie = await Movie.findById(movieId);
+
+    if (!movie) {
+      return res.status(404).json({ message: "No movies found" }); 
+    }
+
+    const movieName = movie.title;
+    const overviewResult = await getMovieOverview(movieName);
+    return res.status(200).json(overviewResult);
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" }); 
+  }
+};

@@ -215,6 +215,7 @@ const Dislike = async (e)=>{
                               <h2 className='text-sm pb-1'>Release : {movie.year}</h2>
                               <h2 className='text-sm pb-1'>Rating: {movie.Avgrating}</h2>
                               <div className="button mt-2"><Link to={`/discussion/movie/${movieId}`}><button className='sm:w-48  h-10 text-sm bg-green-500 hover:bg-green-800 hover:outline rounded-lg shadow-md '>Go to Discussion Room</button></Link></div>
+                              <div className="button mt-2"><Link to={`/movies/${movieId}/overview`}><button className='sm:w-48  h-10 text-sm bg-green-500 hover:bg-green-800 hover:outline rounded-lg shadow-md '>Ask ai to give overview</button></Link></div>
                             </div>
                           </div>
             </div>
@@ -225,6 +226,10 @@ const Dislike = async (e)=>{
               movie.plot
              }
               </p>
+              <Link to={`/movies/${movieId}/overview`}><button
+              className='h-[6vh] w-[16vw] mt-16 m-8 rounded-lg text-white bg-green-500 hover:bg-green-800 hover:border-2 shadow-md'>
+                Want More ? Ask Ai !
+              </button></Link>
             </div>
             </div>
             </div>
@@ -237,8 +242,8 @@ const Dislike = async (e)=>{
       <div className="heading items-center text-center font-semibold text-3xl text-white mb-2">
             <h2>Review Section</h2>
           </div>
-        <div className="reviewSection  sm:w-[85vw] flex justify-center   sm:ml-28 ">
-          <div className="inner w-full sm:w-[80vw] p-4 bg-white rounded-lg">
+        <div className="reviewSection  sm:w-[100vw] flex justify-center    ">
+          <div className="inner w-full sm:w-[100vw] p-4 bg-white rounded-lg">
           <div className="review ">
             <AddReview/>
           </div>
