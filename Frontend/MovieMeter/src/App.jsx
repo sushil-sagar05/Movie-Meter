@@ -21,7 +21,7 @@ import ReviewPage2 from './Pages/ReviewPage2';
 import MyAccount from './Pages/MyAccount';
 import Favourites from './Pages/Favourites';
 import Likes from './Pages/Likes';
-
+import Overview from './Pages/Overview';
 function App() {
   return (
     
@@ -72,6 +72,11 @@ function App() {
            <MyAccount/>
           </UserProtectedWrapper>
         } />
+        <Route path='/movies/:movieId/overview' element={
+          <UserProtectedWrapper>
+            <Overview/>
+          </UserProtectedWrapper>
+        }/>
         <Route path="/user/logout" element={
           <UserProtectedWrapper>
             <Logout />

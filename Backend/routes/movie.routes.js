@@ -20,4 +20,5 @@ router.post('/addmovie',[
   body('plot').isString().isLength({min:3}).withMessage("Invalid plot"),
   body('genre').isString().isLength({min:3}).withMessage("Invalid genre"),
 ],authMiddleware.authUser,movieController.addMovie);
+router.get('/:movieId/overview',movieController.GeminiOverview);
 module.exports = router;
