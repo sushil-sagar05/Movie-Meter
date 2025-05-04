@@ -7,6 +7,8 @@ from flask import Flask, jsonify
 from bson import ObjectId
 from sklearn.metrics.pairwise import cosine_similarity
 from dotenv import load_dotenv
+import logging
+import gc
 
 load_dotenv()
 
@@ -19,6 +21,8 @@ db = client[DB_NAME]
 collection2 = db[COLLECTION_NAME_2]
 
 app = Flask(__name__)
+
+logging.basicConfig(level=logging.DEBUG)
 
 def load_old_movies(liked_ids):
     file_path = 'movies_data.pkl'
@@ -83,30 +87,50 @@ def recommendMovie(movieId, liked_vector_list, user_profile_vector, movie_vector
 
 @app.route('/recommend/<user_id>', methods=['GET'])
 def recommend(user_id):
-    user_id = ObjectId(user_id)
-    user_cursor = collection2.find_one({"_id": user_id})
-    if not user_cursor:
-        return jsonify({"error": "User not found"}), 404
+    logging.debug(f"Received request for user_id: {user_id}")
+    try:
+        user_id = ObjectId(user_id)
+        user_cursor = collection2.find_one({"_id": user_id})
+        if not user_cursor:
+            logging.error(f"User {user_id} not found.")
+            return jsonify({"error": "User not found"}), 404
 
-    user = convert(user_cursor)
-    favorites_ids = [ObjectId(x) for x in user['favorites'].iloc[0]]
-    liked_ids = [ObjectId(x) for x in user['likes'].iloc[0]]
-    
-    old_movies = load_old_movies(liked_ids)
-    final_df = load_final_df()
+        logging.debug(f"User found: {user_cursor}")
+        user = convert(user_cursor)
+        favorites_ids = [ObjectId(x) for x in user['favorites'].iloc[0]]
+        liked_ids = [ObjectId(x) for x in user['likes'].iloc[0]]
 
-    old_movies_df = pd.DataFrame(old_movies)
-    liked_vector_list = fetch_from_movie_vector(liked_ids, final_df)
+        logging.debug(f"Favorites and likes loaded: {favorites_ids}, {liked_ids}")
+        
+        old_movies = load_old_movies(liked_ids)
+        final_df = load_final_df()
 
-    if liked_vector_list.empty:
-        return jsonify("You have not liked any movies yet.", [])
+        logging.debug("Old movies and final DataFrame loaded.")
+        
+        old_movies_df = pd.DataFrame(old_movies)
+        liked_vector_list = fetch_from_movie_vector(liked_ids, final_df)
 
-    vector_cols = [col for col in final_df.columns if col not in ['_id', 'title']]
-    user_profile_vector = liked_vector_list[vector_cols].mean(axis=0).values.reshape(1, -1)
-    movie_vector_excluding = final_df[~final_df['_id'].isin(liked_ids)]
-    movie_vector_titles = movie_vector_excluding[vector_cols]
+        if liked_vector_list.empty:
+            logging.warning("No liked movies found.")
+            return jsonify("You have not liked any movies yet.", [])
 
-    return jsonify(recommendMovie(liked_ids, liked_vector_list, user_profile_vector, movie_vector_titles, old_movies_df))
+        logging.debug("Liked movies vectors found.")
+
+        vector_cols = [col for col in final_df.columns if col not in ['_id', 'title']]
+        user_profile_vector = liked_vector_list[vector_cols].mean(axis=0).values.reshape(1, -1)
+
+        movie_vector_excluding = final_df[~final_df['_id'].isin(liked_ids)]
+        movie_vector_titles = movie_vector_excluding[vector_cols]
+
+        gc.collect()
+
+        recommendations = recommendMovie(liked_ids, liked_vector_list, user_profile_vector, movie_vector_titles, old_movies_df)
+        logging.debug(f"Recommendations generated: {recommendations}")
+        
+        return jsonify(recommendations)
+    except Exception as e:
+        logging.error(f"Error while processing request: {e}")
+        return jsonify({"error": "Internal server error"}), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))  
