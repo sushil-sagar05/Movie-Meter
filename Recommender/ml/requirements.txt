@@ -1,0 +1,6 @@
+Flask
+pymongo
+python-dotenv
+pandas
+scikit-learn
+gunicorn
