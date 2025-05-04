@@ -1,1 +1,1 @@
-web: gunicorn recommender:app
+web: gunicorn --workers=2 --worker-class=gevent recommender:app
