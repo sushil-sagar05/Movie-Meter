@@ -1,12 +1,12 @@
 import pickle
 import pandas as pd
-from dotenv import load_dotenv
 import os
 import gzip
 from pymongo import MongoClient
 from flask import Flask, jsonify
 from bson import ObjectId
 from sklearn.metrics.pairwise import cosine_similarity
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -24,17 +24,20 @@ def load_old_movies(liked_ids):
     file_path = 'movies_data.pkl'
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"{file_path} not found in the deployed environment.")
+    
     with open(file_path, 'rb') as f:
         movies_data = pickle.load(f)
-    if isinstance(movies_data, list):
-        return [movie for movie in movies_data if movie['_id'] in liked_ids]
+
+    if isinstance(movies_data, pd.DataFrame):
+        return movies_data[movies_data['_id'].isin(liked_ids)]
     else:
-        raise ValueError("Data is not in the expected format. Expected a list of dictionaries.")
+        raise ValueError("Data is not in the expected format. Expected a pandas DataFrame.")
 
 def load_final_df():
     file_path = 'final_df_data.pkl.gz'
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"{file_path} not found in the deployed environment.")
+    
     with gzip.open(file_path, 'rb') as f:
         return pickle.load(f)
 
@@ -56,13 +59,16 @@ def filteredMovies(movieId, old_movies_df):
 def recommendMovie(movieId, liked_vector_list, user_profile_vector, movie_vector_titles, old_movies_df):
     if not movieId:
         return []
+
     filtered_movies = filteredMovies(movieId, old_movies_df)
     similarity = cosine_similarity(user_profile_vector, movie_vector_titles)
+
     movie_list = sorted(
         list(enumerate(similarity[0])),
         reverse=True,
         key=lambda x: x[1]
     )[1:6]
+
     top_indices = [i[0] for i in movie_list]
     recommendations = []
     for i in top_indices[:min(5, len(top_indices))]:
@@ -85,7 +91,7 @@ def recommend(user_id):
     user = convert(user_cursor)
     favorites_ids = [ObjectId(x) for x in user['favorites'].iloc[0]]
     liked_ids = [ObjectId(x) for x in user['likes'].iloc[0]]
-
+    
     old_movies = load_old_movies(liked_ids)
     final_df = load_final_df()
 
