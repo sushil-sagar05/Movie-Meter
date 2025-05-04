@@ -5,9 +5,10 @@ import os
 import sys
 from pymongo import MongoClient
 from flask import Flask,jsonify
+import gzip
 with open('movies_data.pkl','rb') as f:
    old_movies = pickle.load(f)
-with open('final_df_data.pkl','rb') as f:
+with gzip.open('final_df_data.pkl.gz', 'rb') as f:
     final_df = pickle.load(f)
 load_dotenv()
 MONGO_URI=os.getenv("MONGO_URI")
