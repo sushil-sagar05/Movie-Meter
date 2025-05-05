@@ -47,8 +47,10 @@ const userRoutes = require('./routes/user.route')
 const movieRoutes = require('./routes/movie.routes')
 const ReviewRoutes = require('./routes/review.routes')
 const DiscussionRoutes = require('./routes/discussion.routes')
+const recommendationRoute = require('./routes/recommondation.route')
 app.use('/user',userRoutes);
 app.use('/movies',movieRoutes)
 app.use('/review',ReviewRoutes)
 app.use('/movie',DiscussionRoutes)
+app.use('/recommondations',recommendationRoute)
 module.exports = app;

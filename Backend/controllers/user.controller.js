@@ -29,11 +29,11 @@ module.exports.registerUser = async(req,res,next) => {
       sameSite:"None",
       maxAge:7 * 24 * 60 * 60 * 1000,
     }
-    
+    const { password: _, ...safeUser } = user.toObject();
    return res
    .status(200)
    .cookie("token",token,options)
-   .json({token,user})
+   .json({token,user:safeUser})
 }
 module.exports.loginUser = async(req,res,next)=>{
     const errors = validationResult(req);
@@ -56,11 +56,11 @@ module.exports.loginUser = async(req,res,next)=>{
       sameSite:"None",
       maxAge:2 * 24 * 60 * 60 * 1000,
     }
-    
+    const { password: _, ...safeUser } = user.toObject();
    return res
    .status(200)
    .cookie("token",token,options)
-   .json({token,user})
+   .json({token,user: safeUser,})
 }
 module.exports.getUserProfile = async(req,res,next) =>{
     res.status(200).json(req.user)
