@@ -69,7 +69,7 @@ const fetchAllReviews = async()=>{
                 <p><span className='mr-1'>rating:</span> {d.rating}</p>
                 </p>
                
-                <p> Film : {d.movie?.title}</p> {/* Display movie title if available */}
+                <p> Film : {d.movie?.title}</p> 
               </div>
             </div>
           ))

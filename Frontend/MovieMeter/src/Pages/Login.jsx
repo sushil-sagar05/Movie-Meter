@@ -4,7 +4,7 @@ import { SiWelcometothejungle } from "react-icons/si";
 import { FcRating } from "react-icons/fc";
 import { BiCameraMovie } from "react-icons/bi";
 import { CiUser } from "react-icons/ci";
-import  {UserDataContext}  from '../../Context/UserContext.jsx'
+import  {UserDataContext}  from '../Context/UserDataContext'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import {BeatLoader} from 'react-spinners'
@@ -31,6 +31,7 @@ function Login() {
         
         if (response.status === 200) {
           const data = response.data
+          console.log(data)
           setuser(data.user)
           toast.success("User Logged In")
           localStorage.setItem('token',data.token)
@@ -52,10 +53,11 @@ function Login() {
       let error2 = error.response.data;
       toast.error(error2.message)
     }
+      } finally{
+        setloading(false);
+        setemail('');
+        setpassword('');
       }
-        setloading(false)
-        setemail('')
-        setpassword('')
     }
   return (
    <div className='h-screen w-full  bg-[#4432dc]'>
@@ -80,18 +82,17 @@ function Login() {
   }}
     className='ml-2 pt-5'>
         <h3 className='text-xl font-semibold mb-2 ml-2'>What's Your Email id</h3>
-        <input type={email}
-            onChange={(e)=>{
-                setemail(e.target.value)
-            }}
+        <input 
+            type="email"
+            value={email}
+            onChange={(e) => setemail(e.target.value)}
         className='rounded- border bg-[#f8f9fe] px-2 w-72 h-10 text-lg placeholder:text-base'
         placeholder='your@your.com'
         />
         <h3 className='text-xl font-semibold mb-2 ml-2 pt-2'>Password</h3>
-        <input type={password}
-              onChange={(e)=>{
-                setpassword(e.target.value)
-              }}
+        <input   type="password"
+        value={password}
+        onChange={(e) => setpassword(e.target.value)}
         className='rounded- border bg-[#f8f9fe] px-2 w-72 h-10 text-lg placeholder:text-base'
         placeholder='your@your.com'
         />

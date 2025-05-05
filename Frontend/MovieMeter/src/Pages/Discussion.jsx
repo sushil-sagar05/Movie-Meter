@@ -1,4 +1,4 @@
-import React, { useEffect,useRef, useState } from 'react';
+import React, {  useEffect,useRef, useState } from 'react';
 import Navbar from '../Components/Navbar';
 import io from 'socket.io-client';
 import axios from 'axios';
@@ -50,7 +50,7 @@ function Discussion() {
               Authorization: `Bearer ${token}`,
             },
           });
-          setChat(response.data); // Set initial messages
+          setChat(response.data); 
         } catch (error) {
           console.error('Error fetching messages:', error);
         }
@@ -59,8 +59,8 @@ function Discussion() {
       fetchMessages();
     
       return () => {
-        socket.emit('leaveRoom', roomName); // Ensure you leave the room
-        socket.off('chat'); // Clean up the 'chat' listener to avoid duplication
+        socket.emit('leaveRoom', roomName); 
+        socket.off('chat'); 
       };
     }, [movieId]);
     

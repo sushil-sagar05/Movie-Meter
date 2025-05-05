@@ -14,6 +14,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import CardSkelton from '../Components/Skelton/CardSkelton'
 import { toast } from 'react-toastify';
 import socket from "../socket";
+import SuggestedMovies from '../Components/SuggestedMovies';
 
 
 function SingleMovie() {
@@ -120,7 +121,7 @@ try {
     toast.success("Remove")
   }
 } catch (error) {
-  console.error('Error toggling favorite:', error);
+  toast.error(error.response.data.message)
 }
 
 }
@@ -135,7 +136,7 @@ try {
   toast.success("Liked")
  }
 } catch (error) {
-  console.error('Error toggling like:', error);
+  toast.error(error.response.data.message)
 }
 }
 
@@ -151,7 +152,7 @@ const Dislike = async (e)=>{
       toast.success("Disliked")
     }
   } catch (error) {
-    console.error('Error toggling like:', error);
+    toast.error(error.response.data.message)
   }
 }
   return (
@@ -168,7 +169,7 @@ const Dislike = async (e)=>{
           </>
             :
             <>
-            <div className='flex flex-wrap justify-center items-center m-0 p-0 w-[100vw] 'style={{ overflowX: 'hidden' }}>
+            <div className='flex flex-wrap justify-center items-center m-0 sm:p-4 w-[100vw] 'style={{ overflowX: 'hidden' }}>
             <div className='grid min-h-96 sm:grid-cols-12 gap-4 m-4  '>
             <div className='sm:h-80  w-full border rounded-lg shadow-md sm:col-span-5'>
               <div className="inner flex rounded-lg  sm:h-80   ">
@@ -239,6 +240,9 @@ const Dislike = async (e)=>{
         }
        
       </div>
+        {
+          like || favorite?<SuggestedMovies isfavourite = {favorite} isliked = {like}/>:""
+        }
       <div className="heading items-center text-center font-semibold text-3xl text-white mb-2">
             <h2>Review Section</h2>
           </div>

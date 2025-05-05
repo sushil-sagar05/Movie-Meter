@@ -49,7 +49,7 @@ function Movies() {
   };
 
   return (
-  <div className='bg-[#111111]'style={{ overflowX: 'hidden' }} >
+  <div className='bg-[#111111] 'style={{ overflowX: 'hidden' }} >
       <div className=' w-full'>
 
      <Navbar />

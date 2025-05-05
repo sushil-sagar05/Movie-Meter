@@ -1,14 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { RxCross1 } from "react-icons/rx";
 import gsap from 'gsap';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { UserDataContext } from '../Context/UserDataContext';
 
 function Hamburger() {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const hamburgerRef = useRef(null);
-  const token = localStorage.getItem('token');
+const { user } = useContext(UserDataContext);
 
  
   useEffect(() => {
@@ -77,7 +78,7 @@ function Hamburger() {
   <Link to='/MyAccount'><li className='py-2 hover:bg-gray-200'>Account</li></Link>
   <hr />
   {
-    token ?  
+    user ?  
     <Link onClick={notify} to='/user/logout'>
       <li className='py-2 hover:bg-gray-200'>Logout</li>
     </Link>

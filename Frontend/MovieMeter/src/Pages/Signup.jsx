@@ -4,7 +4,7 @@ import { FcRating } from "react-icons/fc";
 import { BiCameraMovie } from "react-icons/bi";
 import { CiUser } from "react-icons/ci";
 import { SiWelcometothejungle } from "react-icons/si";
-import { UserDataContext } from '../../Context/UserContext';
+import { UserDataContext } from '../Context/UserDataContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import {BeatLoader} from 'react-spinners'

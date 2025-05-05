@@ -22,6 +22,7 @@ import MyAccount from './Pages/MyAccount';
 import Favourites from './Pages/Favourites';
 import Likes from './Pages/Likes';
 import Overview from './Pages/Overview';
+import PersonalisedRecommondation from './Components/PersonalisedRecommondation';
 function App() {
   return (
     
@@ -70,6 +71,11 @@ function App() {
          <Route path="/MyAccount" element={
           <UserProtectedWrapper>
            <MyAccount/>
+          </UserProtectedWrapper>
+        } />
+         <Route path="/MyAccount/:userId/recommdations" element={
+          <UserProtectedWrapper>
+           <PersonalisedRecommondation/>
           </UserProtectedWrapper>
         } />
         <Route path='/movies/:movieId/overview' element={

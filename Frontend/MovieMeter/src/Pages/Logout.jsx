@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Logout1 from '../Components/svgs/Logout1';
+import { UserDataContext } from '../Context/UserDataContext';
 
 function Logout() {
   const navigate = useNavigate();
-
+const { setuser } = useContext(UserDataContext);
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -20,6 +21,7 @@ function Logout() {
     }).then((response) => {
       if (response.status === 200) {
         localStorage.removeItem('token');
+        setuser(null)
         navigate('/login');
       }
     }).catch((error) => {
