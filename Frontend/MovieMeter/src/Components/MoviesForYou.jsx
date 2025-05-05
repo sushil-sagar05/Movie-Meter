@@ -66,10 +66,12 @@ function MoviesForYou() {
               </Link>
               <div className="p-4 text-sm">
                 <p><strong>Title:</strong> {movie.title}</p>
-                <p><strong>Director:</strong> {movie.director ?? 'Unknown'}</p>
-                <p><strong>Cast:</strong> {movie.cast?.slice(0, 2).join(', ') ?? 'Unknown'}</p>
-                <p><strong>Release:</strong> {movie.year}</p>
-                <p><strong>Rating:</strong> {movie.Avgrating}</p>
+                <p>
+                        Genre:{' '}
+                        {movie.genres && movie.genres.length > 0
+                          ? movie.genres.slice(0, 2).join(', ')
+                          : 'N/A'}
+                      </p>
                 <div className="mt-3 flex gap-2">
                   <Link to={`/movie/${movie._id}/review`} className="w-1/2">
                     <button className="w-full bg-green-500 hover:bg-green-700 py-2 rounded-md font-semibold">
