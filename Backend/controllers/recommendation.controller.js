@@ -10,6 +10,11 @@ module.exports.recommendation = async (req, res, next) => {
         console.log(response)
         res.status(200).json(response.data)
     } catch (error) {
-        res.status(500).json({error:"Error getting recommondations"})
-    }
+            console.error("Flask Request Error:", error.message);
+            if (error.response) {
+                console.error("Status:", error.response.status);
+                console.error("Data:", error.response.data);
+            }
+            res.status(500).json({ error: "Error getting recommendations" });
+        }
 }

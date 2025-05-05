@@ -26,7 +26,12 @@ client = MongoClient(MONGO_URI)
 db = client[DB_NAME]
 collection2 = db[COLLECTION_NAME_2]
 
+from flask_cors import CORS
+
 app = Flask(__name__)
+allowed_origin = os.getenv("CORS_ORIGIN", "*") 
+CORS(app, origins=allowed_origin)
+
 
 def convert(user_doc):
     return pd.DataFrame([{
