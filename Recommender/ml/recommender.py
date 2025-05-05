@@ -5,14 +5,17 @@ import os
 from pymongo import MongoClient
 from flask import Flask, jsonify
 from bson import ObjectId
-import gzip
+from scipy.sparse import load_npz
+from sklearn.metrics.pairwise import cosine_similarity
 
 with open('movies_data.pkl', 'rb') as f:
     old_movies = pickle.load(f)
 old_movies_df = pd.DataFrame(old_movies)
+old_movies_df['_id'] = old_movies_df['_id'].astype(str)
 
-with gzip.open('final_df_data.pkl.gz', 'rb') as f:
-    final_df = pickle.load(f)
+movie_ids = old_movies_df['_id'].tolist()
+
+vectors = load_npz("vectors.npz")
 
 load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI")
@@ -32,43 +35,45 @@ def convert(user_doc):
         "likes": [str(x) for x in user_doc.get("likes", [])],
     }])
 
-def fetch_from_movie_vector(liked_ids, movie_vector_df):
-    return movie_vector_df[movie_vector_df['_id'].isin(liked_ids)]
-
-def filteredMovies(movieId):
-    if isinstance(movieId, str): 
-        movieId = [movieId]
-    return old_movies_df[~old_movies_df['_id'].isin(movieId)]
-
-def recommendMovie(movieId, liked_vector_list, user_profile_vector, Movie_vector_excluding_ids_Title):
-    from sklearn.metrics.pairwise import cosine_similarity
-    similarity = cosine_similarity(user_profile_vector, Movie_vector_excluding_ids_Title)
-    if not movieId:
-        return []
-    filtered_movies = filteredMovies(movieId)
-    movie_list = sorted(list(enumerate(similarity[0])), reverse=True, key=lambda x: x[1])[1:6]
-    topindices = [i[0] for i in movie_list]
-    L = []
-    for i in topindices[:min(5, len(topindices))]:
-        row = filtered_movies.iloc[i]
-        L.append({'_id': str(row['_id']), 'title': row['title'], 'genres': row['genres'], 'poster': row['poster']})
-    return L
+def recommend_movies(user_vector, excluded_indices, top_n=5):
+    candidate_vectors = vectors[~excluded_indices]
+    similarity = cosine_similarity(user_vector, candidate_vectors)
+    top_indices = similarity[0].argsort()[::-1][:top_n]
+    movie_indices = (~excluded_indices).nonzero()[0][top_indices]
+    recommendations = old_movies_df.iloc[movie_indices]
+    return [
+        {
+            '_id': str(row['_id']),
+            'title': row['title'],
+            'genres': row.get('genres', []),
+            'poster': row.get('poster', "")
+        }
+        for _, row in recommendations.iterrows()
+    ]
 
 @app.route('/recommend/<user_id>', methods=['GET'])
 def recommend(user_id):
     user_id = ObjectId(user_id)
     user_cursor = collection2.find_one({"_id": user_id})
     user = convert(user_cursor)
-    favorites_ids = [ObjectId(x) for x in user['favorites'].iloc[0]]
-    liked_ids = [ObjectId(x) for x in user['likes'].iloc[0]]
-    liked_vector_list = fetch_from_movie_vector(liked_ids, final_df)
-    if liked_vector_list.empty:
-        return jsonify("You have not Liked any Movies yet. Returning empty recommendations.", [])
-    vector_for_mean = liked_vector_list[[col for col in liked_vector_list.columns if col not in ['_id', 'title']]]
-    user_profile_vector = vector_for_mean.mean(axis=0).values.reshape(1, -1)
-    Movie_vector_excluding_liked_ids = final_df[~final_df['_id'].isin(liked_ids)]
-    Movie_vector_excluding_ids_Title = Movie_vector_excluding_liked_ids[[col for col in Movie_vector_excluding_liked_ids.columns if col not in ['_id', 'title']]]
-    return jsonify(recommendMovie(liked_ids, liked_vector_list, user_profile_vector, Movie_vector_excluding_ids_Title))
+    liked_ids_str = user['likes'].iloc[0]
+    favourite_ids_str = user['favorites'].iloc[0]
+    if not liked_ids_str and not favourite_ids_str:
+        return jsonify("You have not Liked or Favorited any Movies yet. Returning empty recommendations.", [])
+    
+    liked_indices = [movie_ids.index(mid) for mid in liked_ids_str if mid in movie_ids]
+    favourite_indices = [movie_ids.index(mid) for mid in favourite_ids_str if mid in movie_ids]
+    all_indices = liked_indices + favourite_indices
+
+    if not all_indices:
+        return jsonify("No valid liked or favorite movie IDs found in database.", [])
+
+    liked_vectors_sparse = vectors[liked_indices]
+    favourite_vectors_sparse = vectors[favourite_indices]
+    user_profile_vector = (liked_vectors_sparse.mean(axis=0) + favourite_vectors_sparse.mean(axis=0)).A / 2
+    excluded_indices = pd.Series(movie_ids).isin(liked_ids_str + favourite_ids_str).values
+    recommendations = recommend_movies(user_profile_vector, excluded_indices)
+    return jsonify(recommendations)
 
 if __name__ == "__main__":
     app.run()
