@@ -5,7 +5,7 @@ function MovieCard({ movie }) {
   return (
     <div style={{ overflowX: 'hidden' }}>
       <Link to={`/movie/${movie._id}`}>
-     <div className='grid grid-cols-4 gap-3 w-80 h-full rounded-lg border text-white'>
+     <div className='grid grid-cols-4 gap-3 w-80 h-full rounded-lg border bg-[#141b23] text-white'>
      <div>
      <div className='image h-52 w-80 p-2 rounded-lg '>
       <img className='h-full w-full rounded-lg' src={movie.poster} alt="" />

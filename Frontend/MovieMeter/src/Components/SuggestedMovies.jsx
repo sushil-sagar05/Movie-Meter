@@ -2,22 +2,19 @@ import React, { useState, useContext, useEffect } from 'react';
 import { UserDataContext } from '../Context/UserDataContext';
 import axios from 'axios';
 import CardSkelton from '../Components/Skelton/CardSkelton';
-
+import { Link } from 'react-router-dom';
 function SuggestedMovies({ isliked,isfavourite }) {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
-  const { user } = useContext(UserDataContext);
 
 
 useEffect(() => {
-
   const fetchRecommended = async () => {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_BASE_URL}/recommondations/recommondation`,
         { withCredentials: true }
       );
-      console.log('Data:', response.data);
       setMovies(response.data)
       setLoading(false)
     } catch (error) {
@@ -27,7 +24,6 @@ useEffect(() => {
 
   fetchRecommended();
 }, [isliked,isfavourite]);
-
 
   return (
     <>
@@ -41,7 +37,7 @@ useEffect(() => {
         <div className="text-white p-4">
           <div className="max-w-screen-xl mx-auto">
             <h1 className="text-center text-2xl md:text-3xl font-semibold mb-6">
-              Suggested Movies Like This
+              You may also like
             </h1>
             {movies.length === 0 ? (
               <p className="text-center text-lg text-gray-300">
@@ -70,6 +66,7 @@ useEffect(() => {
                           : 'N/A'}
                       </p>
                     </div>
+                    <Link to={`/movie/${movie._id}`}><button className='h-[6vh] w-[16vw] m-1 rounded-lg text-white bg-green-500 hover:bg-green-800 hover:border-2 shadow-md'>Review</button></Link>
                   </div>
                 ))}
               </div>

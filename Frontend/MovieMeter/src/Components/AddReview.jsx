@@ -11,6 +11,7 @@ const [comment, setcomment] = useState('')
 const [rating, setrating] = useState('')
 const [spinloader,setspinloader] = useState(false)
     const submitHandler =async(e)=>{
+        setrating('')
         e.preventDefault();
         setspinloader(true)
         const FormData ={
@@ -25,7 +26,6 @@ const [spinloader,setspinloader] = useState(false)
               Authorization: `Bearer ${token}`,
             },
           });
-         
           if(response.status===201){
             toast.success("Congratulations! Review Added.")
             socket.emit('newReview', {
@@ -64,9 +64,9 @@ const [spinloader,setspinloader] = useState(false)
     onSubmit={(e)=>{
       submitHandler(e);
     }}>
-  <div className=' w-full sm:h-[15vh] m-2 p-2 '>
-    <div className="content sm:flex ">
-      <div className="input w-full h-[13vh] border-2 shadow-md border-black p-1 rounded-lg ">
+  <div className=' w-full  m-2 sm:p-4 '>
+    <div className="content sm:flex p-4">
+      <div className="input w-full  border-2 shadow-md border-black p-1 rounded-lg ">
     <input type="text"
      value={comment}
      onChange={(e)=>{

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaRegUser } from "react-icons/fa6";
 import Hamburger from "./Hamburger";
 import { Link, NavLink } from "react-router-dom";
+import { UserDataContext } from "../Context/UserDataContext";
 
 function Navbar() {
-  const token = localStorage.getItem("token");
-
+ const { user } = useContext(UserDataContext);
   return (
     <nav className="bg-[#4432dc] h-16 border-2 border-pink-400 rounded-lg w-full flex items-center px-6">
       
@@ -41,7 +41,7 @@ function Navbar() {
         >
           About
         </NavLink>
-        {token ? (
+        {user ? (
           <NavLink
             to="/user/logout"
             className={({ isActive }) => `${isActive ? "text-yellow-400" : "text-white"}`}

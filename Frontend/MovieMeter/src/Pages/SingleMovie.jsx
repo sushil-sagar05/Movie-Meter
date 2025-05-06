@@ -49,49 +49,55 @@ useEffect(() => {
   };
 }, [movieId]); 
 
-  useEffect(() => {
-    const fetchData1 = async () => {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/movie/${movieId}`);
-       
-        setMovie(response.data);
-      } catch (err) {
-        setError('Failed to fetch movie details.');
-        console.error('Error fetching movie:', err); // Log the error for debugging
-      }
-    };
-    
-    const fetchData2 = async () => {
-      try {
-        const token = localStorage.getItem('token')
-       
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/review/${movieId}/getreviews`, {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setReview(response.data);
-      } catch (err) {
-        console.log(err)
-        setError('You must be logged in to view this page', err);
-        toast.error("You must be logged in to view this page")
-        navigate('/login');
-      }
-    };
+useEffect(() => {
+  setLoading(true);
+  setMovie(null);
+  setReview([]);
+  setError(null);
+  setlike(false);        
+  setdislike(false);     
+  setfavorite(false);
+  const fetchData1 = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/movie/${movieId}`);
+      setMovie(response.data);
+    } catch (err) {
+      console.error('Error fetching movie details:', err);
+      setError('Failed to fetch movie details.');
+    }
+  };
 
-    const fetchData = async () => {
-      try {
-        await Promise.all([fetchData1(), fetchData2()]);
-      } catch (err) {
-        setError('Error fetching data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchData2 = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/review/${movieId}/getreviews`, {
+        withCredentials: true,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(response.data)
+      setReview(response.data);
+    } catch (err) {
+      console.error('Error fetching reviews:', err);
+      setError('You must be logged in to view this page');
+      toast.error("You must be logged in to view this page");
+      navigate('/login');
+    }
+  };
 
-    fetchData();
-  }, [movieId]);
+  const fetchData = async () => {
+    try {
+      await Promise.all([fetchData1(), fetchData2()]);
+    } catch (err) {
+      console.error('Unexpected fetch error:', err);
+      setError('Error fetching data.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, [movieId]);
+
 
 
 
@@ -170,14 +176,14 @@ const Dislike = async (e)=>{
             :
             <>
             <div className='flex flex-wrap justify-center items-center m-0 sm:p-4 w-[100vw] 'style={{ overflowX: 'hidden' }}>
-            <div className='grid min-h-96 sm:grid-cols-12 gap-4 m-4  '>
-            <div className='sm:h-80  w-full border rounded-lg shadow-md sm:col-span-5'>
-              <div className="inner flex rounded-lg  sm:h-80   ">
+            <div className='grid  sm:grid-cols-12 gap-4 m-4  '>
+            <div className='  w-full border rounded-lg shadow-md sm:col-span-5'>
+              <div className="inner flex rounded-lg   ">
                             <div 
                             onClick={() => setAddReview(false)}
-                            className="image rounded-lg h-72 w-1/2   m-4">
+                            className="image rounded-lg  w-1/2   m-4">
                               <img 
-                              className='h-60 w-full  rounded-lg'
+                              className=' w-full  rounded-lg'
                               src={movie.poster} alt="" />
                               <div className='justify-evenly mt-4 sm:m-0  items-center gap-3 border  text-center rounded-lg  flex'>
                                 
@@ -209,7 +215,7 @@ const Dislike = async (e)=>{
                                 </div>
                               </div>
                             </div>
-                            <div className="content w-1/2 m-1 h-72  py-3 text-white">
+                            <div className="content w-1/2 m-1  py-3 text-white">
                               <h2 className='text-sm pb-1  '>Name: {movie.title}</h2>
                               <h2 className='text-sm pb-1'>Director:{movie.director??"Unknown"} </h2>
                               <h2 className='text-sm pb-1'>Cast: {movie.cast.slice(0,3).join(", ")??"Unknown"}</h2>
@@ -220,7 +226,7 @@ const Dislike = async (e)=>{
                             </div>
                           </div>
             </div>
-            <div className='h-80 border rounded-lg sm:col-span-7 hidden sm:block bg-teal-900 '>
+            <div className=' border rounded-lg sm:col-span-7 hidden sm:block bg-teal-900 '>
               <h2 className='text-yellow-300 font-semibold text-center m-4 underline'>Description</h2>
               <p className='text-white text-lg  m-4'>
              {
@@ -240,9 +246,15 @@ const Dislike = async (e)=>{
         }
        
       </div>
-        {
-          like || favorite?<SuggestedMovies isfavourite = {favorite} isliked = {like}/>:""
-        }
+      {
+    (like || favorite) && (
+    <SuggestedMovies
+      key={movieId} 
+      isfavourite={favorite}
+      isliked={like}
+    />
+    )
+    }
       <div className="heading items-center text-center font-semibold text-3xl text-white mb-2">
             <h2>Review Section</h2>
           </div>
