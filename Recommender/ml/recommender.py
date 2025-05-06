@@ -72,10 +72,14 @@ def recommend(user_id):
 
     if not all_indices:
         return jsonify("No valid liked or favorite movie IDs found in database.", [])
+    vectors_to_average = []
+    if liked_indices:
+        vectors_to_average.append(vectors[liked_indices].mean(axis=0))
+    if favourite_indices:
+        vectors_to_average.append(vectors[favourite_indices].mean(axis=0))
+    user_profile_vector = sum(vectors_to_average) / len(vectors_to_average)
+    user_profile_vector = user_profile_vector.A  
 
-    liked_vectors_sparse = vectors[liked_indices]
-    favourite_vectors_sparse = vectors[favourite_indices]
-    user_profile_vector = (liked_vectors_sparse.mean(axis=0) + favourite_vectors_sparse.mean(axis=0)).A / 2
     excluded_indices = pd.Series(movie_ids).isin(liked_ids_str + favourite_ids_str).values
     recommendations = recommend_movies(user_profile_vector, excluded_indices)
     return jsonify(recommendations)
