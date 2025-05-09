@@ -52,7 +52,7 @@ function MoviesForYou() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {movies.map((movie, idx) => (
+          {movies.slice(0,8).map((movie, idx) => (
             <div
               key={idx}
               className="bg-[#141b23] rounded-lg shadow-md text-white overflow-hidden"
@@ -65,11 +65,11 @@ function MoviesForYou() {
                 />
               </Link>
               <div className="p-4 text-sm">
-                <p><strong>Title:</strong> {movie.title}</p>
+                <p><strong>Title:</strong> {movie.title.toUpperCase()}</p>
                 <p>
                         Genre:{' '}
                         {movie.genres && movie.genres.length > 0
-                          ? movie.genres.slice(0, 2).join(', ')
+                          ? movie.genres.join(', ')
                           : 'N/A'}
                       </p>
                 <div className="mt-3 flex gap-2">

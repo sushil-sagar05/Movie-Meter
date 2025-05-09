@@ -45,7 +45,7 @@ useEffect(() => {
               </p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {movies.map((movie, id) => (
+                {movies.slice(0,8).map((movie, id) => (
                   <div
                     key={id}
                     className="bg-[#008080] border-2 shadow-md rounded-md p-3 flex flex-col items-center"
@@ -58,11 +58,11 @@ useEffect(() => {
                       />
                     </div>
                     <div className="text-sm w-full">
-                      <p className="font-medium">Name: {movie.title}</p>
+                      <p className="font-medium">Name: {movie.title.toUpperCase()}</p>
                       <p>
                         Genre:{' '}
                         {movie.genres && movie.genres.length > 0
-                          ? movie.genres.slice(0, 2).join(', ')
+                          ? movie.genres.join(', ')
                           : 'N/A'}
                       </p>
                     </div>

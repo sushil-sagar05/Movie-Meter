@@ -66,7 +66,7 @@ function PersonalisedRecommondation() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {movies.map((movie, idx) => (
+          {movies.slice(0,8).map((movie, idx) => (
             <div
               key={idx}
               className="bg-[#141b23] rounded-lg shadow-md text-white overflow-hidden"
@@ -80,7 +80,7 @@ function PersonalisedRecommondation() {
               </Link>
               <div className="p-4 text-sm">
                 <p><strong>Title:</strong> {movie.title}</p>
-                <p><strong>Genre:</strong> {movie.genres.slice(0, 2).join(', ')}</p>
+                <p><strong>Genre:</strong> {movie.genres.join(', ')}</p>
                 <div className="mt-3 flex gap-2">
                   <Link to={`/movie/${movie._id}/review`} className="w-1/2">
                     <button className="w-full bg-green-500 hover:bg-green-700 py-2 rounded-md font-semibold">

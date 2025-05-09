@@ -36,9 +36,9 @@ function Popular() {
           {popular.map((pop, idx) => (
             <div
               key={idx}
-              className="bg-[#141b23] border rounded-lg shadow-md overflow-hidden text-white"
+              className="bg-[#141b23]  rounded-lg shadow-md overflow-hidden text-white"
             >
-              <div className="flex justify-center pt-3 px-3">
+              <div className="flex justify-center ">
                 <div className="h-64 w-full">
                   <img
                     className="h-full w-full object-cover rounded-md"
@@ -49,7 +49,7 @@ function Popular() {
               </div>
 
               <div className="p-4 text-sm">
-                <h3 className="text-[#bbb] mb-1 font-semibold">Title: {pop.title}</h3>
+                <h3 className="text-[#bbb] mb-1 font-semibold">Title: {pop.title.toUpperCase()}</h3>
                 <h3 className="text-[#bbb] mb-1">Director: {pop.director}</h3>
                 <h3 className="text-[#bbb] mb-1">Cast: {pop.cast.slice(0, 2).join(', ')}</h3>
                 <h3 className="text-[#bbb] mb-1">Release Date: {pop.year}</h3>

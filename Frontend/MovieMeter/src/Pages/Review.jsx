@@ -60,8 +60,8 @@ function Contact() {
       ) : (
         <div className="flex flex-wrap justify-center items-center gap-8 px-4 pb-8">
           {data.map((movie, idx) => (
-            <div key={idx} className="bg-[#141b23] rounded-lg shadow-md w-72 sm:w-80 border">
-              <div className="h-64 w-full p-2">
+            <div key={idx} className="bg-[#141b23] rounded-lg shadow-md w-72 sm:w-80">
+              <div className="h-64 w-full">
                 <img
                   className="h-full w-full rounded-lg object-cover"
                   src={movie.poster}
@@ -70,7 +70,7 @@ function Contact() {
               </div>
               <div className="p-4 text-white">
                 <p className="text-sm">
-                  <strong>Title:</strong> {movie.title}
+                  <strong>Title:</strong> {movie.title.toUpperCase()}
                 </p>
                 <p className="text-sm">
                   <strong>Director:</strong> {movie.director || 'N/A'}

@@ -37,7 +37,7 @@ function RandomMovie() {
               alt={random.title}
             />
             <div className="text-sm space-y-2 w-full">
-              <p><strong>Name:</strong> {random.title}</p>
+              <p><strong>Name:</strong> {random.title.toUpperCase()}</p>
               <p><strong>Director:</strong> {random.director ?? 'Unknown'}</p>
               <p><strong>Cast:</strong> {random.cast?.slice(0, 2).join(', ') ?? 'Unknown'}</p>
               <p><strong>Release:</strong> {random.year}</p>

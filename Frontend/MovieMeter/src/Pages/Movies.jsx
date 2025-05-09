@@ -83,7 +83,7 @@ function Movies() {
         </>
       ) : (
         <div className='flex justify-center items-center'>
-          <div className="Movies grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" style={{ overflowX: 'hidden' }}>
+          <div className="Movies grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 sm:p-4" style={{ overflowX: 'hidden' }}>
           {movies.map((movie) => (
             <MovieCard key={movie._id} movie={movie} />
           ))}

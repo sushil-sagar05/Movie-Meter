@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 
 function MovieCard({ movie }) {
   return (
-    <div style={{ overflowX: 'hidden' }}>
+    <div style={{ overflowX: 'hidden' }} className='mt-5'>
       <Link to={`/movie/${movie._id}`}>
-     <div className='grid grid-cols-4 gap-3 w-80 h-full rounded-lg border bg-[#141b23] text-white'>
+     <div className='grid grid-cols-4 gap-3 w-80 rounded-lg   bg-[#141b23] text-white'>
      <div>
-     <div className='image h-52 w-80 p-2 rounded-lg '>
+     <div className='image h-52 w-80  rounded-lg '>
       <img className='h-full w-full rounded-lg' src={movie.poster} alt="" />
       </div>
       <div className='content h-36 p-3 w-80 '>
-         <h2>Title: {movie.title}</h2>
+         <h2>Title: {movie.title.toUpperCase()}</h2>
          <h2>Director: {movie.director}</h2>
          <h2 >Cast: {movie.cast.slice(0, 2).join(", ")}</h2>
          <h2 >Genre: {movie.genres.slice(0, 2).join(", ")}</h2>

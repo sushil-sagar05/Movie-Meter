@@ -216,7 +216,7 @@ const Dislike = async (e)=>{
                               </div>
                             </div>
                             <div className="content w-1/2 m-1  py-3 text-white">
-                              <h2 className='text-sm pb-1  '>Name: {movie.title}</h2>
+                              <h2 className='text-sm pb-1  '>Name: {movie.title.toUpperCase()}</h2>
                               <h2 className='text-sm pb-1'>Director:{movie.director??"Unknown"} </h2>
                               <h2 className='text-sm pb-1'>Cast: {movie.cast.slice(0,3).join(", ")??"Unknown"}</h2>
                               <h2 className='text-sm pb-1'>Release : {movie.year}</h2>

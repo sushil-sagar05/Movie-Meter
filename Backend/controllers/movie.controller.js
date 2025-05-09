@@ -124,7 +124,7 @@ module.exports.Popular = async(req,res,next)=>{
       }
   
       const movies = await Movie.aggregate([
-        { $sample: { size: 5 } } 
+        { $sample: { size: 8 } } 
       ]);
   
       return res.status(200).json({ movies });

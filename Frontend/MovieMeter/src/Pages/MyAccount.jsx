@@ -39,7 +39,7 @@ fetchAccount()
  </div>
  <div className="heading">
   <h2 className='text-5xl font-semibold m-3'>Hi</h2>
-  <h2 className='text-3xl m-4 font-semibold text-yellow-400 '>{String(data.firstname+data.lastname)}</h2>
+  <h2 className='text-3xl m-4 font-semibold text-yellow-400  '>{String(data.firstname + data.lastname)}</h2>
  </div>
   <div className="box min-h-[25vw] max-w-80 sm:max-w-[100vw] m-3 gap-3 grid sm:grid-cols-12  ">
   <div className='border bg-yellow-900 rounded-lg shadow-md m-0 p-2 sm:col-span-4'>
@@ -47,7 +47,7 @@ fetchAccount()
         <div className=" sm:h-[30vh] sm:w-[13vw]  rounded-full bg-white">
         <img 
         className='h-full w-full rounded-full'
-        src="https://cdn-icons-png.flaticon.com/512/2297/2297834.png" alt="" />
+        src="https://clipart-library.com/img/1529748.jpg" alt="" />
         </div>
         <h2 className='text-2xl font-medium'>Movies Recommondation as per your intrest</h2>
         <Link to={`/MyAccount/${userId}/recommdations`}><button className='bg-green-500 h-10 w-48 mt-3 rounded-lg shadow-md text-white font-medium cursor-pointer hover:bg-green-700'>See List</button></Link> 
