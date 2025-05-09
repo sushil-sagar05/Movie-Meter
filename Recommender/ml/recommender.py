@@ -40,7 +40,7 @@ def convert(user_doc):
         "likes": [str(x) for x in user_doc.get("likes", [])],
     }])
 
-def recommend_movies(user_vector, excluded_indices, top_n=5):
+def recommend_movies(user_vector, excluded_indices, top_n=9):
     candidate_vectors = vectors[~excluded_indices]
     similarity = cosine_similarity(user_vector, candidate_vectors)
     top_indices = similarity[0].argsort()[::-1][:top_n]
