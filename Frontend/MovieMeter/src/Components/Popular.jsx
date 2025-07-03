@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import CardSkelton from '../Components/Skelton/CardSkelton';
 
-function Popular() {
+function Popular({onLoad}) {
   const [popular, setPopular] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,6 +17,7 @@ function Popular() {
         toast.error("Failed to load popular movies.");
       } finally {
         setLoading(false);
+        if (onLoad) onLoad();
       }
     };
 

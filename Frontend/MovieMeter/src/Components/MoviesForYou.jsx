@@ -5,7 +5,7 @@ import CardSkelton from '../Components/Skelton/CardSkelton';
 import { toast } from 'react-toastify';
 import { UserDataContext } from '../Context/UserDataContext';
 
-function MoviesForYou() {
+function MoviesForYou({onLoad}) {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -25,6 +25,7 @@ function MoviesForYou() {
         
       } finally {
         setLoading(false);
+        if (onLoad) onLoad();
       }
     };
 

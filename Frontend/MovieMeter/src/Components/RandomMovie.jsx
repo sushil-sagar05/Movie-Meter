@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import CardSkelton from '../Components/Skelton/CardSkelton';
 import { toast } from 'react-toastify';
 
-function RandomMovie() {
+function RandomMovie({onLoad}) {
   const [random, setRandom] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -17,6 +17,7 @@ function RandomMovie() {
         toast.error('Failed to fetch random movie.');
       } finally {
         setLoading(false);
+        if (onLoad) onLoad();
       }
     };
     fetchRandom();
