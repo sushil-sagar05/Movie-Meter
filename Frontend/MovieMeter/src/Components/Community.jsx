@@ -50,8 +50,6 @@ function Community() {
               "{testimonial.comment}"
             </p>
           </div>
-          
-          {/* Rating section */}
           <div className="relative z-10 flex items-center justify-between mt-auto">
             <div className="flex items-center space-x-1">
               {[...Array(5)].map((_, i) => (
@@ -66,12 +64,8 @@ function Community() {
               Verified Review
             </div>
           </div>
-          
-          {/* Hover effect overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
         </div>
-        
-        {/* Shadow effect */}
         <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-yellow-300/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300 -z-10 transform scale-95"></div>
       </div>
     ))

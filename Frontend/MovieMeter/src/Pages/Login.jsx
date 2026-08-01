@@ -31,7 +31,6 @@ function Login() {
         
         if (response.status === 200) {
           const data = response.data
-          console.log(data)
           setuser(data.user)
           toast.success("User Logged In")
           localStorage.setItem('token',data.token)

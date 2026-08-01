@@ -74,7 +74,6 @@ useEffect(() => {
         withCredentials: true,
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(response.data)
       setReview(response.data);
     } catch (err) {
       console.error('Error fetching reviews:', err);

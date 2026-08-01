@@ -149,8 +149,8 @@ module.exports.GeminiOverview = async (req, res) => {
     }
 
     const movieName = movie.title;
-    const overviewResult = await getMovieOverview(movieName);
-    return res.status(200).json(overviewResult);
+   const overviewResult = await getMovieOverview(movieName);
+  return res.status(200).json({ overview: overviewResult });
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" }); 
   }

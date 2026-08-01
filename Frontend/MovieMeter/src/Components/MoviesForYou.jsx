@@ -1,28 +1,42 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CardSkelton from '../Components/Skelton/CardSkelton';
-import { toast } from 'react-toastify';
-import { UserDataContext } from '../Context/UserDataContext';
 
 function MoviesForYou({onLoad}) {
   const [movies, setMovies] = useState([]);
+  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(true);
+  const recommendationsEnabled = import.meta.env.VITE_ENABLE_RECOMMENDATIONS === 'true';
+
   useEffect(() => {
+    if (!recommendationsEnabled) {
+      setMessage('Personalized recommendations are currently disabled.');
+      setMovies([]);
+      setLoading(false);
+      if (onLoad) onLoad();
+      return;
+    }
+
     const fetchRecommended = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/recommondations/recommondation`, {
           withCredentials: true,
         });
-        if (Array.isArray(response.data) && response.data[1].length === 0) {
-            setMovies([]);
-            setMessage(response.data[0]); 
-          } else {
-            setMovies(response.data); 
-            setMessage('');
-          }
+
+        if (Array.isArray(response.data) && response.data.length > 1 && Array.isArray(response.data[1]) && response.data[1].length === 0) {
+          setMovies([]);
+          setMessage(response.data[0] || 'No recommendations available.');
+        } else if (Array.isArray(response.data)) {
+          setMovies(response.data);
+          setMessage('');
+        } else {
+          setMovies([]);
+          setMessage('No recommendations available.');
+        }
       } catch (error) {
-        
+        setMovies([]);
+        setMessage('Could not load recommendations at this time.');
       } finally {
         setLoading(false);
         if (onLoad) onLoad();
@@ -30,7 +44,7 @@ function MoviesForYou({onLoad}) {
     };
 
     fetchRecommended();
-  }, []);
+  }, [recommendationsEnabled, onLoad]);
 
   return (
     <div className="w-full px-4 py-10">
@@ -48,7 +62,7 @@ function MoviesForYou({onLoad}) {
         <div className="flex justify-center">
           <div className="bg-[#141b23] text-white p-6 rounded-lg shadow-md text-center max-w-md w-full">
             <h3 className="text-xl font-semibold mb-2">No Recommendations Yet</h3>
-            <p className="text-sm">Your recommended movies will appear here once our system has enough data based on your activity.</p>
+            <p className="text-sm">{message || 'Your recommended movies will appear here once our system has enough data based on your activity.'}</p>
           </div>
         </div>
       ) : (

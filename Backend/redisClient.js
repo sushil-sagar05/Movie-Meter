@@ -1,18 +1,41 @@
 const { createClient } = require("redis");
 require("dotenv").config();
 
-const redisClient = createClient({
-  url: process.env.REDIS_URL, 
-  socket: {
-    reconnectStrategy: (retries) => Math.min(retries * 50, 500), 
-  },
-});
+const redisUrl = process.env.REDIS_URL;
 
-redisClient.on("error", (err) => console.error(" Redis Error:", err));
+const redisClient = {
+  get: async () => null,
+  setEx: async () => undefined,
+  on: () => undefined,
+  connect: async () => undefined,
+};
 
-(async () => {
-  await redisClient.connect();
-  console.log(" Connected to Redis Cloud");
-})();
+if (!redisUrl) {
+  console.warn("REDIS_URL is not configured; Redis caching is disabled.");
+} else {
+  const client = createClient({
+    url: redisUrl,
+    socket: {
+      reconnectStrategy: false,
+    },
+  });
 
-module.exports = redisClient; 
+  client.on("error", (err) => {
+    console.error(" Redis Error:", err);
+  });
+
+  (async () => {
+    try {
+      await client.connect();
+      console.log(" Connected to Redis Cloud");
+      redisClient.get = client.get.bind(client);
+      redisClient.setEx = client.setEx.bind(client);
+      redisClient.on = client.on.bind(client);
+      redisClient.connect = client.connect.bind(client);
+    } catch (error) {
+      console.error(" Redis connection failed; cache disabled:", error);
+    }
+  })();
+}
+
+module.exports = redisClient;

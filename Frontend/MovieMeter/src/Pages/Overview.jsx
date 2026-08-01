@@ -23,19 +23,16 @@ const Overview =()=> {
         responsedata();
       }, [movieId]);
       useEffect(()=>{
-        console.log(movieId)
         if (!movieId){
-            console.error(" Movie ID is missing, API request not sent!");
+            console.error("Movie ID is missing, API request not sent!");
             return;
         };
         const geminiResponse = async()=>{
             try {
-                const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/${movieId}/overview`,{
-                })
-                console.log(response.data)
+                const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/movies/${movieId}/overview`);
                 setoverview(response.data)
             } catch (error) {
-                
+                console.error('Error fetching overview:', error);
             }
             setLoading(false)
         }

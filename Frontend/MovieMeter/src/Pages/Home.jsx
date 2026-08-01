@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import Navbar from '../Components/Navbar';
 import Discusion from '../assets/Group-discussion.png';
 import Expression from '../assets/expression.png';
@@ -18,12 +18,9 @@ function Home() {
   const [loadedCount, setLoadedCount] = useState(0);
   const isLoading = loadedCount < expectedLoads;
 
-  const handleLoad = () => {
-    setLoadedCount((prev) => {
-      console.log('Component loaded', prev + 1);
-      return prev + 1;
-    });
-  };
+  const handleLoad = useCallback(() => {
+    setLoadedCount((prev) => prev + 1);
+  }, []);
 
   return (
     <div className="relative w-full overflow-x-hidden bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#1a1a1a] text-white">
